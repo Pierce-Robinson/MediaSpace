@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+    </style>
+    <!-- Rounded image view
+    https://stackoverflow.com/questions/66138001/imageview-with-only-bottom-or-top-corners-rounded/66138444#66138444
+    user answered
+    https://stackoverflow.com/users/9180439/ali
+    accessed 18 September 2023-->
+    <style name="ImageView.Corner" parent="">
+        <item name="cornerSizeTopRight">15dp</item>
+        <item name="cornerSizeTopLeft">15dp</item>
+        <item name="cornerSizeBottomLeft">15dp</item>
+        <item name="cornerSizeBottomRight">15dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+
+    <style name="MyDatePicker">
+        <item name="android:textColorPrimary">?attr/colorSecondary</item>
+        <item name="colorControlNormal">?attr/colorSecondary</item>
+    </style>
+
+    <style name="Widget.App.Switch" parent="Widget.Material3.CompoundButton.MaterialSwitch">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Switch</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Switch" parent="">
+        <item name="colorPrimary">?colorSecondary</item>
+        <item name="colorSurfaceVariant">?colorSecondaryContainer</item>
+    </style>
+</resources>
