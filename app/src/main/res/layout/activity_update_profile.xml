@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="30dp"
-    app:boxBackgroundMode="filled">
+    tools:context=".UpdateProfileActivity"
+    android:padding="16dp">
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtBasicInfo"
@@ -49,16 +50,16 @@
         app:boxBackgroundColor="#FFFFFF"
         app:boxStrokeColor="#000000">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:hint="Enter your title" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="Enter your title" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-<com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtFirstName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -77,19 +78,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtFirstName"
         app:layout_constraintEnd_toEndOf="parent"
         app:boxBackgroundMode="outline"
-    app:boxBackgroundColor="#FFFFFF"
-    app:boxStrokeColor="#000000">
+        app:boxBackgroundColor="#FFFFFF"
+        app:boxStrokeColor="#000000">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextFirstName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:hint="Enter your first name" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextFirstName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="Enter your first name" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-<com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtLastName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,19 +109,19 @@
         app:layout_constraintTop_toBottomOf="@+id/txtLastName"
         app:layout_constraintEnd_toEndOf="parent"
         app:boxBackgroundMode="outline"
-    app:boxBackgroundColor="#FFFFFF"
-    app:boxStrokeColor="#000000">
+        app:boxBackgroundColor="#FFFFFF"
+        app:boxStrokeColor="#000000">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:hint="Enter your last name" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="Enter your last name" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-<com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtGender"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -142,16 +143,16 @@
         app:boxBackgroundColor="#FFFFFF"
         app:boxStrokeColor="#000000">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextGender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:hint="M/F/NA" />
-</com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextGender"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="M/F/NA" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-<com.google.android.material.textview.MaterialTextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtBirthday"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -173,12 +174,12 @@
         app:boxBackgroundColor="#FFFFFF"
         app:boxStrokeColor="#000000">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/editTextBirthday"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:hint="yyyy/mm/dd" />
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextBirthday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="yyyy/mm/dd" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <View
@@ -211,8 +212,5 @@
         app:layout_constraintTop_toBottomOf="@+id/txtcontactinfo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
