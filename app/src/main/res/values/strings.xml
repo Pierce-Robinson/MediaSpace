@@ -7,4 +7,12 @@
     <string name="personal_info">Personal Information</string>
     <string name="wish_list">Wish List</string>
     <string name="email_notifications">Email Notifications</string>
+    <string name="title">Title</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birthday</string>
+    <string name="contactinfo">CONTACT INFORMATION</string>
+    <string name="basicinfo">BASIC INFORMATION</string>
+
 </resources>
