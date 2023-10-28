@@ -5,10 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".HomeActivity">
 
-
-<!--    this is the bottom navigation bar  -->
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -25,15 +23,5 @@
         app:itemTextColor="?colorSecondary"
         app:hideOnScroll="true"
         />
-
-<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
-<!--        android:id="@+id/fabAdd"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:backgroundTint="?attr/colorSecondary"-->
-<!--        app:tint="?attr/colorOnSecondary"-->
-<!--        android:src="@drawable/icon_profile"-->
-<!--        app:layout_anchor="@id/bottomNavView"-->
-<!--        app:layout_anchorGravity="center"/>-->
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
