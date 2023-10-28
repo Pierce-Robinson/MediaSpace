@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">MediaSpace</string>
+    <string name="email">Email</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up">Sign up</string>
+    <string name="order_history">Order History</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="wish_list">Wish List</string>
+    <string name="email_notifications">Email Notifications</string>
 </resources>

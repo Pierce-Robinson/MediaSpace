@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/bottom_community"
+        android:icon="@drawable/icon_shopping_bag"
+        android:title="Shopping" />
+
+    <item
+        android:id="@+id/bottom_map"
+        android:icon="@drawable/icon_search"
+        android:title="Search" />
+
+    <item
+        android:id="@+id/placeholder"
+        android:icon="@drawable/icon_cart"
+        android:title="Cart"/>
+
+    <item
+        android:id="@+id/bottom_observations"
+        android:icon="@drawable/icon_profile"
+        android:title="Profile" />
+
+<!--    <item-->
+<!--        android:id="@+id/bottom_settings"-->
+<!--        android:icon="@drawable/icon_shopping_bag"-->
+<!--        android:title="Settings" />-->
+</menu>
