@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.ProfileFragment"
+    android:padding="16dp"
+    android:fillViewport="true">
 
-    android:padding="16dp">
-
-<!--    tools:context=".ui.SettingsFragment"  this was above for fragment, not sure if we going to have that-->
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -144,6 +143,8 @@
 
     </LinearLayout>
     <!-- logout Button -->
+
+    <!-- Delete Account Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
@@ -158,7 +159,6 @@
         app:layout_constraintVertical_bias="0.68"
         app:strokeWidth="0dp" />
 
-    <!-- Delete Account Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/deleteAccountButton"
         android:layout_width="match_parent"
@@ -172,4 +172,5 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
         app:layout_constraintVertical_bias="0.823"
         app:strokeWidth="0dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
