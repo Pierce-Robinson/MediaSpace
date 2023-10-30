@@ -55,9 +55,9 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_loginTitle"
         app:layout_constraintVertical_bias="0.088"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="0dp"
         app:boxBackgroundColor="?colorSecondaryContainer"
-        app:startIconDrawable="@drawable/icon_profile"
+        app:startIconDrawable="@drawable/icon_mail"
         app:startIconTint="?colorSecondary"
         >
 
@@ -95,7 +95,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditTextField"
         app:layout_constraintVertical_bias="0.088"
-        app:boxStrokeWidth="2dp">
+        app:boxStrokeWidth="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
