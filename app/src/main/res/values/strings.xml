@@ -14,5 +14,6 @@
     <string name="birthday">Birthday</string>
     <string name="contactinfo">CONTACT INFORMATION</string>
     <string name="basicinfo">BASIC INFORMATION</string>
+    <string name="label">label</string>
 
 </resources>

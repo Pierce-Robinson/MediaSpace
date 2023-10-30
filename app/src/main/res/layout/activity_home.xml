@@ -18,9 +18,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_nav_menu"
+        android:background="?android:addPrintersActivity"
         app:itemIconSize="30dp"
-        app:itemIconTint="?attr/colorSecondary"
-        app:itemTextColor="?colorSecondary"
+        app:itemIconTint="?attr/colorPrimary"
+        app:itemTextColor="?colorPrimary"
         app:hideOnScroll="true"
         />
 

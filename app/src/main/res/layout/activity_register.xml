@@ -4,15 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
+    android:background="?actionModePasteDrawable"
+    android:padding="30dp"
     tools:context=".RegisterActivity">
 
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="347dp"
+        android:layout_height="158dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/icon_profile"
+        android:src="@drawable/mediaspace_f"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +27,6 @@
         android:layout_marginTop="18dp"
         android:padding="10dp"
         android:text="@string/create_account"
-        android:textColor="?attr/colorOnSecondaryContainer"
         android:textSize="32sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_emailTextField"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.0"
         app:startIconDrawable="@drawable/icon_profile"
         app:startIconTint="?colorSecondary">
 
@@ -120,7 +120,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_nameTextField"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.00"
         app:startIconDrawable="@drawable/icon_mobile_phone"
         app:startIconTint="?colorSecondary">
 
@@ -153,7 +153,7 @@
         app:helperTextTextColor="?colorError"
         app:startIconTint="?colorSecondary"
         app:endIconTint="?colorSecondary"
-        app:layout_constraintVertical_bias="0.05"
+        app:layout_constraintVertical_bias="0.00"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -190,7 +190,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_passwordTextField"
-        app:layout_constraintVertical_bias="0.12"
+        app:layout_constraintVertical_bias="0.00"
         app:startIconDrawable="@drawable/icon_lock">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -222,7 +222,7 @@
         android:padding="15dp"
         android:text="Go back"
         android:textSize="16sp"
-        android:textColor="?colorTertiary"
+        android:textColor="?colorPrimary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
