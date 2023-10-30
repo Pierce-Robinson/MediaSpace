@@ -30,7 +30,7 @@ class RegisterActivity : AppCompatActivity() {
 
         //Initialize shared firebase auth instance
         auth = Firebase.auth
-        database = FirebaseDatabase.getInstance("https://birdvue-9288a-default-rtdb.europe-west1.firebasedatabase.app/")
+        database = FirebaseDatabase.getInstance("https://mediaspace-d13bb-default-rtdb.europe-west1.firebasedatabase.app/")
 
         //Call register method when register is pressed
         binding.signupButton.setOnClickListener{
