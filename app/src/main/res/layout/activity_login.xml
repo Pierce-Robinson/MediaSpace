@@ -10,17 +10,17 @@
     <!--mediaspace logo please-->
     <ImageView
         android:id="@+id/logoImageView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="358dp"
+        android:layout_height="178dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/icon_background"
+        android:src="@drawable/mediaspace_f"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.061"/>
+        app:layout_constraintVertical_bias="0.061" />
 
     <TextView
         android:id="@+id/login_loginTitle"
