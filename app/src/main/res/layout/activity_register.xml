@@ -49,12 +49,12 @@
         app:errorTextColor="?colorError"
         app:helperTextTextColor="?colorError"
         app:boxBackgroundColor="?colorSecondaryContainer"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/headingTextView"
-        app:layout_constraintVertical_bias="0.08"
+        app:layout_constraintVertical_bias="0.05"
         app:startIconDrawable="@drawable/icon_mail"
         app:startIconTint="?colorSecondary">
 
@@ -70,7 +70,7 @@
         android:id="@+id/register_nameTextField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Display Name"
+        android:hint="Name and Surname"
         app:boxStrokeErrorColor="?colorError"
         app:errorEnabled="true"
         app:errorIconDrawable="@drawable/icon_error"
@@ -82,13 +82,46 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxBackgroundColor="?colorSecondaryContainer"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_emailTextField"
-        app:layout_constraintVertical_bias="0.060000002"
+        app:layout_constraintVertical_bias="0.05"
         app:startIconDrawable="@drawable/icon_profile"
+        app:startIconTint="?colorSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/mobile_numberTextField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Mobile Number"
+        app:boxStrokeErrorColor="?colorError"
+        app:errorEnabled="true"
+        app:errorIconDrawable="@drawable/icon_error"
+        app:errorIconTint="?colorError"
+        app:errorTextColor="?colorError"
+        app:helperTextTextColor="?colorError"
+        app:boxCornerRadiusBottomEnd="20dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
+        app:boxCornerRadiusTopStart="20dp"
+        app:boxBackgroundColor="?colorSecondaryContainer"
+        app:boxStrokeWidth="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/register_nameTextField"
+        app:layout_constraintVertical_bias="0.05"
+        app:startIconDrawable="@drawable/icon_mobile_phone"
         app:startIconTint="?colorSecondary">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -98,6 +131,7 @@
             android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/register_passwordTextField"
         android:layout_width="match_parent"
@@ -108,7 +142,7 @@
         app:boxCornerRadiusBottomStart="20dp"
         app:boxCornerRadiusBottomEnd="20dp"
         app:boxBackgroundColor="?colorSecondaryContainer"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="0dp"
         app:startIconDrawable="@drawable/icon_lock"
         app:endIconMode="password_toggle"
         app:boxStrokeErrorColor="?colorError"
@@ -119,11 +153,11 @@
         app:helperTextTextColor="?colorError"
         app:startIconTint="?colorSecondary"
         app:endIconTint="?colorSecondary"
-        app:layout_constraintVertical_bias="0.08"
+        app:layout_constraintVertical_bias="0.05"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_nameTextField">
+        app:layout_constraintTop_toBottomOf="@+id/mobile_numberTextField">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
@@ -142,7 +176,7 @@
         app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxBackgroundColor="?colorSecondaryContainer"
-        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidth="0dp"
         app:endIconMode="password_toggle"
         app:boxStrokeErrorColor="?colorError"
         app:errorEnabled="true"
@@ -171,7 +205,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         app:cornerRadius="20dp"
-        android:backgroundTint="?colorSecondary"
+        android:backgroundTint="?colorError"
         android:textColor="?attr/colorSecondaryContainer"
         android:text="@string/sign_up"
         android:textSize="16sp"
@@ -179,7 +213,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/register_confirmTextField"
-        app:layout_constraintVertical_bias="0.37" />
+        app:layout_constraintVertical_bias="0.1" />
 
     <TextView
         android:id="@+id/goBackTextView"
