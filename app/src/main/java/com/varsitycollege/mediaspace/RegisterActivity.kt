@@ -131,8 +131,8 @@ class RegisterActivity : AppCompatActivity() {
                     val changeRequest: UserProfileChangeRequest = builder.build()
                     user!!.updateProfile(changeRequest)
 
-                    //Create user object for user - default distance is 5
-                    writeNewUser(user.uid, name, email, 5.0, true)
+                    //TODO: Create user object for user
+                    //writeNewUser(user.uid, name, email, mobile, false)
 
                     //Sign in immediately
                     auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -166,8 +166,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeNewUser(userId: String, name: String, email: String, maxDistance: Double, metric: Boolean) {
-        val user = User(userId, name, email, maxDistance, metric)
+    private fun writeNewUser(userId: String, name: String, email: String, mobile: String, notifications: Boolean) {
+        val user = User(userId, name, email, mobile, null, null, notifications)
         val ref = database.getReference("users")
         ref.child(userId).setValue(user).addOnSuccessListener{
             Toast.makeText(this, "Welcome ${name}!", Toast.LENGTH_SHORT).show()
