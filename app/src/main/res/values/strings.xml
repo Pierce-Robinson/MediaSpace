@@ -20,5 +20,6 @@
     <string name="cart">CART</string>
     <string name="Checkout">Checkout</string>
     <string name="label">Label</string>
+    <string name="total">TOTAL</string>
 
 </resources>
