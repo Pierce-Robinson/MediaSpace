@@ -8,6 +8,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DataSnapshot
@@ -29,12 +32,11 @@ class ProfileFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         database = FirebaseDatabase.getInstance("https://mediaspace-d13bb-default-rtdb.europe-west1.firebasedatabase.app/")
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-
-        getUserData()
+        //getUserData()
 
         //Handle sign out
         binding.logoutButton.setOnClickListener {
@@ -45,8 +47,13 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        //Handle delete account
+        binding.deleteAccountButton.setOnClickListener {
+            deleteAccount()
+        }
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false)
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -61,6 +68,57 @@ class ProfileFragment : Fragment() {
             it.startActivity(intent)
             it.finish() // Finish the current activity after logout
         }
+    }
+
+    private fun deleteAccount() {
+        // this will show a confirmation popup for deletion
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle("Delete Account")
+            .setMessage("Are you sure you want to delete your account?")
+            .setPositiveButton("Yes") { _, _ ->
+                // delete the user account
+                auth = FirebaseAuth.getInstance()
+                val id = auth.currentUser?.uid
+                if (id != null) {
+                    //Todo: Delete user orders here
+                    try {
+                        // Delete user's object (Before account deletion to retain permissions
+                        ref = database.getReference("users")
+                        ref.child(id).removeValue().addOnSuccessListener {
+                            // On object deletion success, delete user account and return to the login screen
+                            auth.currentUser?.delete()?.addOnSuccessListener {
+                                activity?.let {
+                                    val intent = Intent(it, LoginActivity::class.java)
+                                    it.startActivity(intent)
+                                    it.finish() // Finish the current activity after logout
+                                }
+                            }
+                        }.addOnFailureListener {
+                            Toast.makeText(
+                                this@ProfileFragment.requireActivity().applicationContext,
+                                it.localizedMessage,
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            this@ProfileFragment.requireActivity().applicationContext,
+                            "Please login, then try again.",
+                            Toast.LENGTH_LONG
+                        ).show()
+                        logOut()
+                    }
+                } else {
+                    Toast.makeText(
+                        this@ProfileFragment.requireActivity().applicationContext,
+                        "Please login, then try again.",
+                        Toast.LENGTH_LONG
+                    ).show()
+                    logOut()
+                }
+            }
+            .setNegativeButton("No", null)
+            .show()
     }
 
     private fun getUserData() {
