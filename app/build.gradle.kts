@@ -56,6 +56,7 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.2.0")
     implementation("com.google.firebase:firebase-storage-ktx")
     testImplementation("junit:junit:4.13.2")
+    implementation ("androidx.cardview:cardview:1.0.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 }

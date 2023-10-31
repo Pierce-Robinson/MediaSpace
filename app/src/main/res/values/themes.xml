@@ -7,7 +7,7 @@
         <item name="colorOnPrimaryContainer">@color/md_theme_light_onPrimary_white</item>
         <item name="colorSecondary">@color/seed</item>
         <item name="colorOnSecondary">@color/md_theme_light_onPrimary_white</item>
-        <item name="colorSecondaryContainer">@color/seed</item>
+        <item name="colorSecondaryContainer">@color/custom_llgrey</item>
         <item name="colorOnSecondaryContainer">@color/md_theme_light_onPrimary_white</item>
         <item name="colorTertiary">@color/seed</item>
         <item name="colorOnTertiary">@color/md_theme_light_onPrimary_white</item>
@@ -23,10 +23,15 @@
         <item name="colorOnSurface">@color/md_theme_light_onSurface</item>
         <item name="colorSurfaceVariant">@color/md_theme_light_surfaceVariant</item>
         <item name="colorOnSurfaceVariant">@color/md_theme_light_primaryContainer_black</item>
-        <item name="colorOutline">@color/md_theme_light_primaryContainer_black</item>
+        <item name="colorOutline">@color/black</item>
         <item name="colorOnSurfaceInverse">@color/md_theme_light_inverseOnSurface</item>
         <item name="colorSurfaceInverse">@color/md_theme_light_inverseSurface</item>
         <item name="colorPrimaryInverse">@color/md_theme_light_inversePrimary</item>
+
         <item name="android:statusBarColor">@color/md_theme_light_primary</item>
+        <item name="android:addPrintersActivity">@color/white</item>
+
+        <item name="android:ambientShadowAlpha">0.2</item>
+        <item name="android:spotShadowAlpha">0.2</item>
     </style>
 </resources>
