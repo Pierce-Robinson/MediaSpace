@@ -105,49 +105,6 @@
         app:layout_constraintStart_toEndOf="@id/productImage"
         app:layout_constraintTop_toBottomOf="@id/solidLine2" />
 
-    <GridLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:columnCount="3"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage"
-        app:layout_constraintBottom_toTopOf="@+id/qtyEditText">
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Qty"
-                android:inputType="number" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-           >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Price" />
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            >
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Total" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </GridLayout>
-
 
     <EditText
         android:id="@+id/qtyEditText"
