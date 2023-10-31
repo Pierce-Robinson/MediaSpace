@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity() {
             //https://stackoverflow.com/users/534471/emanuel-moecklin
             //accessed 25 October 2023
             binding.emailEditTextField.error = null
-            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondaryContainer, Color.GRAY)
+            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSecondaryContainer, Color.GRAY)
             binding.emailEditTextField.boxBackgroundColor = color
             binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
@@ -83,52 +83,55 @@ class LoginActivity : AppCompatActivity() {
             val password = binding.passwordEditText.text.toString()
 
             //Validate
+            var hasError = false
             color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorErrorContainer, Color.GRAY)
             if (email.isBlank()) {
                 binding.emailEditTextField.error = "Required."
                 binding.emailEditTextField.boxBackgroundColor = color
                 binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
             if (password.isBlank()) {
                 binding.loginPasswordTextField.error = "Required."
                 binding.loginPasswordTextField.boxBackgroundColor = color
                 binding.loginPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 binding.loginPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
 
-            auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                    finish()
-                }
-            }.addOnFailureListener { exception ->
-                //Handle exception and provide feedback to user
-                if(exception.localizedMessage?.contains("badly formatted") == true) {
-                    binding.emailEditTextField.error = "Email is incorrectly formatted."
-                    binding.emailEditTextField.boxBackgroundColor = color
-                    binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                } else if (exception.localizedMessage?.contains("INVALID_LOGIN") == true) {
-                    binding.emailEditTextField.error = "Invalid login details."
-                    binding.loginPasswordTextField.error = "Invalid login details."
-                    binding.emailEditTextField.boxBackgroundColor = color
-                    binding.loginPasswordTextField.boxBackgroundColor = color
-                    binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                    binding.loginPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                    binding.loginPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                } else if (exception.localizedMessage?.contains("unusual activity") == true) {
-                    binding.emailEditTextField.error = "Too many incorrect attempts, please try again later."
-                    binding.loginPasswordTextField.error = "Too many incorrect attempts, please try again later."
-                    binding.emailEditTextField.boxBackgroundColor = color
-                    binding.loginPasswordTextField.boxBackgroundColor = color
-                    binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                    binding.loginPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                    binding.loginPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                }
-                else {
-                    Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+            if (!hasError){
+                auth.signInWithEmailAndPassword(email,password).addOnCompleteListener { task ->
+                    if(task.isSuccessful){
+                        val intent = Intent(this, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+                    }
+                }.addOnFailureListener { exception ->
+                    //Handle exception and provide feedback to user
+                    if(exception.localizedMessage?.contains("badly formatted") == true) {
+                        binding.emailEditTextField.error = "Email is incorrectly formatted."
+                        binding.emailEditTextField.boxBackgroundColor = color
+                        binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                    } else if (exception.localizedMessage?.contains("INVALID_LOGIN") == true) {
+                        binding.emailEditTextField.error = "Invalid login details."
+                        binding.loginPasswordTextField.error = "Invalid login details."
+                        binding.emailEditTextField.boxBackgroundColor = color
+                        binding.loginPasswordTextField.boxBackgroundColor = color
+                        binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                        binding.loginPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                        binding.loginPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                    } else if (exception.localizedMessage?.contains("unusual activity") == true) {
+                        binding.emailEditTextField.error = "Too many incorrect attempts, please try again later."
+                        binding.loginPasswordTextField.error = "Too many incorrect attempts, please try again later."
+                        binding.emailEditTextField.boxBackgroundColor = color
+                        binding.loginPasswordTextField.boxBackgroundColor = color
+                        binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                        binding.loginPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                        binding.loginPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                    }
+                    else {
+                        Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         } catch (e: Exception) {
