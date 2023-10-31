@@ -49,6 +49,7 @@ class RegisterActivity : AppCompatActivity() {
         //Reset errors when view configuration changes
         binding.registerEmailTextField.error = null
         binding.registerNameTextField.error = null
+        binding.mobileEditText.error = null
         binding.registerPasswordTextField.error = null
         binding.registerConfirmTextField.error = null
     }
@@ -63,13 +64,17 @@ class RegisterActivity : AppCompatActivity() {
             //https://stackoverflow.com/users/534471/emanuel-moecklin
             //accessed 25 October 2023
             binding.registerEmailTextField.error = null
-            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondaryContainer, Color.GRAY)
+            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSecondaryContainer, Color.GRAY)
             binding.registerEmailTextField.boxBackgroundColor = color
             binding.registerEmailTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
             binding.registerNameTextField.error = null
             binding.registerNameTextField.boxBackgroundColor = color
             binding.registerNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
+
+            binding.mobileNumberTextField.error = null
+            binding.mobileNumberTextField.boxBackgroundColor = color
+            binding.mobileNumberTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
             binding.registerPasswordTextField.error = null
             binding.registerPasswordTextField.boxBackgroundColor = color
@@ -82,83 +87,126 @@ class RegisterActivity : AppCompatActivity() {
             binding.registerConfirmTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
             val email = binding.registerEmailEditText.text.toString()
-            val name = binding.nameEditText.text.toString()
+            val name = binding.registerNameEditText.text.toString()
+            val phoneNum = binding.mobileEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val confirm = binding.confirmPasswordEditText.text.toString()
 
             //Validate
+            var hasError = false
             color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorErrorContainer, Color.GRAY)
             if (email.isBlank()) {
                 binding.registerEmailTextField.error = "Required."
                 binding.registerEmailTextField.boxBackgroundColor = color
                 binding.registerEmailTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
             if (name.isBlank()) {
                 binding.registerNameTextField.error = "Required."
                 binding.registerNameTextField.boxBackgroundColor = color
                 binding.registerNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
+            }
+            if (phoneNum.isBlank()) {
+                binding.mobileNumberTextField.error = "Required."
+                binding.mobileNumberTextField.boxBackgroundColor = color
+                binding.mobileNumberTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                hasError = true
             }
             if (password.isBlank()) {
                 binding.registerPasswordTextField.error = "Required."
                 binding.registerPasswordTextField.boxBackgroundColor = color
                 binding.registerPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 binding.registerPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
             if (confirm.isBlank()) {
                 binding.registerConfirmTextField.error = "Required."
                 binding.registerConfirmTextField.boxBackgroundColor = color
                 binding.registerConfirmTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 binding.registerConfirmTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
             if (confirm != password) {
                 binding.registerConfirmTextField.error = "Passwords do not match."
                 binding.registerConfirmTextField.boxBackgroundColor = color
                 binding.registerConfirmTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 binding.registerConfirmTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                return
+                hasError = true
             }
 
-            auth.createUserWithEmailAndPassword(email,password).addOnCompleteListener { task ->
-                if(task.isSuccessful){
-                    //Set display name
-                    val user = auth.currentUser
-                    val builder = UserProfileChangeRequest.Builder()
-                    builder.displayName = name
-                    val changeRequest: UserProfileChangeRequest = builder.build()
-                    user!!.updateProfile(changeRequest)
 
-                    //TODO: Create user object for user
-                    //writeNewUser(user.uid, name, email, mobile, false)
+            if (!hasError) {
+               auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        //Set display name
+                        val user = auth.currentUser
+                        val builder = UserProfileChangeRequest.Builder()
+                        builder.displayName = name
+                        val changeRequest: UserProfileChangeRequest = builder.build()
+                        user!!.updateProfile(changeRequest)
 
-                    //Sign in immediately
-                    auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
-                        if(task.isSuccessful){
-                            val intent = Intent(this, HomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
+                        //TODO: Create user object for user
+                        writeNewUser(user.uid, name, email, phoneNum, false)
+
+                        //Sign in immediately
+                        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
+                            if (task.isSuccessful) {
+                                val intent = Intent(this, HomeActivity::class.java)
+                                startActivity(intent)
+                                finish()
+                            }
+                        }.addOnFailureListener { exception ->
+                            Toast.makeText(
+                                applicationContext,
+                                exception.localizedMessage,
+                                Toast.LENGTH_LONG
+                            ).show()
                         }
-                    }.addOnFailureListener { exception ->
-                        Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
                     }
-                }
-            }.addOnFailureListener { exception ->
-                //Handle exception and provide feedback to user
-                if(exception.localizedMessage?.contains("badly formatted") == true) {
-                    binding.registerEmailTextField.error = "Email is incorrectly formatted."
-                    binding.registerEmailTextField.boxBackgroundColor = color
-                    binding.registerEmailTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                } else if (exception.localizedMessage?.contains("at least 6") == true) {
-                    binding.registerPasswordTextField.error = "Password must be at least 6 characters long."
-                    binding.registerPasswordTextField.boxBackgroundColor = color
-                    binding.registerPasswordTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                    binding.registerPasswordTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
-                }
-                else {
-                    Toast.makeText(applicationContext, exception.localizedMessage, Toast.LENGTH_LONG).show()
+                }.addOnFailureListener { exception ->
+                    //Handle exception and provide feedback to user
+                    if (exception.localizedMessage?.contains("badly formatted") == true) {
+                        binding.registerEmailTextField.error = "Email is incorrectly formatted."
+                        binding.registerEmailTextField.boxBackgroundColor = color
+                        binding.registerEmailTextField.setStartIconTintList(
+                            ColorStateList.valueOf(
+                                MaterialColors.getColor(
+                                    this,
+                                    com.google.android.material.R.attr.colorError,
+                                    Color.GRAY
+                                )
+                            )
+                        )
+                    } else if (exception.localizedMessage?.contains("at least 6") == true) {
+                        binding.registerPasswordTextField.error =
+                            "Password must be at least 6 characters long."
+                        binding.registerPasswordTextField.boxBackgroundColor = color
+                        binding.registerPasswordTextField.setStartIconTintList(
+                            ColorStateList.valueOf(
+                                MaterialColors.getColor(
+                                    this,
+                                    com.google.android.material.R.attr.colorError,
+                                    Color.GRAY
+                                )
+                            )
+                        )
+                        binding.registerPasswordTextField.setEndIconTintList(
+                            ColorStateList.valueOf(
+                                MaterialColors.getColor(
+                                    this,
+                                    com.google.android.material.R.attr.colorError,
+                                    Color.GRAY
+                                )
+                            )
+                        )
+                    } else {
+                        Toast.makeText(
+                            applicationContext,
+                            exception.localizedMessage,
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
                 }
             }
         } catch (e: Exception) {
@@ -166,8 +214,8 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeNewUser(userId: String, name: String, email: String, mobile: String, notifications: Boolean) {
-        val user = User(userId, name, email, mobile, null, null, notifications)
+    private fun writeNewUser(userId: String, name: String, email: String, phoneNum: String, notifications: Boolean) {
+        val user = User(userId, name, email, phoneNum, null, null, notifications)
         val ref = database.getReference("users")
         ref.child(userId).setValue(user).addOnSuccessListener{
             Toast.makeText(this, "Welcome ${name}!", Toast.LENGTH_SHORT).show()

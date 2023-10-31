@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="?actionModePasteDrawable"
     android:padding="30dp"
     tools:context=".LoginActivity">
 
@@ -30,6 +29,7 @@
         android:text="Login to your account"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -56,8 +56,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_loginTitle"
         app:layout_constraintVertical_bias="0.088"
-        app:boxStrokeWidth="0dp"
-        app:boxBackgroundColor="?colorSecondaryContainer"
+        app:boxStrokeWidth="2dp"
         app:startIconDrawable="@drawable/icon_mail"
         app:startIconTint="?colorSecondary"
         >
@@ -89,14 +88,13 @@
         app:startIconDrawable="@drawable/icon_lock"
         app:startIconTint="?colorSecondary"
         app:endIconTint="?colorSecondary"
-        app:boxBackgroundColor="?colorSecondaryContainer"
         android:hint="Password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailEditTextField"
         app:layout_constraintVertical_bias="0.088"
-        app:boxStrokeWidth="0dp">
+        app:boxStrokeWidth="2dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/passwordEditText"
@@ -112,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:backgroundTint="?colorPrimary"
-        android:textColor="?attr/colorSecondaryContainer"
+        android:textColor="?attr/colorOnPrimary"
         android:layout_marginTop="10dp"
         app:cornerRadius="20dp"
         android:text="Login"
@@ -129,7 +127,7 @@
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:text="Don't have an account?"
-        android:textColor="?attr/colorOnSecondaryContainer"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.25"
@@ -157,8 +155,8 @@
         android:id="@+id/login_or"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="?attr/colorOnSecondaryContainer"
         android:text="OR"
+        android:textColor="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
