@@ -11,7 +11,7 @@
         android:roundIcon="@drawable/mediaspace_w"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:targetApi="31">
+        tools:targetApi="34">
         <activity
             android:name=".UpdateProfileActivity"
             android:exported="false" />
