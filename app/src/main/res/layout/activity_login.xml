@@ -7,7 +7,6 @@
     android:padding="30dp"
     tools:context=".LoginActivity">
 
-    <!--mediaspace logo please-->
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="358dp"
@@ -150,7 +149,6 @@
         app:layout_constraintTop_toBottomOf="@+id/login_or"
         app:layout_constraintVertical_bias="0.5" />
 
-
     <TextView
         android:id="@+id/login_or"
         android:layout_width="wrap_content"
@@ -162,4 +160,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginButton"
         app:layout_constraintVertical_bias="0.26" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
