@@ -2,20 +2,11 @@ package com.varsitycollege.mediaspace
 
 import android.content.Intent
 import android.content.res.ColorStateList
-import android.content.res.Resources
-import android.content.res.Resources.Theme
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.TypedValue
-import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import com.google.android.material.color.MaterialColors
-import com.google.android.material.textfield.TextInputLayout
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -70,7 +61,7 @@ class LoginActivity : AppCompatActivity() {
             //https://stackoverflow.com/users/534471/emanuel-moecklin
             //accessed 25 October 2023
             binding.emailEditTextField.error = null
-            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorOnSecondaryContainer, Color.GRAY)
+            var color = MaterialColors.getColor(this, com.google.android.material.R.attr.colorSurface, Color.GRAY)
             binding.emailEditTextField.boxBackgroundColor = color
             binding.emailEditTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 

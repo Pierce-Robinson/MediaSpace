@@ -10,9 +10,7 @@ import com.google.android.material.color.MaterialColors
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityRegisterBinding
@@ -30,7 +28,7 @@ class RegisterActivity : AppCompatActivity() {
 
         //Initialize shared firebase auth instance
         auth = Firebase.auth
-        database = FirebaseDatabase.getInstance("https://mediaspace-d13bb-default-rtdb.europe-west1.firebasedatabase.app/")
+        database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
         //Call register method when register is pressed
         binding.signupButton.setOnClickListener{
@@ -146,7 +144,7 @@ class RegisterActivity : AppCompatActivity() {
                         val changeRequest: UserProfileChangeRequest = builder.build()
                         user!!.updateProfile(changeRequest)
 
-                        //TODO: Create user object for user
+                        //Create user object for user
                         writeNewUser(user.uid, name, email, phoneNum, false)
 
                         //Sign in immediately
