@@ -2,6 +2,7 @@ package com.varsitycollege.mediaspace.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,6 +39,16 @@ class ProfileFragment : Fragment() {
             val currentUser: FirebaseUser? = auth.currentUser
             if (currentUser != null) {
                 logOut()
+            }
+            else {
+                //If this code runs there is a security breach
+                Log.e("WARNING", "Attempted log out while not being logged in")
+                //Go to login directly
+                activity?.let {
+                    val intent = Intent(it, LoginActivity::class.java)
+                    it.startActivity(intent)
+                    it.finish() // Finish the current activity after logout
+                }
             }
         }
 
