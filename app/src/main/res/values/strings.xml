@@ -16,10 +16,12 @@
     <string name="basicinfo">BASIC INFORMATION</string>
     <string name="product_name">Product Name</string>
     <string name="product_description">Product Description</string>
+    <string name="product_price">R </string>
     <string name="my">MY</string>
     <string name="cart">CART</string>
     <string name="Checkout">Checkout</string>
     <string name="label">Label</string>
     <string name="total">TOTAL</string>
+
 
 </resources>
