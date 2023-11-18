@@ -27,7 +27,7 @@
             android:layout_height="75dp"
             app:menu="@menu/bottom_nav_menu"
             android:background="?android:addPrintersActivity"
-            app:itemIconSize="30dp"
+            app:itemIconSize="35dp"
             app:itemIconTint="?attr/colorPrimary"
             app:itemTextColor="?colorPrimary"
             app:hideOnScroll="true"
