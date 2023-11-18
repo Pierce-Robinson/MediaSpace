@@ -13,6 +13,7 @@
     <string name="gender">Gender</string>
     <string name="birthday">Birthday</string>
     <string name="contactinfo">CONTACT INFORMATION</string>
+    <string name="addressinfo">ADDRESS INFORMATION</string>
     <string name="basicinfo">BASIC INFORMATION</string>
     <string name="product_name">Product Name</string>
     <string name="product_description">Product Description</string>
@@ -22,6 +23,10 @@
     <string name="Checkout">Checkout</string>
     <string name="label">Label</string>
     <string name="total">TOTAL</string>
+    <string name="username">Username</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="notifications">Notifications</string>
+
 
 
 </resources>
