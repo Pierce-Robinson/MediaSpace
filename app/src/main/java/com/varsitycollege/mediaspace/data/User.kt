@@ -2,7 +2,9 @@ package com.varsitycollege.mediaspace.data
 
 data class User(
     val id: String ?= null,
-    val username: String ?= null,
+    val title: String ?= null,
+    val firstName: String ?= null,
+    val lastName: String ?= null,
     val email: String ?= null,
     val mobile: String ?= null,
     val deliveryAddresses: ArrayList<Delivery> ?= null,

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:padding="30dp"
+    android:orientation="vertical"
+    android:padding="24dp"
     tools:context=".RegisterActivity">
 
     <ImageView
@@ -13,214 +14,199 @@
         android:layout_height="158dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/mediaspace_f"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/scrollView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.01999998" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/headingTextView"
-        android:layout_width="242dp"
-        android:layout_height="62dp"
-        android:layout_marginTop="18dp"
-        android:padding="10dp"
-        android:text="@string/create_account"
-        android:textSize="32sp"
-        android:textStyle="bold"
-        android:textColor="?attr/colorOnBackground"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logoImageView" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_emailTextField"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Email"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxStrokeErrorColor="?colorError"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/icon_error"
-        app:errorIconTint="?colorError"
-        app:errorTextColor="?colorError"
-        app:helperTextTextColor="?colorError"
-        app:boxStrokeWidth="2dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:paddingBottom="91dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headingTextView"
-        app:layout_constraintVertical_bias="0.05"
-        app:startIconDrawable="@drawable/icon_mail"
-        app:startIconTint="?colorSecondary">
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/register_emailEditText"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
-    </com.google.android.material.textfield.TextInputLayout>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/headingTextView"
+                android:layout_width="242dp"
+                android:layout_height="62dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="18dp"
+                android:layout_marginBottom="16dp"
+                android:padding="10dp"
+                android:text="@string/create_account"
+                android:textColor="?attr/colorOnBackground"
+                android:textSize="32sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_emailTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeErrorColor="?colorError"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@drawable/icon_error"
+                app:errorIconTint="?colorError"
+                app:errorTextColor="?colorError"
+                app:helperTextTextColor="?colorError"
+                app:startIconDrawable="@drawable/icon_mail"
+                app:startIconTint="?colorSecondary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/register_emailEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_nameTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Name"
-        app:boxStrokeErrorColor="?colorError"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/icon_error"
-        app:errorIconTint="?colorError"
-        app:errorTextColor="?colorError"
-        app:helperTextTextColor="?colorError"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxStrokeWidth="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_emailTextField"
-        app:layout_constraintVertical_bias="0.0"
-        app:startIconDrawable="@drawable/icon_profile"
-        app:startIconTint="?colorSecondary">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_nameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeErrorColor="?colorError"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@drawable/icon_error"
+                app:errorIconTint="?colorError"
+                app:errorTextColor="?colorError"
+                app:helperTextTextColor="?colorError"
+                app:startIconDrawable="@drawable/icon_profile"
+                app:startIconTint="?colorSecondary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/registerNameEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/registerNameEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPersonName" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/mobile_numberTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Mobile Number"
-        app:boxStrokeErrorColor="?colorError"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@drawable/icon_error"
-        app:errorIconTint="?colorError"
-        app:errorTextColor="?colorError"
-        app:helperTextTextColor="?colorError"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxStrokeWidth="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_nameTextField"
-        app:layout_constraintVertical_bias="0.00"
-        app:startIconDrawable="@drawable/icon_mobile_phone"
-        app:startIconTint="?colorSecondary">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/mobile_numberTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Mobile Number"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeErrorColor="?colorError"
+                app:boxStrokeWidth="2dp"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@drawable/icon_error"
+                app:errorIconTint="?colorError"
+                app:errorTextColor="?colorError"
+                app:helperTextTextColor="?colorError"
+                app:startIconDrawable="@drawable/icon_mobile_phone"
+                app:startIconTint="?colorSecondary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/mobileEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="10"
-            android:inputType="phone" />
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/mobileEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:maxLength="10" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_passwordTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Password"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxStrokeWidth="2dp"
-        app:startIconDrawable="@drawable/icon_lock"
-        app:endIconMode="password_toggle"
-        app:boxStrokeErrorColor="?colorError"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@null"
-        app:errorIconTint="?colorError"
-        app:errorTextColor="?colorError"
-        app:helperTextTextColor="?colorError"
-        app:startIconTint="?colorSecondary"
-        app:endIconTint="?colorSecondary"
-        app:layout_constraintVertical_bias="0.00"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mobile_numberTextField">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_passwordTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeErrorColor="?colorError"
+                app:boxStrokeWidth="2dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="?colorSecondary"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@null"
+                app:errorIconTint="?colorError"
+                app:errorTextColor="?colorError"
+                app:helperTextTextColor="?colorError"
+                app:startIconDrawable="@drawable/icon_lock"
+                app:startIconTint="?colorSecondary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword"/>
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/passwordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/register_confirmTextField"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="Confirm Password"
-        app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="20dp"
-        app:boxCornerRadiusTopEnd="20dp"
-        app:boxCornerRadiusTopStart="20dp"
-        app:boxStrokeWidth="2dp"
-        app:endIconMode="password_toggle"
-        app:boxStrokeErrorColor="?colorError"
-        app:errorEnabled="true"
-        app:errorIconDrawable="@null"
-        app:errorIconTint="?colorError"
-        app:errorTextColor="?colorError"
-        app:helperTextTextColor="?colorError"
-        app:startIconTint="?colorSecondary"
-        app:endIconTint="?colorSecondary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_passwordTextField"
-        app:layout_constraintVertical_bias="0.00"
-        app:startIconDrawable="@drawable/icon_lock">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_confirmTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                app:boxCornerRadiusBottomEnd="20dp"
+                app:boxCornerRadiusBottomStart="20dp"
+                app:boxCornerRadiusTopEnd="20dp"
+                app:boxCornerRadiusTopStart="20dp"
+                app:boxStrokeErrorColor="?colorError"
+                app:boxStrokeWidth="2dp"
+                app:endIconMode="password_toggle"
+                app:endIconTint="?colorSecondary"
+                app:errorEnabled="true"
+                app:errorIconDrawable="@null"
+                app:errorIconTint="?colorError"
+                app:errorTextColor="?colorError"
+                app:helperTextTextColor="?colorError"
+                app:startIconDrawable="@drawable/icon_lock"
+                app:startIconTint="?colorSecondary">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/confirmPasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-    </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/confirmPasswordEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/signupButton"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        app:cornerRadius="20dp"
-        android:text="@string/sign_up"
-        android:textSize="16sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/register_confirmTextField"
-        app:layout_constraintVertical_bias="0.1" />
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/signupButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/sign_up"
+                android:textSize="16sp"
+                app:cornerRadius="20dp" />
 
-    <TextView
-        android:id="@+id/goBackTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:text="Go back"
-        android:textSize="16sp"
-        android:textColor="?colorPrimary"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signupButton"
-        app:layout_constraintVertical_bias="0.41000003" />
+            <TextView
+                android:id="@+id/goBackTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:padding="15dp"
+                android:text="Go back"
+                android:textColor="?colorPrimary"
+                android:textSize="16sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</androidx.appcompat.widget.LinearLayoutCompat>
