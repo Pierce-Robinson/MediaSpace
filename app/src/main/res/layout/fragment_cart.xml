@@ -14,7 +14,7 @@
         tools:context=".ui.CartFragment">
 
 
-    <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textview.MaterialTextView
         android:id="@+id/myTextView"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
@@ -44,128 +44,42 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.952" />
 
-    <View
-        android:id="@+id/solidLine1"
-        android:layout_width="80dp"
-        android:layout_height="2dp"
-        android:background="?attr/colorOnSurfaceVariant"
-        app:layout_constraintBottom_toTopOf="@id/productImage"
-        app:layout_constraintEnd_toStartOf="@id/solidLine2"
-        app:layout_constraintStart_toStartOf="parent" />
+        <View
+            android:id="@+id/solidLine1"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="?attr/colorOnSurfaceVariant"
 
-    <View
-        android:id="@+id/solidLine2"
-        android:layout_width="80dp"
-        android:layout_height="2dp"
-        android:background="?attr/colorOnSurfaceVariant"
-        app:layout_constraintBottom_toTopOf="@id/productImage"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/solidLine1"/>
+            app:layout_constraintEnd_toStartOf="@id/solidLine2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/deleteImage"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/icon_delete"
-        app:layout_constraintBottom_toTopOf="@+id/totalEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@id/productName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.233" />
+        <View
+            android:id="@+id/solidLine2"
+            android:layout_width="80dp"
+            android:layout_height="2dp"
+            android:background="?attr/colorOnSurfaceVariant"
 
-    <ImageView
-        android:id="@+id/productImage"
-        android:layout_width="0dp"
-        android:layout_height="280dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/icon_profile"
-        app:layout_constraintBottom_toTopOf="@+id/qtyEditText"
-        app:layout_constraintEnd_toStartOf="@id/productName"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/productName"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:text="@string/product_name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/productImage"
-        app:layout_constraintTop_toBottomOf="@id/solidLine2"  />
+            app:layout_constraintBottom_toBottomOf="@+id/solidLine1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/solidLine1"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/productDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
-        android:text="@string/product_description"
-        android:textColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.368"
-        app:layout_constraintStart_toEndOf="@id/productImage"
-        app:layout_constraintTop_toBottomOf="@id/solidLine2" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/summaryTextView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:fontWeight="700"
+            android:text="Summary"
+            android:textColor="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.033"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="520dp" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/qtyEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Qty"
-        android:inputType="number"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/priceEditText"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/priceEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Price"
-        app:layout_constraintStart_toEndOf="@+id/qtyEditText"
-        app:layout_constraintEnd_toStartOf="@+id/totalEditText"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/totalEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:hint="Total"
-        app:layout_constraintStart_toEndOf="@+id/priceEditText"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/productImage" />
-
-    <View
-        android:id="@+id/solidLine3"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_marginTop="50dp"
-        android:background="#C0000B"
-        app:layout_constraintTop_toBottomOf="@+id/totalEditText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/summaryTextView"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontWeight="700"
-        android:text="Summary"
-        android:textColor="?attr/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/solidLine3" />
-
-    <com.google.android.material.textview.MaterialTextView
+        <com.google.android.material.textview.MaterialTextView
         android:id="@+id/totalTextView"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
@@ -191,16 +105,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/summaryTextView" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/checkoutButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="3000dp"
-        android:text="@string/Checkout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/checkoutButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="116dp"
+            android:text="@string/Checkout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="parent"
+ />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
