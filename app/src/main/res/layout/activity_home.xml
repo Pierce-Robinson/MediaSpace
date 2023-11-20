@@ -25,6 +25,7 @@
             android:id="@+id/bottomNavView"
             android:layout_width="match_parent"
             android:layout_height="75dp"
+            android:layout_marginEnd="3dp"
             app:menu="@menu/bottom_nav_menu"
             android:background="?android:addPrintersActivity"
             app:itemIconSize="35dp"

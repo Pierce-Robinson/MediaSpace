@@ -27,9 +27,7 @@ class LoginActivity : AppCompatActivity() {
         //If user is currently logged in, go to home page immediately
         val currentUser: FirebaseUser? = auth.currentUser
         if (currentUser != null) {
-            val intent = Intent(this, HomeActivity::class.java)
-            startActivity(intent)
-            finish()
+           redirectToHome()
         }
 
         //Login to home
@@ -43,7 +41,11 @@ class LoginActivity : AppCompatActivity() {
             startActivity(i)
         }
     }
-
+    private fun redirectToHome() {
+        val intent = Intent(this, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
     override fun onResume() {
         super.onResume()
         //Reset errors when view configuration changes

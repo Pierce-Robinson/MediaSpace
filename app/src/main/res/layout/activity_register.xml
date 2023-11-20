@@ -74,12 +74,77 @@
                     android:inputType="textEmailAddress" />
             </com.google.android.material.textfield.TextInputLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/register_nameTextField"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Name"
+                android:orientation="horizontal">
+
+                <!-- First TextInputLayout -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/register_titleTextField"
+                    android:layout_width="2dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="Title"
+                    android:paddingEnd="10dp"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeErrorColor="?colorError"
+                    app:boxStrokeWidth="2dp"
+                    app:errorEnabled="true"
+                    app:errorIconDrawable="@drawable/icon_error"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextTextColor="?colorError"
+                    app:startIconDrawable="@drawable/icon_profile"
+                    app:startIconTint="?colorSecondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerTitleEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/register_firstNameTextField"
+                    android:layout_width="140dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:hint="First Name"
+                    app:boxCornerRadiusBottomEnd="20dp"
+                    app:boxCornerRadiusBottomStart="20dp"
+                    app:boxCornerRadiusTopEnd="20dp"
+                    app:boxCornerRadiusTopStart="20dp"
+                    app:boxStrokeErrorColor="?colorError"
+                    app:boxStrokeWidth="2dp"
+                    app:errorEnabled="true"
+                    app:errorIconDrawable="@drawable/icon_error"
+                    app:errorIconTint="?colorError"
+                    app:errorTextColor="?colorError"
+                    app:helperTextTextColor="?colorError"
+                    app:startIconDrawable="@drawable/icon_profile"
+                    app:startIconTint="?colorSecondary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/registerFirstNameEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textPersonName" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/register_lastNameTextField"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Last Name"
                 app:boxCornerRadiusBottomEnd="20dp"
                 app:boxCornerRadiusBottomStart="20dp"
                 app:boxCornerRadiusTopEnd="20dp"
@@ -95,7 +160,7 @@
                 app:startIconTint="?colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/registerNameEditText"
+                    android:id="@+id/registerLastNameEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName" />

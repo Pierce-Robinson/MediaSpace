@@ -12,6 +12,8 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.varsitycollege.mediaspace.data.Delivery
+import com.varsitycollege.mediaspace.data.Order
 import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityRegisterBinding
 
@@ -46,7 +48,9 @@ class RegisterActivity : AppCompatActivity() {
         super.onResume()
         //Reset errors when view configuration changes
         binding.registerEmailTextField.error = null
-        binding.registerNameTextField.error = null
+        binding.registerTitleTextField.error = null
+        binding.registerFirstNameEditText.error = null
+        binding.registerLastNameEditText.error = null
         binding.mobileEditText.error = null
         binding.registerPasswordTextField.error = null
         binding.registerConfirmTextField.error = null
@@ -66,9 +70,17 @@ class RegisterActivity : AppCompatActivity() {
             binding.registerEmailTextField.boxBackgroundColor = color
             binding.registerEmailTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
-            binding.registerNameTextField.error = null
-            binding.registerNameTextField.boxBackgroundColor = color
-            binding.registerNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
+            binding.registerTitleTextField.error = null
+            binding.registerTitleTextField.boxBackgroundColor = color
+            binding.registerTitleTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
+
+            binding.registerFirstNameTextField.error = null
+            binding.registerFirstNameTextField.boxBackgroundColor = color
+            binding.registerFirstNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
+
+            binding.registerLastNameTextField.error = null
+            binding.registerLastNameTextField.boxBackgroundColor = color
+            binding.registerLastNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
             binding.mobileNumberTextField.error = null
             binding.mobileNumberTextField.boxBackgroundColor = color
@@ -85,8 +97,10 @@ class RegisterActivity : AppCompatActivity() {
             binding.registerConfirmTextField.setEndIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorSecondary, Color.GRAY)))
 
             val email = binding.registerEmailEditText.text.toString()
-            val name = binding.registerNameEditText.text.toString()
-            val phoneNum = binding.mobileEditText.text.toString()
+            val title = binding.registerTitleEditText.text.toString()
+            val firstName = binding.registerFirstNameEditText.text.toString()
+            val lastName = binding.registerLastNameEditText.text.toString()
+            val mobile = binding.mobileEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             val confirm = binding.confirmPasswordEditText.text.toString()
 
@@ -99,13 +113,25 @@ class RegisterActivity : AppCompatActivity() {
                 binding.registerEmailTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 hasError = true
             }
-            if (name.isBlank()) {
-                binding.registerNameTextField.error = "Required."
-                binding.registerNameTextField.boxBackgroundColor = color
-                binding.registerNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+            if (firstName.isBlank()) {
+                binding.registerTitleTextField.error = "Required."
+                binding.registerTitleTextField.boxBackgroundColor = color
+                binding.registerTitleTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
                 hasError = true
             }
-            if (phoneNum.isBlank()) {
+            if (firstName.isBlank()) {
+                binding.registerFirstNameTextField.error = "Required."
+                binding.registerFirstNameTextField.boxBackgroundColor = color
+                binding.registerFirstNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                hasError = true
+            }
+            if (lastName.isBlank()) {
+                binding.registerLastNameTextField.error = "Required."
+                binding.registerLastNameTextField.boxBackgroundColor = color
+                binding.registerLastNameTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
+                hasError = true
+            }
+            if (mobile.isBlank()) {
                 binding.mobileNumberTextField.error = "Required."
                 binding.mobileNumberTextField.boxBackgroundColor = color
                 binding.mobileNumberTextField.setStartIconTintList(ColorStateList.valueOf(MaterialColors.getColor(this, com.google.android.material.R.attr.colorError, Color.GRAY)))
@@ -140,12 +166,12 @@ class RegisterActivity : AppCompatActivity() {
                         //Set display name
                         val user = auth.currentUser
                         val builder = UserProfileChangeRequest.Builder()
-                        builder.displayName = name
+                        builder.displayName = firstName
                         val changeRequest: UserProfileChangeRequest = builder.build()
                         user!!.updateProfile(changeRequest)
 
                         //Create user object for user
-                        writeNewUser(user.uid, name, email, phoneNum, false)
+                        writeNewUser(user.uid, title, firstName, lastName, email, mobile, false)
 
                         //Sign in immediately
                         auth.signInWithEmailAndPassword(email, password).addOnCompleteListener {
@@ -212,11 +238,11 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun writeNewUser(userId: String, name: String, email: String, phoneNum: String, notifications: Boolean) {
-        val user = User(userId, name, email, phoneNum, null, null, notifications)
+    private fun writeNewUser(id: String, title: String, firstName: String, lastName: String, email: String, mobile: String, notifications: Boolean) {
+        val user = User(id, title, firstName, lastName, email, mobile, null, null, notifications)
         val ref = database.getReference("users")
-        ref.child(userId).setValue(user).addOnSuccessListener{
-            Toast.makeText(this, "Welcome ${name}!", Toast.LENGTH_SHORT).show()
+        ref.child(id).setValue(user).addOnSuccessListener{
+            Toast.makeText(this, "Welcome ${title+ "," + lastName}!", Toast.LENGTH_SHORT).show()
         }.addOnFailureListener {
             Toast.makeText(this, "Failed to register.", Toast.LENGTH_SHORT).show()
         }
