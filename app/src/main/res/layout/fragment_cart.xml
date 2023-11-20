@@ -13,7 +13,7 @@
         android:id="@+id/myTextView"
         android:layout_width="40dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:fontWeight="700"
         android:text="@string/my"
@@ -29,7 +29,7 @@
         android:id="@+id/CartTextView"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_marginBottom="10dp"
         android:text="@string/cart"
         app:layout_constraintBottom_toTopOf="@id/solidLine1"
@@ -61,7 +61,7 @@
         android:id="@+id/deleteImage"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/icon_delete"
         app:layout_constraintBottom_toTopOf="@+id/totalEditText"
         app:layout_constraintEnd_toEndOf="parent"
@@ -106,7 +106,7 @@
         app:layout_constraintTop_toBottomOf="@id/solidLine2" />
 
 
-    <EditText
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/qtyEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
         app:layout_constraintEnd_toStartOf="@+id/priceEditText"
         app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
-    <EditText
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/priceEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -127,7 +127,7 @@
         app:layout_constraintEnd_toStartOf="@+id/totalEditText"
         app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
-    <EditText
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/totalEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -189,11 +189,12 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/checkoutButton"
         android:layout_width="0dp"
-        android:layout_marginTop="130dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="@string/Checkout"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/totalTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
