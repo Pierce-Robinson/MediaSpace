@@ -62,6 +62,7 @@ class ProfileFragment : Fragment() {
         binding.btnPersonalInfo.setOnClickListener {
             navigateToUpdateProfile()
         }
+
         // Inflate the layout for this fragment
         return binding.root
     }
@@ -142,7 +143,5 @@ class ProfileFragment : Fragment() {
         val id = auth.currentUser?.uid
 
     }
-
-
 
 }
