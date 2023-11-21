@@ -30,6 +30,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         // date accessed: 21 November 2023
         // author: Firebase
 
+
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
@@ -64,8 +65,12 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
 
         // Handle the notifications switch
-        binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
-            updateNotificationsSetting(isChecked)
+        binding.notificationsSwitch.setOnClickListener {
+            if (binding.notificationsSwitch.isChecked) {
+                showToast("You'll get notified now!")
+            } else {
+                showToast("Incognito, we like that, no more notifications for now!")
+            }
         }
 
         // go back to previous view
@@ -117,13 +122,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             val userId = user.uid
             val userRef = database.getReference("users").child(userId)
             userRef.child("notifications").setValue(isChecked)
-                .addOnSuccessListener {
-                    if (isChecked) {
-                        showToast("You'll get notified now!")
-                    } else {
-                        showToast("Incognito, we like that, no more notifications for now!")
-                    }
-                }
+
                 .addOnFailureListener { exception ->
                     showToast("Failed to update notifications setting: ${exception.message}")
                 }
