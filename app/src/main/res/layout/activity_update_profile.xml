@@ -176,6 +176,25 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtcontactinfo" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateProfileButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/update"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"/>
+<!--            <TextView-->
+<!--                android:id="@+id/goBackTextView"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:padding="15dp"-->
+<!--                android:text="Go back"-->
+<!--                android:textColor="?colorPrimary"-->
+<!--                android:textSize="16sp" />-->
+
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </androidx.appcompat.widget.LinearLayoutCompat>

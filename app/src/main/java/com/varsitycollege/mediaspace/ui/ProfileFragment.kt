@@ -15,6 +15,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.LoginActivity
+import com.varsitycollege.mediaspace.UpdateProfileActivity
 import com.varsitycollege.mediaspace.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -57,8 +58,18 @@ class ProfileFragment : Fragment() {
             deleteAccount()
         }
 
+        // button for personal onfo
+        binding.btnPersonalInfo.setOnClickListener {
+            navigateToUpdateProfile()
+        }
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    // nagivates tp the update personal information page
+    private fun navigateToUpdateProfile() {
+        val intent = Intent(activity, UpdateProfileActivity::class.java)
+        startActivity(intent)
     }
 
     override fun onDestroyView() {
@@ -131,5 +142,7 @@ class ProfileFragment : Fragment() {
         val id = auth.currentUser?.uid
 
     }
+
+
 
 }
