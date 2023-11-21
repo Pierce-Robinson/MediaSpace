@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/productTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -30,7 +30,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/productPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -41,6 +41,7 @@
                 android:text="@string/product_price"
                 android:textSize="16sp"
                 android:textStyle="italic" />
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/RecycleImageView"
                 android:layout_width="match_parent"
