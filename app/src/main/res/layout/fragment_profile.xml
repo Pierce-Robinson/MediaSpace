@@ -121,30 +121,30 @@
             android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/iconMail"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:contentDescription="im an image"
-                android:src="@drawable/icon_mail" />
+<!--            <ImageView-->
+<!--                android:id="@+id/iconMail"-->
+<!--                android:layout_width="32dp"-->
+<!--                android:layout_height="32dp"-->
+<!--                android:contentDescription="im an image"-->
+<!--                android:src="@drawable/icon_mail" />-->
 
-            <TextView
-                android:id="@+id/textNotifications"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_weight="1"
-                android:text="@string/email_notifications"
-                android:textSize="18sp" />
+<!--            <TextView-->
+<!--                android:id="@+id/textNotifications"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="25dp"-->
+<!--                android:layout_weight="1"-->
+<!--                android:text="@string/email_notifications"-->
+<!--                android:textSize="18sp" />-->
 
-            <com.google.android.material.materialswitch.MaterialSwitch
-                android:id="@+id/notificationsCheckbox"
-                style="@style/Widget.App.Switch"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:layout_gravity="end"
-                android:checked="false"
-                android:padding="8dp" /> <!-- Align to the right -->
+<!--            <com.google.android.material.materialswitch.MaterialSwitch-->
+<!--                android:id="@+id/notificationsCheckbox"-->
+<!--                style="@style/Widget.App.Switch"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="48dp"-->
+<!--                android:layout_gravity="end"-->
+<!--                android:checked="false"-->
+<!--                android:padding="8dp" /> &lt;!&ndash; Align to the right &ndash;&gt;-->
         </LinearLayout>
 
     </LinearLayout>

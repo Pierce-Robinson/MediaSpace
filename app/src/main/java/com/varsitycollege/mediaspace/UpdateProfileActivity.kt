@@ -48,6 +48,9 @@ class UpdateProfileActivity : AppCompatActivity() {
                     binding.editTextFirstName.setText(userData?.firstName.orEmpty())
                     binding.editTextLastName.setText(userData?.lastName.orEmpty())
                     binding.editTextMobile.setText(userData?.mobile.orEmpty())
+
+                    val notificationsEnabled = userData?.notifications ?: false
+                    binding.notificationsSwitch.isChecked = notificationsEnabled
                     // TODO: daniel please do the rest for address informatiosn
                 }
             }.addOnFailureListener { exception ->
@@ -58,6 +61,11 @@ class UpdateProfileActivity : AppCompatActivity() {
 
         binding.updateProfileButton.setOnClickListener {
             updateProfile()
+        }
+
+        // Handle the notifications switch
+        binding.notificationsSwitch.setOnCheckedChangeListener { _, isChecked ->
+            updateNotificationsSetting(isChecked)
         }
 
         // go back to previous view
@@ -96,6 +104,28 @@ class UpdateProfileActivity : AppCompatActivity() {
                 }
                 .addOnFailureListener { exception ->
                     showToast("Failed to update profile: ${exception.message}")
+                }
+        }
+    }
+
+    // Link: https://stackoverflow.com/questions/70692227/how-to-update-boolean-value-in-firestore-from-a-switch-tile
+    // Author: Hrvoje Cukman
+    // Date accessed: 21 November
+    private fun updateNotificationsSetting(isChecked: Boolean) {
+        val currentUser = auth.currentUser
+        currentUser?.let { user ->
+            val userId = user.uid
+            val userRef = database.getReference("users").child(userId)
+            userRef.child("notifications").setValue(isChecked)
+                .addOnSuccessListener {
+                    if (isChecked) {
+                        showToast("You'll get notified now!")
+                    } else {
+                        showToast("Incognito, we like that, no more notifications for now!")
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    showToast("Failed to update notifications setting: ${exception.message}")
                 }
         }
     }
