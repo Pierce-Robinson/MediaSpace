@@ -63,6 +63,7 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
         holder.totalPrice.text = (order.price?.times(order.quantity?.toDouble()!!)).toString()
 
 
+        //this is how we use the image pager
         val imageUrls = listOf(order.design, order.design)
         val imagePagerAdapter = ImagePagerAdapter(imageUrls)
         holder.viewPager.adapter = imagePagerAdapter
