@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- solid line -->
+    <View
+        android:id="@+id/solidLine"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <!-- prod title, make dynamic -->
+    <TextView
+        android:id="@+id/prodTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Product Title"
+        android:textSize="18sp"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="solidLine"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- imageView placeholder, need to make it multiple images   -->
+    <ImageView
+        android:id="@+id/prodImageView"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:src="@drawable/icon_heart"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/prodTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- SKU -->
+    <TextView
+        android:id="@+id/sku"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SKU: ABC123"
+        android:textSize="14sp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        app:layout_constraintTop_toBottomOf="@id/prodImageView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <View
+        android:id="@+id/solidLine1"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sku" />
+
+    <!-- price -->
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Price: R99.99"
+        android:textSize="16sp"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine1"/>
+
+    <!-- tick icon  -->
+    <ImageView
+        android:id="@+id/availIcon"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/icon_tick"
+        android:layout_marginStart="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/price"/>
+
+    <TextView
+        android:id="@+id/availText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="In Stock"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/availIcon"/>
+
+    <View
+        android:id="@+id/solidLine2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/availText" />
+
+    <!-- add selected colour next to textview above -->
+    <!-- color selections -->
+    <TextView
+        android:id="@+id/txtColour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Selected Color:"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine2" />
+
+    <TextView
+        android:id="@+id/txtSelectedColour"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="White"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine2"
+        app:layout_constraintStart_toEndOf="@+id/txtColour"/>
+    <!-- implement colour array: gridview, adapter, cardview containing each colour item-->
+
+    <GridView
+        android:id="@+id/gridViewColors"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:numColumns="100"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/txtColour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- color selections -->
+
+    <TextView
+        android:id="@+id/txtSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="Selected Size:"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/txtColour"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtSelectedSize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="XS"
+        android:padding="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/gridViewColors"
+        app:layout_constraintStart_toEndOf="@+id/txtSize"/>
+
+    <GridView
+        android:id="@+id/gridViewSizes"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:numColumns="100"
+        android:horizontalSpacing="8dp"
+        android:verticalSpacing="8dp"
+        android:gravity="center"
+        app:layout_constraintTop_toBottomOf="@+id/txtSize"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <!-- Camera Icon Button -->
+    <Button
+        android:id="@+id/cameraButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/icon_heart"
+        android:padding="16dp"
+        android:onClick="onCameraButtonClicked"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSize"/>
+
+    <!-- change to outline red and background white-->
+    <RelativeLayout
+        android:id="@+id/descriptionLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/cameraButton"
+        app:layout_constraintTop_toTopOf="@+id/cameraButton"
+        app:layout_constraintBottom_toBottomOf="@+id/cameraButton">
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_height="60dp"
+            android:text="Description"
+            android:textColor="#FFFFFF"
+            android:background="?attr/colorPrimary"
+            android:padding="8dp"
+            android:layout_width="300dp"/>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/solidLine3"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cameraButton" />
+
+    <!-- "Qty:" Label -->
+    <TextView
+        android:id="@+id/labelQty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Qty:"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine3"/>
+
+    <!-- Editable Field for Quantity -->
+    <EditText
+        android:id="@+id/editTextQty"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/labelQty"
+        app:layout_constraintEnd_toStartOf="@+id/buttonAddToCart"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine3"/>
+
+    <!-- Button with Cart Icon -->
+    <ImageButton
+        android:id="@+id/buttonAddToCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_cart"
+        android:background="?android:attr/selectableItemBackground"
+        android:contentDescription="Add to Cart"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toEndOf="@+id/editTextQty"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine3"/>
+
+    <View
+        android:id="@+id/solidLine4"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddToCart" />
+
+    <!-- Categories Section -->
+    <TextView
+        android:id="@+id/txtCategoriesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine4"/>
+
+    <TextView
+        android:id="@+id/txtCategories"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="US Basic, T-Shirts"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toEndOf="@+id/txtCategoriesTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine4"/>
+
+    <View
+        android:id="@+id/solidLine5"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCategories" />
+
+    <!-- Description Section -->
+    <TextView
+        android:id="@+id/txtDescriptionTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:layout_marginTop="16dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine5"/>
+
+    <TextView
+        android:id="@+id/txtDescription"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="S - 4XL 135 g/m2 / 100% cotton single jersey knit Rib-knit collar with double stitching Self-fabric neck tape bulk packed, 10 per polybag"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintStart_toEndOf="@+id/txtDescriptionTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine5"/>
+
+    <!-- Solid Line Under Description -->
+    <View
+        android:id="@+id/solidLine6"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="16dp"
+        android:background="?attr/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtDescription" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
