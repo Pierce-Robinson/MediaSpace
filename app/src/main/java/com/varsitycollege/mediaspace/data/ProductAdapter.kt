@@ -6,17 +6,24 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.varsitycollege.mediaspace.R
-class ProductAdapter (private val productList: ArrayList<Product>): RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
-    override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): ProductViewHolder {
 
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
-        return  ProductViewHolder(itemView)
+
+class ProductAdapter(private var productList: ArrayList<Product>) :
+    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
+        return ProductViewHolder(itemView)
     }
+
 
     override fun onBindViewHolder(holder: ProductAdapter.ProductViewHolder, position: Int) {
 
@@ -24,15 +31,69 @@ class ProductAdapter (private val productList: ArrayList<Product>): RecyclerView
         holder.productTitle.text = currentItem.name
         holder.productPrice.text = "R ${currentItem.price}"
         //TODO: put images into image view
+
+
+        val imageUrls = listOf(currentItem.id, currentItem.id)
+        val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+        holder.viewPager.adapter = imagePagerAdapter
+
+        // Set up dots indicator
+        val dotsLayout = holder.itemView.findViewById<LinearLayout>(R.id.dotsLayout)
+        setupDots(imageUrls.size, dotsLayout, holder.viewPager)
+
     }
+
+
+    private fun setupDots(count: Int, parent: LinearLayout, viewPager: ViewPager2) {
+        parent.removeAllViews()
+
+        val dots = arrayOfNulls<ImageView>(count)
+        for (i in 0 until count) {
+            dots[i] = ImageView(parent.context)
+            dots[i]?.setImageDrawable(
+                ContextCompat.getDrawable(
+                    parent.context,
+                    if (i == 0) R.drawable.active_dot else R.drawable.inactive_dot
+                )
+            )
+
+            val params = LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            params.setMargins(4, 0, 4, 0)
+            parent.addView(dots[i], params)
+        }
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                for (i in 0 until count) {
+                    dots[i]?.setImageDrawable(
+                        ContextCompat.getDrawable(
+                            parent.context,
+                            if (i == position) R.drawable.active_dot else R.drawable.inactive_dot
+                        )
+                    )
+                }
+            }
+        })
+    }
+
 
     override fun getItemCount(): Int {
         return productList.size
     }
-    class ProductViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productTitle: TextView = itemView.findViewById(R.id.productTitle)
         val productPrice: TextView = itemView.findViewById(R.id.productPrice)
-        val productImage: TextView = itemView.findViewById(R.id.productImage)
+        val viewPager: ViewPager2 = itemView.findViewById(R.id.trendingProductImage)
     }
 
+    fun updateData(newList: List<Product>) {
+        productList.clear()
+        productList.addAll(newList)
+        notifyDataSetChanged()
+    }
 }
