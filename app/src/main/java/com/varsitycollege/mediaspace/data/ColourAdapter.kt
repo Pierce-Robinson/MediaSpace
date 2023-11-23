@@ -1,21 +1,24 @@
 package com.varsitycollege.mediaspace.data
+
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
-import android.widget.TextView
-import androidx.cardview.widget.CardView
+import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class ColourAdapter (private val context: Context, private val colors: List<String>) : BaseAdapter() {
+class ColourAdapter(private val context: Context, private val product: Product) : BaseAdapter() {
+
+    private val colourList: List<Colour> = product.colourList.orEmpty()
+    private val selectedItems = HashSet<Int>() // Keep track of selected items
 
     override fun getCount(): Int {
-        return colors.size
+        return colourList.size
     }
 
     override fun getItem(position: Int): Any {
-        return colors[position]
+        return colourList[position]
     }
 
     override fun getItemId(position: Int): Long {
@@ -23,25 +26,33 @@ class ColourAdapter (private val context: Context, private val colors: List<Stri
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
-        val color = colors[position]
-
-        val view: View = if (convertView == null) {
-            // If the view is not recycled, inflate the layout
-            val inflater = LayoutInflater.from(context)
-            inflater.inflate(R.layout.grid_item_color, parent, false)
-        } else {
-            convertView
+        var itemView = convertView
+        if (itemView == null) {
+            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+            itemView = inflater.inflate(R.layout.grid_item_layout, null)
         }
 
-        val cardView: CardView = view.findViewById(R.id.cardViewColor)
-        val colorView: View = view.findViewById(R.id.colorView)
+        // Bind your data to the views in the grid item layout
+        val colourView = itemView?.findViewById<View>(R.id.colourCard)
+        colourView?.setBackgroundColor(android.graphics.Color.parseColor(("#" + colourList[position].colour)))
 
-        // Convert hex color code to actual color
-        val colorInt = android.graphics.Color.parseColor(color)
+        // Set a click listener to toggle selection
+        colourView?.setOnClickListener {
+            if (selectedItems.contains(position)) {
+                selectedItems.remove(position)
+                // Deselect logic (e.g., change color or do something else)
+                colourView?.setBackgroundColor(android.graphics.Color.parseColor(("#" + colourList[position].colour)))
+                val check = itemView?.findViewById<View>(R.id.checkIcon)
+                check?.visibility = View.INVISIBLE
+            } else {
+                selectedItems.add(position)
+                // Select logic (e.g., change color or do something else)
+                val check = itemView?.findViewById<View>(R.id.checkIcon)
+                check?.visibility = View.VISIBLE
 
-        // Set the background color of the colorView
-        colorView.setBackgroundColor(colorInt)
+            }
+        }
 
-        return view
+        return itemView!!
     }
 }

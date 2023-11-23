@@ -64,7 +64,7 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
 
 
         //this is how we use the image pager
-        val imageUrls = listOf(order.design, order.design)
+        val imageUrls = listOf(order.firstImage, order.design)
         val imagePagerAdapter = ImagePagerAdapter(imageUrls)
         holder.viewPager.adapter = imagePagerAdapter
 

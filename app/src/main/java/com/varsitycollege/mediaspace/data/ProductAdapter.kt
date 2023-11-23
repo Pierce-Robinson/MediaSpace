@@ -16,8 +16,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.varsitycollege.mediaspace.R
 
 
-class ProductAdapter(private var productList: ArrayList<Product>) :
-    RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+class ProductAdapter(var productList: ArrayList<Product>, private val product: Product?) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
+
+
+    private val imageStrings: List<String> = product?.imagesList.orEmpty()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val itemView =
             LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
@@ -25,7 +28,7 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
     }
 
 
-    override fun onBindViewHolder(holder: ProductAdapter.ProductViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
 
         val currentItem = productList[position]
         holder.productTitle.text = currentItem.name
@@ -33,7 +36,7 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
         //TODO: put images into image view
 
 
-        val imageUrls = listOf(currentItem.id, currentItem.id)
+        val imageUrls = listOf(imageStrings[position], imageStrings[position])
         val imagePagerAdapter = ImagePagerAdapter(imageUrls)
         holder.viewPager.adapter = imagePagerAdapter
 
