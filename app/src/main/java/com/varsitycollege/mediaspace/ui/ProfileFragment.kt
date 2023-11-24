@@ -2,6 +2,7 @@ package com.varsitycollege.mediaspace.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,11 +12,15 @@ import android.widget.Toast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.LoginActivity
 import com.varsitycollege.mediaspace.UpdateProfileActivity
+import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
@@ -24,6 +29,8 @@ class ProfileFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
+    private var user = User()
+
     private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,7 +39,7 @@ class ProfileFragment : Fragment() {
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        //getUserData()
+        getUserData()
 
         //Handle sign out
         binding.logoutButton.setOnClickListener {
@@ -58,7 +65,7 @@ class ProfileFragment : Fragment() {
             deleteAccount()
         }
 
-        // button for personal onfo
+        // button for personal info
         binding.btnPersonalInfo.setOnClickListener {
             navigateToUpdateProfile()
         }
@@ -67,9 +74,10 @@ class ProfileFragment : Fragment() {
         return binding.root
     }
 
-    // nagivates tp the update personal information page
     private fun navigateToUpdateProfile() {
+        //Go to update profile with user data
         val intent = Intent(activity, UpdateProfileActivity::class.java)
+            .putExtra("user", user)
         startActivity(intent)
     }
 
@@ -141,7 +149,34 @@ class ProfileFragment : Fragment() {
     private fun getUserData() {
         auth = FirebaseAuth.getInstance()
         val id = auth.currentUser?.uid
+        if (id != null) {
+            ref = database.getReference("users").child(id)
 
+            // Add a ValueEventListener to get the maxDistance value
+            // Link: https://stackoverflow.com/questions/42986449/firebase-value-event-listener
+            // date: 17 October 2023
+            ref.addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+
+                        user = dataSnapshot.getValue(User::class.java)!!
+                        val displayName = user.title + " " + user.lastName
+
+                        // Set the display name
+                        if (_binding != null) {
+                            binding.displayNameTextView.text = displayName
+                            binding.btnPersonalInfo.isEnabled = true
+                            binding.btnOrderHistory.isEnabled = true
+                            binding.btnWishList.isEnabled = true
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    Log.e("Database error", "databaseError.message")
+                }
+            })
+        }
     }
 
 }
