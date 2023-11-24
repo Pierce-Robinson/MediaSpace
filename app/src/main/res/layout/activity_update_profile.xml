@@ -5,18 +5,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp"
     tools:context=".UpdateProfileActivity">
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:paddingBottom="91dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        android:layout_marginTop="24dp"
+        android:layout_marginHorizontal="24dp"
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -30,9 +27,7 @@
                 android:layout_marginTop="10dp"
                 android:text="@string/basicinfo"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textStyle="bold" />
 
             <View
                 android:id="@+id/solidLine3"
@@ -40,10 +35,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="16dp"
-                android:background="?attr/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtBasicInfo" />
+                android:background="?attr/colorPrimary" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayoutTitle"
@@ -57,7 +49,6 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeErrorColor="?colorError"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@+id/solidLine3"
                 app:startIconTint="?colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -80,7 +71,6 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeErrorColor="?colorError"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@+id/solidLine3"
                 app:startIconTint="?colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -103,7 +93,6 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeErrorColor="?colorError"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@+id/solidLine3"
                 app:startIconTint="?colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -125,7 +114,6 @@
                 app:boxCornerRadiusTopStart="20dp"
                 app:boxStrokeErrorColor="?colorError"
                 app:boxStrokeWidth="2dp"
-                app:layout_constraintTop_toBottomOf="@+id/solidLine3"
                 app:startIconTint="?colorSecondary">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -144,6 +132,15 @@
                 android:text="@string/notifications"
                 android:textSize="16sp" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updateProfileButton"
+                android:layout_width="200dp"
+                android:layout_gravity="center"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:text="Update"
+                android:textSize="16sp"
+                app:cornerRadius="20dp"/>
 
             <View
                 android:id="@+id/solidLine1"
@@ -151,10 +148,7 @@
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginBottom="15dp"
-                android:background="?attr/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutBirthday" />
+                android:background="?attr/colorPrimary"/>
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtcontactinfo"
@@ -162,28 +156,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/addressinfo"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/solidLine1" />
+                android:textStyle="bold"/>
 
             <View
                 android:id="@+id/solidLine2"
                 android:layout_width="match_parent"
                 android:layout_height="2dp"
                 android:layout_marginTop="15dp"
-                android:background="?attr/colorPrimary"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtcontactinfo" />
+                android:background="?attr/colorPrimary" />
 
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/updateProfileButton"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewStock"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/update"
-                android:textSize="16sp"
-                app:cornerRadius="20dp"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
 <!--            <TextView-->
 <!--                android:id="@+id/goBackTextView"-->
 <!--                android:layout_width="wrap_content"-->

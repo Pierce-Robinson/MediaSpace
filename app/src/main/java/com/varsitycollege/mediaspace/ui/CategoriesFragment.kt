@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.data.CategoriesAdapter
+import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.databinding.FragmentCategoriesBinding
 
 class CategoriesFragment : Fragment() {
@@ -23,6 +24,7 @@ class CategoriesFragment : Fragment() {
     private lateinit var ref: DatabaseReference
     private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var categoriesRecyclerView: RecyclerView
+    private var newCategories = arrayListOf<String>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,28 +32,11 @@ class CategoriesFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        // Assuming you have a RecyclerView with the ID R.id.recyclerViewCategories in your layout
-        categoriesRecyclerView = binding.recyclerViewCategories
-
-        // Initialize the adapter
-        categoriesAdapter = CategoriesAdapter(ArrayList())
-
-        // Set the adapter on the RecyclerView
-        categoriesRecyclerView.layoutManager = LinearLayoutManager(context)
-        categoriesRecyclerView.adapter = categoriesAdapter
-
-        // Initialize Firebase
-        database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
-        ref = database.getReference("categories")
 
         // Fetch data from Firebase
         getCategories()
+
+        return binding.root
     }
 
     override fun onDestroyView() {
@@ -60,22 +45,29 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun getCategories() {
+        // Initialize Firebase
+        database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
+        ref = database.getReference("products")
         ref.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
                 if (snapshot.exists()) {
+                    newCategories.clear()
+                    for (p in snapshot.children) {
+                        val product = p.getValue(Product::class.java)
+                        if (product?.categoriesList != null) {
+                            for (c in product.categoriesList) {
+                                if (!newCategories.contains(c)) {
+                                    newCategories.add(c)
+                                }
+                            }
 
-                    //TODO: i believe i have to make a data class to get the categories? not sure this code is the same as trending
-                    val newCategories = ArrayList<String>()
-
-                    for (categorySnapshot in snapshot.children) {
-                        val category = categorySnapshot.getValue(String::class.java)
-                        category?.let { newCategories.add(it) }
+                        }
                     }
-
-                    Log.d("Categories", newCategories.toString())
-
-
-                    categoriesAdapter.setCategories(newCategories)
+                    // Initialize the adapter
+                    categoriesAdapter = CategoriesAdapter(newCategories)
+                    // Set the adapter on the RecyclerView
+                    binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
+                    binding.recyclerViewCategories.adapter = categoriesAdapter
                 }
             }
 
