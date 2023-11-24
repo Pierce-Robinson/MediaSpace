@@ -20,6 +20,7 @@ class UpdateProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUpdateProfileBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: FirebaseDatabase
+    private lateinit var currentUser: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,57 +30,26 @@ class UpdateProfileActivity : AppCompatActivity() {
         // link: https://firebase.google.com/docs/auth/android/password-auth
         // date accessed: 21 November 2023
         // author: Firebase
-
-
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
         // get the user data from firebase to populate it first into the textboxwes
-        val currentUser = auth.currentUser
-        currentUser?.let { user ->
-            val userId = user.uid
-            val userRef = database.getReference("users").child(userId)
+        currentUser = intent.getSerializableExtra("user") as User
 
-            userRef.get().addOnSuccessListener { snapshot ->
-                if (snapshot.exists()) {
-                    val userData = snapshot.getValue(User::class.java)
+        binding.editTextTitle.setText(currentUser.title.orEmpty())
+        binding.editTextFirstName.setText(currentUser.firstName.orEmpty())
+        binding.editTextLastName.setText(currentUser.lastName.orEmpty())
+        binding.editTextMobile.setText(currentUser.mobile.orEmpty())
 
-
-                    binding.editTextTitle.setText(userData?.title.orEmpty())
-                    binding.editTextFirstName.setText(userData?.firstName.orEmpty())
-                    binding.editTextLastName.setText(userData?.lastName.orEmpty())
-                    binding.editTextMobile.setText(userData?.mobile.orEmpty())
-
-                    val notificationsEnabled = userData?.notifications ?: false
-                    binding.notificationsSwitch.isChecked = notificationsEnabled
-                    // TODO: daniel please do the rest for address informatiosn
-                }
-            }.addOnFailureListener { exception ->
-                showToast("Failed to fetch the users data")
-            }
-        }
-
+        val notificationsEnabled = currentUser.notifications ?: false
+        binding.notificationsSwitch.isChecked = notificationsEnabled
 
         binding.updateProfileButton.setOnClickListener {
             updateProfile()
         }
 
-        // Handle the notifications switch
-        binding.notificationsSwitch.setOnClickListener {
-            if (binding.notificationsSwitch.isChecked) {
-                showToast("You'll get notified now!")
-            } else {
-                showToast("Incognito, we like that, no more notifications for now!")
-            }
-        }
+        //TODO: DELIVERY ADDRESSES IN RECYCLER VIEW, SIMILAR TO MANAGE STOCK
 
-        // go back to previous view
-//        binding.goBackTextView.setOnClickListener {
-//            val profileFragment = ProfileFragment()
-//            supportFragmentManager.beginTransaction()
-//                .replace(R.id.scrollView, profileFragment)
-//                .commit()
-//        } //TODO: this doesnt work
 
     }
 
@@ -88,51 +58,32 @@ class UpdateProfileActivity : AppCompatActivity() {
     // Author: CopyProgramming, Hilda Ramirez
 
     private fun updateProfile() {
-        val currentUser = auth.currentUser
-        currentUser?.let { user ->
-            val userId = user.uid
-            val userRef = database.getReference("users").child(userId)
+        val userId = auth.uid
+        val userRef = database.getReference("users").child(userId!!)
 
-            // map with updatd user data
-            val updatedData = mapOf(
-                "title" to binding.editTextTitle.text.toString(),
-                "firstName" to binding.editTextFirstName.text.toString(),
-                "lastName" to binding.editTextLastName.text.toString(),
-                "mobile" to binding.editTextMobile.text.toString()
-                // TODO: daniel please do the rest for address informatiosn
-            )
+        // map with updated user data
+        val updatedData = mapOf(
+            "title" to binding.editTextTitle.text.toString(),
+            "firstName" to binding.editTextFirstName.text.toString(),
+            "lastName" to binding.editTextLastName.text.toString(),
+            "mobile" to binding.editTextMobile.text.toString(),
+            "notifications" to binding.notificationsSwitch.isChecked
+            // TODO: daniel please do the rest for address informatiosn
+        )
 
-            // uppdate user info in firebase
-            userRef.updateChildren(updatedData)
-                .addOnSuccessListener {
-                    showToast("Profile updated successfully")
-                }
-                .addOnFailureListener { exception ->
-                    showToast("Failed to update profile: ${exception.message}")
-                }
-        }
+        // update user info in firebase
+        userRef.updateChildren(updatedData)
+            .addOnSuccessListener {
+                showToast("Profile updated successfully")
+            }
+            .addOnFailureListener { exception ->
+                showToast("Failed to update profile: ${exception.message}")
+            }
     }
-
-    // Link: https://stackoverflow.com/questions/70692227/how-to-update-boolean-value-in-firestore-from-a-switch-tile
-    // Author: Hrvoje Cukman
-    // Date accessed: 21 November
-    private fun updateNotificationsSetting(isChecked: Boolean) {
-        val currentUser = auth.currentUser
-        currentUser?.let { user ->
-            val userId = user.uid
-            val userRef = database.getReference("users").child(userId)
-            userRef.child("notifications").setValue(isChecked)
-
-                .addOnFailureListener { exception ->
-                    showToast("Failed to update notifications setting: ${exception.message}")
-                }
-        }
-    }
-
 
     // link: https://developer.android.com/guide/topics/ui/notifiers/toasts
     // Date accessed: 21 November 2023
-    // AUhtor: Android Developers
+    // Author: Android Developers
     private fun showToast(message: String) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }

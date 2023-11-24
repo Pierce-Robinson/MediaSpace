@@ -1,5 +1,7 @@
 package com.varsitycollege.mediaspace.data
 
+import java.io.Serializable
+
 data class User(
     val id: String ?= null,
     val title: String ?= null,
@@ -10,4 +12,4 @@ data class User(
     val deliveryAddresses: ArrayList<Delivery> ?= null,
     val orderHistory: ArrayList<Order> ?= null,
     val notifications: Boolean ?= null
-)
+) : Serializable

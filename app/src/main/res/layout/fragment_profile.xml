@@ -8,6 +8,36 @@
     android:padding="16dp"
     tools:context=".ui.ProfileFragment">
 
+    <!-- User Name and profile picture -->
+    <LinearLayout
+        android:id="@+id/userProfileSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/icon_profile"
+            android:contentDescription="Profile Picture"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/displayNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="25dp"
+            android:text="Display Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_gravity="center_horizontal"/> <!-- Centered horizontally -->
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -17,7 +47,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userProfileSection"
         app:layout_constraintVertical_bias="0.03">
 
         <!-- Notifications Setting -->
@@ -41,6 +71,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="end"
                 android:layout_marginLeft="20dp"
+                android:enabled="false"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:backgroundTint="?attr/colorSecondary"
@@ -73,6 +104,7 @@
                 android:layout_height="48dp"
                 android:layout_gravity="end"
                 android:layout_marginLeft="20dp"
+                android:enabled="false"
                 android:layout_weight="1"
                 android:height="60dp"
                 android:backgroundTint="?attr/colorSecondary"
@@ -106,6 +138,7 @@
                 android:layout_gravity="end"
                 android:layout_marginLeft="20dp"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:height="60dp"
                 android:backgroundTint="?attr/colorSecondary"
                 android:checked="false"
@@ -132,7 +165,7 @@
         android:id="@+id/logoutButton"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:backgroundTint="?attr/colorPrimaryContainer"
+        android:backgroundTint="?attr/colorBackgroundFloating"
         android:text="Log Out"
         android:textSize="16dp"
         app:cornerRadius="20dp"
@@ -140,7 +173,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.68"
+        app:layout_constraintVertical_bias="0.60"
         app:strokeWidth="0dp" />
 
     <com.google.android.material.button.MaterialButton
@@ -148,7 +181,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="?attr/colorError"
+        android:backgroundTint="?attr/colorPrimary"
         android:text="Delete Account"
         android:textSize="16dp"
         app:cornerRadius="20dp"
@@ -156,7 +189,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.823"
+        app:layout_constraintVertical_bias="0.75"
         app:strokeWidth="0dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
