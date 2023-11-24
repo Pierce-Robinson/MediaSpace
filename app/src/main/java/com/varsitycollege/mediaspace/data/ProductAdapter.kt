@@ -58,16 +58,12 @@ class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView
         holder.productPrice.text = "R ${currentItem.price}"
         //TODO: put images into image view
 
-        for (i in currentItem.imagesList!!){
-                imageUrls.add(i)
-        }
+        val imageUrls = currentItem.imagesList ?: emptyList()
         val imagePagerAdapter = ImagePagerAdapter(imageUrls)
         holder.viewPager.adapter = imagePagerAdapter
 
 
-
-
-//        // Set up dots indicator
+       // Set up dots indicator
 //        val dotsLayout = holder.itemView.findViewById<LinearLayout>(R.id.dotsLayout)
 //        setupDots(imageUrls.size, dotsLayout, holder.viewPager)
 
