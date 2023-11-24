@@ -42,19 +42,33 @@ class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
         if (!colours.available!!) {
             // Set the background tint list if not available
             backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unavailable)
+            colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
             val cross = itemView?.findViewById<View>(R.id.iconX)
             val check = itemView?.findViewById<View>(R.id.checkIcon)
             check?.visibility = View.GONE
             cross?.visibility = View.VISIBLE
-            colourView?.isClickable = false
-            backgroundL?.isClickable = false // Disable click on unavailable colors
-            backgroundL?.isFocusable = false // Disable focus on unavailable colors
+            colourView?.isClickable = true
+            backgroundL?.isClickable = true // Disable click on unavailable colors
+            backgroundL?.isFocusable = true // Disable focus on unavailable colors
         } else {
             backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
-            colourView?.isClickable = true // Enable click on available colors
-            colourView?.isClickable = true // Enable click on available colors
-            backgroundL?.isClickable = true // Enable click on available colors
-            backgroundL?.isFocusable = true // Enable focus on available colors
+            colourView?.isClickable = false // Enable click on available colors
+            colourView?.isClickable = false // Enable click on available colors
+            backgroundL?.isClickable = false // Enable click on available colors
+            backgroundL?.isFocusable = false // Enable focus on available colors
+            // Highlight the selected item
+            if (selectedItems.contains(position)) {
+                colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
+                itemView?.findViewById<View>(R.id.LinearBack)
+                val check = itemView?.findViewById<View>(R.id.checkIcon)
+                backgroundL?.setBackgroundResource(R.drawable.edit_text_border)
+                check?.visibility = View.VISIBLE
+            } else {
+                colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
+                val check = itemView?.findViewById<View>(R.id.checkIcon)
+                backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
+                check?.visibility = View.GONE
+            }
         }
 
 
@@ -64,19 +78,7 @@ class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
         }
 
 
-        // Highlight the selected item
-        if (selectedItems.contains(position)) {
-            colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
-            itemView?.findViewById<View>(R.id.LinearBack)
-            val check = itemView?.findViewById<View>(R.id.checkIcon)
-            backgroundL?.setBackgroundResource(R.drawable.edit_text_border)
-            check?.visibility = View.VISIBLE
-        } else {
-            colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
-            val check = itemView?.findViewById<View>(R.id.checkIcon)
-            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
-            check?.visibility = View.GONE
-        }
+
 
         return itemView!!
     }

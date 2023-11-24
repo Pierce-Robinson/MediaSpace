@@ -2,25 +2,15 @@ package com.varsitycollege.mediaspace.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.MediaStore.Images
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.view.View
 import android.widget.GridView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
-import com.varsitycollege.mediaspace.BuildConfig
-import com.varsitycollege.mediaspace.BuildConfig.rtdb_conn
-import com.varsitycollege.mediaspace.R
 import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
 import com.varsitycollege.mediaspace.data.ImagePagerAdapter
 import com.varsitycollege.mediaspace.data.Product
-import com.varsitycollege.mediaspace.data.ProductAdapter
 import com.varsitycollege.mediaspace.data.Size
 import com.varsitycollege.mediaspace.data.SizeAdapter
 import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
@@ -114,4 +104,5 @@ class ViewProductActivity : AppCompatActivity() {
             }
         }
     }
+
 }

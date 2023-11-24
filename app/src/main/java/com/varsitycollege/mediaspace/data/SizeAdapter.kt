@@ -1,6 +1,7 @@
 package com.varsitycollege.mediaspace.data
 
 import android.content.Context
+import android.graphics.Paint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.varsitycollege.mediaspace.R
+import com.varsitycollege.mediaspace.ui.ViewProductActivity
+
 
 class SizeAdapter(private val sizes: List<Size>) : BaseAdapter() {
 
@@ -40,31 +43,32 @@ class SizeAdapter(private val sizes: List<Size>) : BaseAdapter() {
 
         // Set the size text
         sizeTextView.text = size.size
+
         // Check if the size is available
         if (!size.available!!) {
             // Set the background tint list if not available
             sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unavailable)
             sizeTextView.isClickable = false // Disable click on unavailable sizes
+            sizeTextView.paintFlags = sizeTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             sizeTextView.backgroundTintList = null // Reset background tint if available
             sizeTextView.isClickable = true // Enable click on available sizes
+            if (selectedItems.contains(position)) {
+                sizeTextView.setBackgroundResource(R.drawable.edit_text_border)
+                //callback.onSizeSelected(size.size.toString())
+            } else {
+                sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unselected)
+            }
         }
+
         // Add click listener to handle selection
         sizeTextView.setOnClickListener {
             toggleSelection(position)
             notifyDataSetChanged() // Notify the adapter that the data set has changed
         }
 
-        // Highlight the selected item
-        if (selectedItems.contains(position)) {
-            sizeTextView.setBackgroundResource(R.drawable.edit_text_border)
-        } else {
-            sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unselected)
-        }
-
         return view
     }
-
 
     private fun toggleSelection(position: Int) {
         selectedItems.clear() // Clear the set before adding the new selection
