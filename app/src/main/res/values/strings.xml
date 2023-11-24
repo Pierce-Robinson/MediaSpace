@@ -28,6 +28,13 @@
     <string name="notifications">Notifications</string>
     <string name="update">Update Profile</string>
     <string name="category_name">Category Name</string>
+    <string name="streetnum">Street Number</string>
+    <string name="streetname">Street Name</string>
+    <string name="suburb">Suburb</string>
+    <string name="citytown">City/Town</string>
+    <string name="province">Province</string>
+    <string name="postalcode">Postal Code</string>
+    <string name="Okay">Okay</string>
 
 
 

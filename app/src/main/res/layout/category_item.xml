@@ -23,19 +23,22 @@
         android:layout_height="match_parent"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/mediaspace_m" />
+        android:alpha="0.1"
+        android:src="@drawable/mediaspace_w" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_margin="23dp">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/categoryTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:maxWidth="350dp"
             android:maxHeight="65dp"
             android:minWidth="150dp"
