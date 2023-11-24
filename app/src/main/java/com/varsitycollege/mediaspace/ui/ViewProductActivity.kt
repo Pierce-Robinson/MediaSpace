@@ -2,6 +2,9 @@ package com.varsitycollege.mediaspace.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.provider.MediaStore.Images
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.GridView
@@ -13,79 +16,102 @@ import com.google.firebase.database.ValueEventListener
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.BuildConfig.rtdb_conn
 import com.varsitycollege.mediaspace.R
+import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
+import com.varsitycollege.mediaspace.data.ImagePagerAdapter
 import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.data.ProductAdapter
+import com.varsitycollege.mediaspace.data.Size
 import com.varsitycollege.mediaspace.data.SizeAdapter
+import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
 
 class ViewProductActivity : AppCompatActivity() {
-
+    private lateinit var binding: ActivityViewProductBinding
     private lateinit var gridViewColors: GridView
     private lateinit var gridViewSizes: GridView
     private lateinit var colorAdapter: ColourAdapter
     private lateinit var sizeAdapter: SizeAdapter
-
-    private var _binding: ViewProductActivity? = null
+    private var product = Product()
     private var productList: ArrayList<Product> = arrayListOf()
-
+    private var quantity = 0
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
 
-    private val binding get() = _binding!!
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_product)
+        binding = ActivityViewProductBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        binding.colourGrid
+        binding.sizeGrid
 
-        gridViewColors = findViewById(R.id.colourGrid)
-        gridViewSizes = findViewById(R.id.sizeGrid)
+        product = Product(
+            sku = intent.getStringExtra("sku"),
+            name = intent.getStringExtra("name"),
+            description = intent.getStringExtra("description"),
+            price = intent.getDoubleExtra("price", 0.0),
+            stock = intent.getIntExtra("stock", 0),
+            colourList = intent.getSerializableExtra("colours") as ArrayList<Colour>?,
+            categoriesList = intent.getSerializableExtra("categories") as ArrayList<String>?,
+            imagesList = intent.getSerializableExtra("images") as ArrayList<String>?,
+            sizeList = intent.getSerializableExtra("sizes") as ArrayList<Size>
+        )
 
-        // Initialize adapters
-//        colorAdapter = ColourAdapter(this, mutableListOf())
-//        sizeAdapter = SizeAdapter(this, mutableListOf())
+        binding.prodSku.text = product.sku
+        binding.prodName.text = product.name
+        binding.txtDescription.text = "Description: \n${product.description}"
+        binding.prodPrice.text = "R${product.price.toString()}"
+        val concatenatedCategories = product.categoriesList?.joinToString(" / ")
+        binding.txtCategories.text = "Categories: \n${concatenatedCategories}"
 
-        // Set adapters for grid views
-        gridViewColors.adapter = colorAdapter
-        gridViewSizes.adapter = sizeAdapter
+        for (i in product.imagesList!!) {
+            val imageUrls = product.imagesList ?: emptyList()
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+            binding.productImage.adapter = imagePagerAdapter
+        }
 
-        // Fetch data from Firebase
-        //getProducts()
+        for (i in product.imagesList!!) {
+            val imageUrls = product.imagesList ?: emptyList()
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+            binding.productImage.adapter = imagePagerAdapter
+        }
+        val sizeList = product.sizeList ?: emptyList()
+        val sizeAdapter = SizeAdapter(sizeList)
+        binding.sizeGrid.adapter = sizeAdapter
+
+        val colourList = product.colourList ?: emptyList()
+        val colourAdapter = ColourAdapter(colourList)
+        binding.colourGrid.adapter = colourAdapter
+
+
+        binding.qtyEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                // Update the quantity when the text in the EditText changes
+                if (!s.isNullOrBlank()) {
+                    quantity = s.toString().toInt()
+                } else {
+                    quantity = 0 // Handle the case when the EditText is empty
+                }
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+        binding.addQuantity.setOnClickListener {
+            // Increment the quantity
+            quantity++
+            // Update the EditText to display the new quantity
+            binding.qtyEditText.setText(quantity.toString())
+        }
+
+        binding.removeQuantity.setOnClickListener {
+            // Ensure the quantity is greater than 0 before decrementing
+            if (quantity > 0) {
+                // Decrement the quantity
+                quantity--
+                // Update the EditText to display the new quantity
+                binding.qtyEditText.setText(quantity.toString())
+            }
+        }
     }
-
-//    private fun getProducts() {
-//        database = FirebaseDatabase.getInstance(rtdb_conn)
-//        ref = database.getReference("products")
-//
-//        ref.addValueEventListener(object : ValueEventListener {
-//            override fun onDataChange(snapshot: DataSnapshot) {
-//                if (snapshot.exists()) {
-//                    // Clear old data
-//                    productList.clear()
-//                    for (p in snapshot.children) {
-//                        val product = p.getValue(Product::class.java)
-//                        if (product != null) {
-//                            productList.add(product)
-//                        }
-//                    }
-//
-//                    //TODO: daniel ive sorted the manage orders by alphabetical order by SKU
-//                    //sort productList by SKU
-//                    productList.sortBy { it.sku }
-//
-//                    // Populate view
-//                    val sizeAdapter = SizeAdapter(productList)
-//                    val colourAdapter = ColourAdapter(productList)
-//                    if (_binding != null) {
-//                        binding.productRecycler.adapter = adapter
-//                        binding.progressBar.visibility = View.GONE
-//                        binding.searchView.visibility = View.VISIBLE
-//                        binding.productRecycler.visibility = View.VISIBLE
-//                    }
-//                }
-//            }
-//
-//            override fun onCancelled(error: DatabaseError) {
-//                Log.e("Database error", "Failed to get products from database: " + error.message)
-//            }
-//        })
-//    }
 }

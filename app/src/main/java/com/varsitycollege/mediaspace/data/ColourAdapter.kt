@@ -1,6 +1,8 @@
 package com.varsitycollege.mediaspace.data
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +10,8 @@ import android.widget.BaseAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class ColourAdapter(private val context: Context, private val product: Product) : BaseAdapter() {
+class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
 
-    private val colourList: List<Colour> = product.colourList.orEmpty()
     private val selectedItems = HashSet<Int>() // Keep track of selected items
 
     override fun getCount(): Int {
@@ -26,33 +27,61 @@ class ColourAdapter(private val context: Context, private val product: Product) 
     }
 
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
+        var colours = colourList[position]
         var itemView = convertView
         if (itemView == null) {
-            val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            itemView = inflater.inflate(R.layout.grid_item_layout, null)
+            val inflater = LayoutInflater.from(parent?.context)
+            itemView = inflater.inflate(R.layout.grid_item_layout, parent, false)
         }
 
         // Bind your data to the views in the grid item layout
         val colourView = itemView?.findViewById<View>(R.id.colourCard)
-        colourView?.setBackgroundColor(android.graphics.Color.parseColor(("#" + colourList[position].colour)))
+        val backgroundL = itemView?.findViewById<View>(R.id.LinearBack)
 
-        // Set a click listener to toggle selection
+
+        if (!colours.available!!) {
+            // Set the background tint list if not available
+            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unavailable)
+            val cross = itemView?.findViewById<View>(R.id.iconX)
+            val check = itemView?.findViewById<View>(R.id.checkIcon)
+            check?.visibility = View.GONE
+            cross?.visibility = View.VISIBLE
+            colourView?.isClickable = false
+            backgroundL?.isClickable = false // Disable click on unavailable colors
+            backgroundL?.isFocusable = false // Disable focus on unavailable colors
+        } else {
+            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
+            colourView?.isClickable = true // Enable click on available colors
+            colourView?.isClickable = true // Enable click on available colors
+            backgroundL?.isClickable = true // Enable click on available colors
+            backgroundL?.isFocusable = true // Enable focus on available colors
+        }
+
+
         colourView?.setOnClickListener {
-            if (selectedItems.contains(position)) {
-                selectedItems.remove(position)
-                // Deselect logic (e.g., change color or do something else)
-                colourView?.setBackgroundColor(android.graphics.Color.parseColor(("#" + colourList[position].colour)))
-                val check = itemView?.findViewById<View>(R.id.checkIcon)
-                check?.visibility = View.INVISIBLE
-            } else {
-                selectedItems.add(position)
-                // Select logic (e.g., change color or do something else)
-                val check = itemView?.findViewById<View>(R.id.checkIcon)
-                check?.visibility = View.VISIBLE
+            toggleSelection(position)
+            notifyDataSetChanged() // Notify the adapter that the data set has changed
+        }
 
-            }
+
+        // Highlight the selected item
+        if (selectedItems.contains(position)) {
+            colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
+            itemView?.findViewById<View>(R.id.LinearBack)
+            val check = itemView?.findViewById<View>(R.id.checkIcon)
+            backgroundL?.setBackgroundResource(R.drawable.edit_text_border)
+            check?.visibility = View.VISIBLE
+        } else {
+            colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
+            val check = itemView?.findViewById<View>(R.id.checkIcon)
+            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
+            check?.visibility = View.GONE
         }
 
         return itemView!!
+    }
+    private fun toggleSelection(position: Int) {
+        selectedItems.clear() // Clear the set before adding the new selection
+        selectedItems.add(position)
     }
 }

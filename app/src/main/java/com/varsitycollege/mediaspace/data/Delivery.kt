@@ -1,5 +1,7 @@
 package com.varsitycollege.mediaspace.data
 
+import java.io.Serializable
+
 data class Delivery(
     val id: String ?= null,
     val customerId: String ?= null,
@@ -9,4 +11,4 @@ data class Delivery(
     val city: String ?= null,
     val country: String ?= null,
     val province: String ?= null
-)
+)    : Serializable

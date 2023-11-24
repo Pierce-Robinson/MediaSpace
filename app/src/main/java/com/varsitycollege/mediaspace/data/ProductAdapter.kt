@@ -36,7 +36,15 @@ class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView
 
                    // Launch the ProductActivity here, passing necessary data
                    val intent = Intent(itemView.context, ViewProductActivity::class.java)
-                   intent.putExtra("PRODUCT_ID", selectedProduct.id)
+                       .putExtra("sku", selectedProduct.sku)
+                       .putExtra("name", selectedProduct.name)
+                       .putExtra("description", selectedProduct.description)
+                       .putExtra("price", selectedProduct.price)
+                       .putExtra("stock", selectedProduct.stock)
+                       .putExtra("colours", selectedProduct.colourList)
+                       .putExtra("categories", selectedProduct.categoriesList)
+                       .putExtra("sizes", selectedProduct.sizeList)
+                       .putExtra("images", selectedProduct.imagesList)
                    // Add more data as needed
                    itemView.context.startActivity(intent)
                }
@@ -56,11 +64,12 @@ class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView
         val currentItem = productList[position]
         holder.productTitle.text = currentItem.name
         holder.productPrice.text = "R ${currentItem.price}"
-        //TODO: put images into image view
 
-        val imageUrls = currentItem.imagesList ?: emptyList()
-        val imagePagerAdapter = ImagePagerAdapter(imageUrls)
-        holder.viewPager.adapter = imagePagerAdapter
+        for (i in currentItem.imagesList!!){
+            val imageUrls = currentItem.imagesList ?: emptyList()
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+            holder.viewPager.adapter = imagePagerAdapter
+        }
 
 
        // Set up dots indicator

@@ -11,14 +11,16 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/prodTitle"
+            android:id="@+id/prodName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Product Title"
-            android:textSize="18sp"
-            android:paddingTop="16dp"
             android:paddingStart="16dp"
-            android:paddingBottom="5dp"/>
+
+            android:paddingTop="16dp"
+            android:paddingBottom="5dp"
+            android:text="Product Title"
+            android:textSize="20sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/prodSku"
             android:layout_width="match_parent"
@@ -59,14 +61,20 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp"
             android:text="Selected Color:"
             android:textStyle="bold"/>
         <GridView
             android:id="@+id/colourGrid"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:paddingHorizontal="16dp"
+            android:columnWidth="35dp"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
+            android:numColumns="6"
+            />
 
-            </GridView>
 
         <TextView
             android:id="@+id/txtSizes"
@@ -74,14 +82,19 @@
             android:layout_height="wrap_content"
             android:paddingTop="16dp"
             android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp"
             android:text="Selected Size:"
             android:textStyle="bold"/>
         <GridView
             android:id="@+id/sizeGrid"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="100dp"
+            android:paddingHorizontal="16dp"
+            android:columnWidth="45dp"
+            android:horizontalSpacing="8dp"
+            android:verticalSpacing="8dp"
+            android:numColumns="6"/>
 
-        </GridView>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -128,6 +141,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:hint="Qty"
+            android:gravity="center_horizontal"
             android:inputType="number"
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
@@ -160,20 +174,22 @@
     </LinearLayout>
     </LinearLayout>
         <TextView
-            android:id="@+id/txtCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categories: "
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
-            />
-        <TextView
             android:id="@+id/txtDescription"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Description: "
             android:layout_marginTop="16dp"
             android:layout_marginHorizontal="16dp" />
+        <TextView
+            android:id="@+id/txtCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories: "
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="30dp"
+            />
+
 
     </LinearLayout>
 </ScrollView>
