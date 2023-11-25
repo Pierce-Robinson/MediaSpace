@@ -4,11 +4,11 @@ import java.io.Serializable
 
 data class Delivery(
     val id: String ?= null,
-    val customerId: String ?= null,
-    val postalCode: String ?= null,
-    val addressLineOne: String ?= null,
-    val addressLineTwo: String ?= null,
-    val suburb: String ?= null,
-    val city: String ?= null,
-    val country: String ?= null
+    var customerId: String ?= null,
+    var postalCode: String ?= null,
+    var addressLineOne: String ?= null,
+    var addressLineTwo: String ?= null,
+    var suburb: String ?= null,
+    var city: String ?= null,
+    var country: String ?= null
 )    : Serializable

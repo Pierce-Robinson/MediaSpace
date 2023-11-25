@@ -47,6 +47,7 @@ class DeliveryAdapter(private val deliveryList: ArrayList<Delivery>) :
                 // Launch the DeliveryActivity, passing necessary data for updating
                 val intent = Intent(holder.itemView.context, DeliveryActivity::class.java)
                     .putExtra("delivery", currentItem)
+                    .putExtra("position", position)
                 holder.itemView.context.startActivity(intent)
             }
 
