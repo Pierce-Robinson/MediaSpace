@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
@@ -89,12 +90,6 @@ class CategoriesFragment : Fragment(){
 //    }
 
 
-//    private fun getProductsForCategory(category: String) {
-//        val productsByCategoryFragment = ProductsByCategoryFragment.newInstance(category)
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, productsByCategoryFragment)
-//            .addToBackStack(null)
-//            .commit()
-//    }
+
 }
 
