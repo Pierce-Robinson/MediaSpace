@@ -6,11 +6,17 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.ktx.Firebase
+import com.varsitycollege.mediaspace.data.Delivery
+import com.varsitycollege.mediaspace.data.DeliveryAdapter
 import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityUpdateProfileBinding
 import com.varsitycollege.mediaspace.ui.ProfileFragment
@@ -33,24 +39,47 @@ class UpdateProfileActivity : AppCompatActivity() {
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
-        // get the user data from firebase to populate it first into the textboxwes
-        currentUser = intent.getSerializableExtra("user") as User
+        // get the user data from firebase to populate it first into the textboxes
+        val user = intent.getSerializableExtra("user") as User?
+        if (user != null) {
+            currentUser = user
+            binding.editTextTitle.setText(currentUser.title.orEmpty())
+            binding.editTextFirstName.setText(currentUser.firstName.orEmpty())
+            binding.editTextLastName.setText(currentUser.lastName.orEmpty())
+            binding.editTextMobile.setText(currentUser.mobile.orEmpty())
 
-        binding.editTextTitle.setText(currentUser.title.orEmpty())
-        binding.editTextFirstName.setText(currentUser.firstName.orEmpty())
-        binding.editTextLastName.setText(currentUser.lastName.orEmpty())
-        binding.editTextMobile.setText(currentUser.mobile.orEmpty())
-
-        val notificationsEnabled = currentUser.notifications ?: false
-        binding.notificationsSwitch.isChecked = notificationsEnabled
+            val notificationsEnabled = currentUser.notifications ?: false
+            binding.notificationsSwitch.isChecked = notificationsEnabled
+        }
+        else {
+            currentUser = User()
+            //todo: maybe get user data from db
+        }
 
         binding.updateProfileButton.setOnClickListener {
             updateProfile()
         }
 
-        //TODO: DELIVERY ADDRESSES IN RECYCLER VIEW, SIMILAR TO MANAGE STOCK
+        binding.recyclerViewDelivery.layoutManager = LinearLayoutManager(applicationContext)
+        //Add dummy address to current user to enable add button
+        if (currentUser.deliveryAddresses == null) {
+            currentUser.deliveryAddresses = arrayListOf()
+            currentUser.deliveryAddresses!!.add(Delivery("add"))
+        }
+        else {
+            refreshData()
+        }
 
+        val adapter = DeliveryAdapter(currentUser.deliveryAddresses!!)
+        binding.recyclerViewDelivery.adapter = adapter
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        //Refresh data when coming back from changing delivery data
+        refreshData()
     }
 
     // link: https://copyprogramming.com/howto/get-data-from-firebase-kotlin-code-example
@@ -68,7 +97,6 @@ class UpdateProfileActivity : AppCompatActivity() {
             "lastName" to binding.editTextLastName.text.toString(),
             "mobile" to binding.editTextMobile.text.toString(),
             "notifications" to binding.notificationsSwitch.isChecked
-            // TODO: daniel please do the rest for address informatiosn
         )
 
         // update user info in firebase
@@ -79,6 +107,32 @@ class UpdateProfileActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 showToast("Failed to update profile: ${exception.message}")
             }
+    }
+
+    private fun refreshData() {
+        val userId = auth.uid
+        val userRef = database.getReference("users").child(userId!!).child("deliveryAddresses")
+
+        userRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                currentUser.deliveryAddresses!!.clear()
+                for (d in snapshot.children) {
+                    val delivery = d.getValue(Delivery::class.java)
+                    if (delivery != null) {
+                        currentUser.deliveryAddresses!!.add(delivery)
+                    }
+                }
+                currentUser.deliveryAddresses!!.add(Delivery("add"))
+                val adapter = DeliveryAdapter(currentUser.deliveryAddresses!!)
+                binding.recyclerViewDelivery.adapter = adapter
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                showToast("" + error)
+            }
+
+        })
+
     }
 
     // link: https://developer.android.com/guide/topics/ui/notifiers/toasts
