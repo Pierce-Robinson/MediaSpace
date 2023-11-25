@@ -9,7 +9,7 @@ data class User(
     val lastName: String ?= null,
     val email: String ?= null,
     val mobile: String ?= null,
-    val deliveryAddresses: ArrayList<Delivery> ?= null,
+    var deliveryAddresses: ArrayList<Delivery> ?= null,
     val orderHistory: ArrayList<Order> ?= null,
     val notifications: Boolean ?= null
 ) : Serializable

@@ -6,11 +6,14 @@ import android.graphics.Color
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
+import com.varsitycollege.mediaspace.data.Delivery
+import com.varsitycollege.mediaspace.data.DeliveryAdapter
 import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityUpdateProfileBinding
 import com.varsitycollege.mediaspace.ui.ProfileFragment
@@ -49,7 +52,15 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
 
         //TODO: DELIVERY ADDRESSES IN RECYCLER VIEW, SIMILAR TO MANAGE STOCK
+        binding.recyclerViewDelivery.layoutManager = LinearLayoutManager(applicationContext)
+        //Add dummy address to current user to enable add button
+        if (currentUser.deliveryAddresses == null) {
+            currentUser.deliveryAddresses = arrayListOf()
+        }
+        currentUser.deliveryAddresses!!.add(Delivery("add"))
 
+        val adapter = DeliveryAdapter(currentUser.deliveryAddresses!!)
+        binding.recyclerViewDelivery.adapter = adapter
 
     }
 
@@ -68,7 +79,6 @@ class UpdateProfileActivity : AppCompatActivity() {
             "lastName" to binding.editTextLastName.text.toString(),
             "mobile" to binding.editTextMobile.text.toString(),
             "notifications" to binding.notificationsSwitch.isChecked
-            // TODO: daniel please do the rest for address informatiosn
         )
 
         // update user info in firebase

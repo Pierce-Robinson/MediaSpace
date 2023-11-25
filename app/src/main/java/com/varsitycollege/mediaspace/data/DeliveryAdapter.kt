@@ -14,16 +14,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.DeliveryActivity
 import com.varsitycollege.mediaspace.R
-import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
-class DeliveryAdapter (private val deliveryList: ArrayList<Delivery>): RecyclerView.Adapter<DeliveryAdapter.DeliveryViewHolder>() {
+class DeliveryAdapter(private val deliveryList: ArrayList<Delivery>) :
+    RecyclerView.Adapter<DeliveryAdapter.DeliveryViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DeliveryViewHolder {
-        val itemView = LayoutInflater.from(parent.context).inflate(R.layout.product_item, parent, false)
-        return  DeliveryViewHolder(itemView)
+        val itemView =
+            LayoutInflater.from(parent.context).inflate(R.layout.delivery_item, parent, false)
+        return DeliveryViewHolder(itemView)
     }
 
     override fun onBindViewHolder(holder: DeliveryViewHolder, position: Int) {
@@ -39,8 +39,7 @@ class DeliveryAdapter (private val deliveryList: ArrayList<Delivery>): RecyclerV
 
                 holder.itemView.context.startActivity(intent)
             }
-        }
-        else {
+        } else {
             holder.city.text = currentItem.city
             holder.lines.text = currentItem.addressLineOne + ", " + currentItem.addressLineTwo
 
@@ -60,19 +59,31 @@ class DeliveryAdapter (private val deliveryList: ArrayList<Delivery>): RecyclerV
                         val database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
                         val ref = database.getReference("users")
                         ref.get().addOnSuccessListener {
-                            for (p in it.children) {
-                                val user = p.getValue(User::class.java)
-                                if (user != null) {
+                            for (u in it.children) {
+                                val user = u.getValue(User::class.java)
+                                if (user?.deliveryAddresses != null) {
                                     if (user.id.equals(currentItem.customerId)) {
-                                        //Delete address
-                                        p.key?.let { it1 ->
-                                            ref.child(it1).removeValue()
-                                                .addOnSuccessListener {
-                                                    Log.i("Product deleted", "Successfully deleted ${currentItem.sku}")
+                                        for ((count, d) in user.deliveryAddresses!!.withIndex()) {
+                                            if (count == position) {
+                                                //Delete address
+                                                u.key?.let { it1 ->
+                                                    ref.child(it1).child("deliveryAddresses").child(
+                                                        position.toString()
+                                                    ).removeValue()
+                                                        .addOnSuccessListener {
+                                                            Log.i(
+                                                                "Delivery deleted",
+                                                                "Successfully deleted ${currentItem.addressLineOne}, ${currentItem.addressLineTwo} (${currentItem.city})"
+                                                            )
+                                                        }
+                                                        .addOnFailureListener {
+                                                            Log.e(
+                                                                "Product delete fail",
+                                                                "Failed to delete ${currentItem.addressLineOne}, ${currentItem.addressLineTwo} (${currentItem.city})"
+                                                            )
+                                                        }
                                                 }
-                                                .addOnFailureListener {
-                                                    Log.e("Product delete fail", "Failed to delete ${currentItem.sku}")
-                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -81,7 +92,7 @@ class DeliveryAdapter (private val deliveryList: ArrayList<Delivery>): RecyclerV
                     }
                     .setNegativeButton("No", null)
                     .show()
-            }
+
             }
         }
 
@@ -90,7 +101,8 @@ class DeliveryAdapter (private val deliveryList: ArrayList<Delivery>): RecyclerV
     override fun getItemCount(): Int {
         return deliveryList.size
     }
-    class DeliveryViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
+
+    class DeliveryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val button: LinearLayoutCompat = itemView.findViewById(R.id.deliveryButton)
         val city: TextView = itemView.findViewById(R.id.deliveryCity)
