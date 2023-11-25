@@ -1,22 +1,19 @@
 package com.varsitycollege.mediaspace.data
 
 import android.content.Intent
-import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.varsitycollege.mediaspace.R
+import com.varsitycollege.mediaspace.ui.ProductsByCategoryFragment
 import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
-
+//interface OnProductClickListener {
+//    fun onProductClick(product: Product)
+//}
 class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
     private var imageUrls  = arrayListOf<String>()
@@ -120,6 +117,11 @@ class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView
 //            }
 //        })
 //    }
+
+    fun setProductsForCategory(category: String) {
+        val filteredProducts = productList.filter { it.categoriesList?.contains(category) == true }
+        setProducts(ArrayList(filteredProducts))
+    }
 
 
 }
