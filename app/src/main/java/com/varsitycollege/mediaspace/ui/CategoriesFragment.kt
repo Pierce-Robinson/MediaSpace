@@ -16,7 +16,7 @@ import com.varsitycollege.mediaspace.data.CategoriesAdapter
 import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.databinding.FragmentCategoriesBinding
 
-class CategoriesFragment : Fragment() {
+class CategoriesFragment : Fragment(){
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
@@ -64,7 +64,7 @@ class CategoriesFragment : Fragment() {
 
                         }
                     }
-                    // Initialize the adapter
+                    // Initialize the adapter with the click listener
                     categoriesAdapter = CategoriesAdapter(newCategories)
                     // Set the adapter on the RecyclerView
                     binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
@@ -78,4 +78,23 @@ class CategoriesFragment : Fragment() {
         })
     }
 
+//    fun onCategoryClick(category: String) {
+//        if (category.isNotEmpty()) {
+//            // Fetch products for the selected category from Firebase
+//            getProductsForCategory(category)
+//        } else {
+//            Log.e("CategoriesFragment", "Invalid category: $category")
+//            // Handle the case where the category is invalid
+//        }
+//    }
+
+
+//    private fun getProductsForCategory(category: String) {
+//        val productsByCategoryFragment = ProductsByCategoryFragment.newInstance(category)
+//        parentFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, productsByCategoryFragment)
+//            .addToBackStack(null)
+//            .commit()
+//    }
 }
+
