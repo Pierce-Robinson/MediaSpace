@@ -10,10 +10,12 @@ import android.widget.BaseAdapter
 import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
+class ColourAdapter(private val colourList: List<Colour>, private val callback: ColourSelectionCallback) : BaseAdapter() {
 
     private val selectedItems = HashSet<Int>() // Keep track of selected items
-
+    interface ColourSelectionCallback {
+        fun onColourSelected(colourName: String)
+    }
     override fun getCount(): Int {
         return colourList.size
     }
@@ -41,21 +43,18 @@ class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
 
         if (!colours.available!!) {
             // Set the background tint list if not available
-            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unavailable)
+            backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unavailable_colour)
             colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
             val cross = itemView?.findViewById<View>(R.id.iconX)
             val check = itemView?.findViewById<View>(R.id.checkIcon)
             check?.visibility = View.GONE
             cross?.visibility = View.VISIBLE
-            colourView?.isClickable = true
-            backgroundL?.isClickable = true // Disable click on unavailable colors
-            backgroundL?.isFocusable = true // Disable focus on unavailable colors
+            colourView?.isEnabled = false
+
         } else {
             backgroundL?.setBackgroundResource(R.drawable.edit_text_border_unselected)
-            colourView?.isClickable = false // Enable click on available colors
-            colourView?.isClickable = false // Enable click on available colors
-            backgroundL?.isClickable = false // Enable click on available colors
-            backgroundL?.isFocusable = false // Enable focus on available colors
+            colourView?.isEnabled = true // Enable click on available colors
+
             // Highlight the selected item
             if (selectedItems.contains(position)) {
                 colourView?.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#" + colourList[position].colour))
@@ -75,6 +74,7 @@ class ColourAdapter(private val colourList: List<Colour>) : BaseAdapter() {
         colourView?.setOnClickListener {
             toggleSelection(position)
             notifyDataSetChanged() // Notify the adapter that the data set has changed
+            colourList[position].name?.let { it1 -> callback.onColourSelected(it1) }
         }
 
 

@@ -7,6 +7,8 @@
     app:cardCornerRadius="8dp"
     app:cardUseCompatPadding="true"
     app:cardElevation="2dp"
+    android:clickable="false"
+    android:focusable="false"
     >
 
     <LinearLayout
@@ -14,6 +16,8 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:orientation="vertical"
+        android:clickable="false"
+        android:focusable="false"
      >
 
         <ImageView
@@ -22,13 +26,17 @@
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:src="@drawable/check_24"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false"/>
         <ImageView
             android:id="@+id/iconX"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_gravity="center"
             android:src="@drawable/icon_x"
-            android:visibility="gone" />
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false"/>
     </LinearLayout>
 </androidx.cardview.widget.CardView>

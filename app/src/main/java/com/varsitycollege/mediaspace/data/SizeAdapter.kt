@@ -13,8 +13,10 @@ import com.varsitycollege.mediaspace.R
 import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
 
-class SizeAdapter(private val sizes: List<Size>) : BaseAdapter() {
-
+class SizeAdapter(private val sizes: List<Size>, private val callback: SizeSelectionCallback) : BaseAdapter() {
+    interface SizeSelectionCallback {
+        fun onSizeSelected(size: String)
+    }
     private val selectedItems = HashSet<Int>() // Keep track of selected items
 
     override fun getCount(): Int {
@@ -48,11 +50,11 @@ class SizeAdapter(private val sizes: List<Size>) : BaseAdapter() {
         if (!size.available!!) {
             // Set the background tint list if not available
             sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unavailable)
-            sizeTextView.isClickable = false // Disable click on unavailable sizes
+            sizeTextView.isEnabled = false // Disable click on unavailable sizes
             sizeTextView.paintFlags = sizeTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
             sizeTextView.backgroundTintList = null // Reset background tint if available
-            sizeTextView.isClickable = true // Enable click on available sizes
+            sizeTextView.isEnabled = true // Enable click on available sizes
             if (selectedItems.contains(position)) {
                 sizeTextView.setBackgroundResource(R.drawable.edit_text_border)
                 //callback.onSizeSelected(size.size.toString())
@@ -65,6 +67,7 @@ class SizeAdapter(private val sizes: List<Size>) : BaseAdapter() {
         sizeTextView.setOnClickListener {
             toggleSelection(position)
             notifyDataSetChanged() // Notify the adapter that the data set has changed
+            sizes[position].size?.let { it1 -> callback.onSizeSelected(it1) }
         }
 
         return view

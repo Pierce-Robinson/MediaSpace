@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.GridView
+import android.widget.TextView
+import androidx.activity.result.PickVisualMediaRequest
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.varsitycollege.mediaspace.data.Colour
@@ -14,8 +17,9 @@ import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.data.Size
 import com.varsitycollege.mediaspace.data.SizeAdapter
 import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
+import org.checkerframework.common.returnsreceiver.qual.This
 
-class ViewProductActivity : AppCompatActivity() {
+class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCallback, SizeAdapter.SizeSelectionCallback {
     private lateinit var binding: ActivityViewProductBinding
     private lateinit var gridViewColors: GridView
     private lateinit var gridViewSizes: GridView
@@ -33,6 +37,15 @@ class ViewProductActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.colourGrid
         binding.sizeGrid
+
+        // registers a photo picker activity launcher in single select mode.
+        // Link: https://developer.android.com/training/data-storage/shared/photopicker
+        // accessed: 18 November 2023
+        val pickMedia =
+            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
+                // this callback is invoked after they choose an image or close the photo picker
+                //Set the image of the UI imageview
+                binding.openGalleryButton.setImageURI(uri)}
 
         product = Product(
             sku = intent.getStringExtra("sku"),
@@ -65,13 +78,17 @@ class ViewProductActivity : AppCompatActivity() {
             binding.productImage.adapter = imagePagerAdapter
         }
         val sizeList = product.sizeList ?: emptyList()
-        val sizeAdapter = SizeAdapter(sizeList)
+        val sizeAdapter = SizeAdapter(sizeList, this)
         binding.sizeGrid.adapter = sizeAdapter
 
         val colourList = product.colourList ?: emptyList()
-        val colourAdapter = ColourAdapter(colourList)
+        val colourAdapter = ColourAdapter(colourList, this)
         binding.colourGrid.adapter = colourAdapter
 
+        binding.openGalleryButton.setOnClickListener {
+            // Launch the photo picker and let the user choose only images.
+            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+        }
 
         binding.qtyEditText.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -103,6 +120,15 @@ class ViewProductActivity : AppCompatActivity() {
                 binding.qtyEditText.setText(quantity.toString())
             }
         }
+    }
+    override fun onColourSelected(colourName: String) {
+        // Update your TextView with the selected colour name
+        val textView = binding.txtColour
+        textView.text = "Selected Colour: ${colourName}"
+    }
+    override fun onSizeSelected(size: String) {
+        val textView = binding.txtSizes
+        textView.text = "Selected Size: ${size}"
     }
 
 }
