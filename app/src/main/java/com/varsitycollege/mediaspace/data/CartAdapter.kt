@@ -15,7 +15,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class CartAdapter(private var orders: ArrayList<CustomProduct>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private var orders: ArrayList<CustomProduct>) :
+    RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewPager: ViewPager2 = itemView.findViewById(R.id.productImage)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
@@ -26,8 +27,8 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) : RecyclerView.A
         val totalPrice: TextView = itemView.findViewById(R.id.totalCEditText)
 
 
-
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cart_item, parent, false)
@@ -51,16 +52,20 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) : RecyclerView.A
         holder.productQuantity.text = "Quantity: ${order.quantity.toString()}"
 
         holder.productPrice.text = "Price: R${order.price.toString()}"
-        holder.totalPrice.text = "Total: R${(order.price?.times(order.quantity?.toDouble()!!)).toString()}"
+        holder.totalPrice.text =
+            "Total: R${(order.price?.times(order.quantity?.toDouble()!!)).toString()}"
 
 
         //this is how we use the image pager
-        val images = order.design?.toMutableList()
-        order.firstImage?.let { images?.add(0, it) }
-        val imagePagerAdapter = images?.let { ImagePagerAdapter(it, ArrayList(), position) }
+        var images = order.design?.toMutableList()
+        if (images == null) {
+            images = mutableListOf()
+        }
+        order.firstImage?.let { images.add(0, it) }
+        val imagePagerAdapter = ImagePagerAdapter(images, ArrayList(), position)
         holder.viewPager.adapter = imagePagerAdapter
-
     }
+
     override fun getItemCount(): Int {
         return orders.size
     }

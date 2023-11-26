@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
 import com.varsitycollege.mediaspace.BuildConfig
+import com.varsitycollege.mediaspace.HomeActivity
 import com.varsitycollege.mediaspace.UpdateProfileActivity
 import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
@@ -225,6 +226,11 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                             uploadImages(downloadUris, userId)
                         }
                         //TODO: maybe go back to trending page
+
+                        val intent = Intent(applicationContext, HomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
+
                     }
                     .addOnFailureListener { exception ->
                         showToast("Failed to update cart: ${exception.message}")
@@ -274,6 +280,9 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                             ref.setValue(customProduct).addOnSuccessListener {
                                 //Toast.makeText(this@AddProductsFragment.context, "Images added", Toast.LENGTH_LONG).show()
                                 Log.i("Success", "Images added")
+
+
+
                             }.addOnFailureListener {
                                 //Toast.makeText(this@AddProductsFragment.context, "Failed to add images", Toast.LENGTH_LONG).show()
                                 Log.i("Failure", "Failed to add images")
@@ -290,6 +299,11 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
+        //redirect after success add to cart, go to home activity
+        val intent = Intent(applicationContext, HomeActivity::class.java)
+        startActivity(intent)
+        finish()
+
     }
 
     override fun onColourSelected(colour: Colour) {
