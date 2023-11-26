@@ -49,7 +49,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         binding.sizeGrid
 
         database = FirebaseDatabase.getInstance()
-        ref = database.getReference("customProduct")
+
         // registers a photo picker activity launcher in single select mode.
         // Link: https://developer.android.com/training/data-storage/shared/photopicker
         // accessed: 18 November 2023
@@ -147,9 +147,6 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             else {
                 addToCart()
             }
-
-
-
         }
     }
     private fun addToCart() {
@@ -159,8 +156,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val prodName = product.name
         val price = product.price
         val quantity = binding.qtyEditText.text.toString().toInt()
-        val userInstructions =
-            binding.userInstructionsEditText.text.toString()
+        val userInstructions = binding.userInstructionsEditText.text.toString()
         val selectedColour = selectColour
         val selectedSize = selectSize
         val designUrl = downloadUrls
@@ -194,6 +190,9 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         }
         cartArray.add(customProduct)
     cartItemRef.setValue(cartArray)
+        downloadUrls.clear()
+        downloadUris.clear()
+
     }
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
@@ -211,17 +210,9 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                     imageRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val uri = task.result
-                            downloadUrls.add(uri.toString())
                             downloadUrls.add(product.imagesList?.firstOrNull().toString())
+                            downloadUrls.add(uri.toString())
                             addToCart()
-                            //Add image urls to submitted product
-
-                            val ref = database.getReference("products").child(key).child("imagesList")
-                            ref.setValue(downloadUrls).addOnSuccessListener {
-                                Log.i("Success", "Images added")
-                            }.addOnFailureListener {
-                                Log.i("Failure", "Failed to add images")
-                            }
 
                         } else {
                             // Image upload failed
