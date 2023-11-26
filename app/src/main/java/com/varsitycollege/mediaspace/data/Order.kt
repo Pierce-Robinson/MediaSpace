@@ -8,5 +8,5 @@ data class Order(
     val status: String ?= null,
     val customerId: String ?= null,
     val deliveryId: String ?= null,
-    val productsList: ArrayList<CustomProduct> ?= null
+    val customProductsList: ArrayList<CustomProduct> ?= null
 ): Serializable
