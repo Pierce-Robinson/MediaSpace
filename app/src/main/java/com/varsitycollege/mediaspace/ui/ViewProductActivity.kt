@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
 import android.util.Log
 import android.widget.Toast
@@ -59,8 +60,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 }
                 if (downloadUris.isNotEmpty()) {
                     binding.openGalleryButton.setImageURI(downloadUris[0])
-                }
-                else {
+                } else {
                     binding.openGalleryButton.setImageURI(null)
                 }
             }
@@ -85,20 +85,20 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
         binding.prodSku.text = product.sku
         binding.prodName.text = product.name
-        binding.txtDescription.text = "Description: \n${product.description}"
+        binding.txtDescription.text = Html.fromHtml("<b>Description:</b>  \n${product.description}", Html.FROM_HTML_MODE_LEGACY)
         binding.prodPrice.text = "R${product.price.toString()}"
         val concatenatedCategories = product.categoriesList?.joinToString(" / ")
-        binding.txtCategories.text = "Categories: \n${concatenatedCategories}"
+        binding.txtCategories.text = Html.fromHtml("<b>Categories:</b> \n${concatenatedCategories}", Html.FROM_HTML_MODE_LEGACY)
 
         for (i in product.imagesList!!) {
             val imageUrls = product.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf())
             binding.productImage.adapter = imagePagerAdapter
         }
 
         for (i in product.imagesList!!) {
             val imageUrls = product.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf())
             binding.productImage.adapter = imagePagerAdapter
         }
         val sizeList = product.sizeList ?: emptyList()
@@ -154,17 +154,15 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         if (selectedColour == null) {
             Toast.makeText(applicationContext, "Please select a colour", Toast.LENGTH_SHORT).show()
             valid = false
-        }
-        else if (selectedSize == null) {
+        } else if (selectedSize == null) {
             Toast.makeText(applicationContext, "Please select a size", Toast.LENGTH_SHORT).show()
             valid = false
-        }
-        else if (binding.qtyEditText.text.toString().isBlank()) {
+        } else if (binding.qtyEditText.text.toString().isBlank()) {
             Toast.makeText(applicationContext, "Please enter a quantity", Toast.LENGTH_SHORT).show()
             valid = false
-        }
-        else if (binding.qtyEditText.text.toString().toInt() <= 0) {
-            Toast.makeText(applicationContext, "Please enter a valid quantity", Toast.LENGTH_SHORT).show()
+        } else if (binding.qtyEditText.text.toString().toInt() <= 0) {
+            Toast.makeText(applicationContext, "Please enter a valid quantity", Toast.LENGTH_SHORT)
+                .show()
             valid = false
         }
 
@@ -229,11 +227,10 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                     .addOnFailureListener { exception ->
                         showToast("Failed to update cart: ${exception.message}")
                     }
-            }
-            else {
+            } else {
                 showToast("Failed to find user.")
             }
-        }.addOnFailureListener{
+        }.addOnFailureListener {
             Log.e("firebase", "Error getting data", it)
         }
 
@@ -270,7 +267,8 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                             //add download urls to custom product
                             customProduct.design = downloadUrls
 
-                            val ref = database.getReference("users").child(key).child("cart").child("" + index)
+                            val ref = database.getReference("users").child(key).child("cart")
+                                .child("" + index)
                             ref.setValue(customProduct).addOnSuccessListener {
                                 //Toast.makeText(this@AddProductsFragment.context, "Images added", Toast.LENGTH_LONG).show()
                                 Log.i("Success", "Images added")
@@ -281,7 +279,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
                         } else {
                             // Image upload failed
-                            Log.e("Image upload error","Failed to upload image")
+                            Log.e("Image upload error", "Failed to upload image")
                         }
                     }
                 }

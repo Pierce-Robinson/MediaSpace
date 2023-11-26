@@ -29,8 +29,8 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
         val totalPrice: TextView = itemView.findViewById(R.id.totalTextView)
 
 
-
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cart_item, parent, false)
@@ -51,12 +51,12 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
         holder.productName.text = order.prodName
         holder.userInstructions.text = order.userInstructions
 
-        holder.addQuantity.setOnClickListener(View.OnClickListener{
+        holder.addQuantity.setOnClickListener(View.OnClickListener {
 
         })
         holder.productQuantity.text = order.quantity.toString()
 
-        holder.removeQuantity.setOnClickListener(View.OnClickListener{
+        holder.removeQuantity.setOnClickListener(View.OnClickListener {
 
         })
         holder.productPrice.text = order.price.toString()
@@ -65,7 +65,7 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
 
         //this is how we use the image pager
         val imageUrls = order.design
-        val imagePagerAdapter = order.design?.let { ImagePagerAdapter(it) }
+        val imagePagerAdapter = order.design?.let { ImagePagerAdapter(it, arrayListOf()) }
         holder.viewPager.adapter = imagePagerAdapter
 
         // Set up dots indicator
@@ -111,6 +111,7 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
             }
         })
     }
+
     override fun getItemCount(): Int {
         return orders.size
     }
