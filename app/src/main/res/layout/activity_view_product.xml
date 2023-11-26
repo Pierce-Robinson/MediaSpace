@@ -56,6 +56,32 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp"/>
         <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description: "
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp" />
+        <TextView
+            android:id="@+id/txtCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories: "
+            android:textSize="18sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            />
+        <View
+            android:id="@+id/solidLine1"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="?attr/colorAccent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="16dp"/>
+        <TextView
             android:id="@+id/txtColour"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -139,7 +165,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="30dp">
         <Button
             android:id="@+id/removeQuantity"
             style="?attr/materialIconButtonFilledTonalStyle"
@@ -186,26 +213,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:icon="@drawable/add_shopping_cart_24"
-            android:layout_marginHorizontal="32dp" />
-    </LinearLayout>
-    </LinearLayout>
-        <TextView
-            android:id="@+id/txtDescription"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description: "
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp" />
-        <TextView
-            android:id="@+id/txtCategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categories: "
-            android:layout_marginTop="16dp"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginHorizontal="32dp"
             />
-
+    </LinearLayout>
+    </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
