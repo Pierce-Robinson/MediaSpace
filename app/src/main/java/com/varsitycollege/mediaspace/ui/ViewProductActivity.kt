@@ -146,7 +146,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             val quantityInput = binding.qtyEditText.text.toString()
             val userInstructions = binding.userInstructionsEditText.text.toString()
 
-            if (selectColour == null || selectSize == null || quantityInput.isBlank() || quantityInput.toInt() <= 0 || userInstructions.isBlank()) {
+            if (selectColour == null || selectSize == null || quantityInput.isBlank() || quantityInput.toInt() <= 0) {
                 Toast.makeText(
                     applicationContext,
                     "Please select a colour, a shirt size, and a quantity before adding to cart.",
@@ -158,13 +158,13 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                     val key = FirebaseAuth.getInstance().currentUser!!.uid
                     uploadImages(downloadUris, key)
                     Toast.makeText(
-                        applicationContext, "Product added to the cart!", Toast.LENGTH_SHORT
+                        applicationContext, "Product added to the cart with image!", Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     addToCart()
                     // Show a success message
                     Toast.makeText(
-                        applicationContext, "Product added to the cart!", Toast.LENGTH_SHORT
+                        applicationContext, "Product added to the cart no image!", Toast.LENGTH_SHORT
                     ).show()
                 }
             }
@@ -184,14 +184,14 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val designUrl = downloadUrls
 
         // validation of the colour and shirt size here...
-        if (selectColour == null || selectSize == null || quantity <= 0 || userInstructions.isBlank()) {
-            Toast.makeText(
-                applicationContext,
-                "Please select a colour, a shirt size, and a quantity greater than 0 before adding to cart.",
-                Toast.LENGTH_SHORT
-            ).show()
-            return
-        }
+//        if (selectColour == null || selectSize == null || quantity <= 0 || userInstructions.isBlank()) {
+//            Toast.makeText(
+//                applicationContext,
+//                "Please select a colour, a shirt size, and a quantity greater than 0 before adding to cart.",
+//                Toast.LENGTH_SHORT
+//            ).show()
+//            return
+//        }
 
 
         val customProduct = CustomProduct(
@@ -245,13 +245,10 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                     imageRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val uri = task.result
-                            downloadUrls.add(product.imagesList?.firstOrNull().toString())
                             downloadUrls.add(uri.toString())
-                            addToCart()
                             //Add image urls to submitted product
-
                             val ref =
-                                database.getReference("products").child(key).child("imagesList")
+                                database.getReference("users").child(key).child((cartArray.size-1).toString()).child("design")
                             ref.setValue(downloadUrls).addOnSuccessListener {
                                 Log.i("Success", "Images added")
                             }.addOnFailureListener {
@@ -269,6 +266,9 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
+        downloadUrls.add(product.imagesList?.firstOrNull().toString())
+        addToCart()
+
     }
 
     override fun onColourSelected(colour: Colour) {
