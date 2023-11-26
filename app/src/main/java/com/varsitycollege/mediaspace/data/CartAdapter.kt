@@ -64,13 +64,15 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
 
 
         //this is how we use the image pager
-        val imageUrls = listOf(order.firstImage, order.design)
-        val imagePagerAdapter = ImagePagerAdapter(imageUrls)
+        val imageUrls = order.design
+        val imagePagerAdapter = order.design?.let { ImagePagerAdapter(it) }
         holder.viewPager.adapter = imagePagerAdapter
 
         // Set up dots indicator
         val dotsLayout = holder.itemView.findViewById<LinearLayout>(R.id.dotsLayout)
-        setupDots(imageUrls.size, dotsLayout, holder.viewPager)
+        if (imageUrls != null) {
+            setupDots(imageUrls.size, dotsLayout, holder.viewPager)
+        }
     }
 
 

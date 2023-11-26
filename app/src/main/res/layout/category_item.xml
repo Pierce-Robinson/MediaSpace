@@ -5,12 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="120dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
+    app:cardElevation="3dp"
+    android:layout_marginHorizontal="20dp"
     app:cardCornerRadius="15dp"
-    android:layout_marginStart="16dp"
-    android:layout_marginEnd="16dp"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="0dp">
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
 
     <!--link:https://riptutorial.com/android/example/27043/using-images-as-background-in-cardview-pre-lollipop-device-issues- -->
     <!--author: RIP Tutorial-->

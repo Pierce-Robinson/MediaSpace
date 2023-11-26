@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.GridView
 import android.widget.TextView
 import android.widget.Toast
@@ -17,10 +18,12 @@ import com.google.firebase.storage.FirebaseStorage
 import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
 import com.varsitycollege.mediaspace.data.CustomProduct
+import com.varsitycollege.mediaspace.data.Delivery
 import com.varsitycollege.mediaspace.data.ImagePagerAdapter
 import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.data.Size
 import com.varsitycollege.mediaspace.data.SizeAdapter
+import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
 import org.checkerframework.common.returnsreceiver.qual.This
 
@@ -30,9 +33,10 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     private var quantity = 0
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
-    private var downloadUrl: String? = null
-    private var downloadUri: Uri? = null
+    private var downloadUrls = arrayListOf<String>()
+    private var downloadUris: ArrayList<Uri> = arrayListOf()
     private var selectSize: String? = null
+    private var cartArray = arrayListOf<CustomProduct>()
     private var selectColour = Colour()
 
 
@@ -49,13 +53,16 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         // registers a photo picker activity launcher in single select mode.
         // Link: https://developer.android.com/training/data-storage/shared/photopicker
         // accessed: 18 November 2023
-        val pickMedia =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                // this callback is invoked after they choose an image or close the photo picker
-                //Set the image of the UI imageview
-                binding.openGalleryButton.setImageURI(uri)
+        val pickMultipleMedia =
+            registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
+                //Clear any previous images from list
+                downloadUris = arrayListOf()
+                for (i in uris) {
+                    downloadUris.add(i)
+                }
+                binding.openGalleryButton.setImageURI(downloadUris[0])
+
                 //TODO move this to a better upload location
-                //uploadImage(uri)
             }
 
 
@@ -99,7 +106,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
         binding.openGalleryButton.setOnClickListener {
             // Launch the photo picker and let the user choose only images.
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         binding.qtyEditText.addTextChangedListener(object : TextWatcher {
@@ -133,68 +140,99 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             }
         }
         binding.addToCart.setOnClickListener {
-            addToCart()
+            if (downloadUris != null){
+                val key = FirebaseAuth.getInstance().currentUser!!.uid
+                uploadImages(downloadUris, key)
+            }
+            else {
+                addToCart()
+            }
+
+
+
         }
     }
     private fun addToCart() {
-    val userId = FirebaseAuth.getInstance().currentUser!!.uid
-    val sku = product.sku
-    val prodName = product.name
-    val price = product.price
-    val quantity = binding.qtyEditText.text.toString().toInt()
-    val userInstructions =
-        binding.userInstructionsEditText.text.toString() // you can get this from an input field
-    val selectedColour = selectColour // implement this in your adapter
-    val selectedSize = selectSize // implement this in your adapter
 
-    // Assuming you have a Design model and a link to the user's uploaded design
-    val designUrl = downloadUrl
-    val firstImageUrl = product.imagesList?.firstOrNull()
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val sku = product.sku
+        val prodName = product.name
+        val price = product.price
+        val quantity = binding.qtyEditText.text.toString().toInt()
+        val userInstructions =
+            binding.userInstructionsEditText.text.toString()
+        val selectedColour = selectColour
+        val selectedSize = selectSize
+        val designUrl = downloadUrls
 
-    val customProduct = CustomProduct(
-        userId,
-        sku,
-        prodName,
-        price,
-        quantity,
-        userInstructions,
-        selectedColour,
-        selectedSize,
-        designUrl,
-        firstImageUrl
-    )
 
-    // Push the customProduct to the "cart" node in the Firebase Database
-    val cartItemRef = ref.push()
-    cartItemRef.setValue(customProduct)
+        val customProduct = CustomProduct(
+            userId,
+            sku,
+            prodName,
+            price,
+            quantity,
+            userInstructions,
+            selectedColour,
+            selectedSize,
+            designUrl,
+        )
 
-}
-    private fun uploadImage(imageUri: Uri?) {
-        // Generate a file name based on current time in milliseconds
-        val fileName = "photo_${System.currentTimeMillis()}"
-        // Get a reference to the Firebase Storage
-        val storageRef = FirebaseStorage.getInstance().reference.child("images/")
-        // Create a reference to the file location in Firebase Storage
-        val imageRef = storageRef.child(fileName)
-
-        val uploadTask = imageRef.putFile(imageUri!!)
-        uploadTask.addOnCompleteListener {
-            if (it.isSuccessful) {
-                // Image upload successful
-                imageRef.downloadUrl.addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val uri = task.result
-                        downloadUrl = uri.toString()
-
-                    } else {
-                        // Image upload failed
-                        Toast.makeText(this, "Failed to upload image", Toast.LENGTH_SHORT).show()
+        // Push the customProduct to the "cart" node in the Firebase Database
+        val cartItemRef = database.getReference("users").child(userId).child("cart")
+        val userRef = database.getReference("users").child(userId!!)
+        userRef.get().addOnSuccessListener {
+            val user = it.getValue(User::class.java)
+            if (user != null) {
+                //Get any existing deliveries
+                if (user.cart != null) {
+                    for (d in user.cart!!) {
+                        cartArray.add(d)
                     }
                 }
             }
         }
-        uploadTask.addOnFailureListener {
-            Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
+        cartArray.add(customProduct)
+    cartItemRef.setValue(cartArray)
+    }
+    private fun uploadImages(images: ArrayList<Uri>, key: String) {
+        for (i in images) {
+            // Generate a file name based on current time in milliseconds
+            val fileName = "design_${System.currentTimeMillis()}"
+            // Get a reference to the Firebase Storage
+            val storageRef = FirebaseStorage.getInstance().reference.child("user_design_images/")
+            // Create a reference to the file location in Firebase Storage
+            val imageRef = storageRef.child(fileName)
+
+            val uploadTask = imageRef.putFile(i)
+            uploadTask.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    // Image upload successful
+                    imageRef.downloadUrl.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val uri = task.result
+                            downloadUrls.add(uri.toString())
+                            downloadUrls.add(product.imagesList?.firstOrNull().toString())
+                            addToCart()
+                            //Add image urls to submitted product
+
+                            val ref = database.getReference("products").child(key).child("imagesList")
+                            ref.setValue(downloadUrls).addOnSuccessListener {
+                                Log.i("Success", "Images added")
+                            }.addOnFailureListener {
+                                Log.i("Failure", "Failed to add images")
+                            }
+
+                        } else {
+                            // Image upload failed
+                            Log.e("Image upload error","Failed to upload image")
+                        }
+                    }
+                }
+            }
+            uploadTask.addOnFailureListener {
+                Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
+            }
         }
     }
     override fun onColourSelected(colour: Colour) {
