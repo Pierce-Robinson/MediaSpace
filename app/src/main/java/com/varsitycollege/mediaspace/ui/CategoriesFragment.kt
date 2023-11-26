@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -72,6 +74,11 @@ class CategoriesFragment : Fragment() {
                     // Set the adapter on the RecyclerView
                     binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
                     binding.recyclerViewCategories.adapter = categoriesAdapter
+                    //Update UI
+                    binding.progressBar.visibility = GONE
+                    binding.categoryTitle.visibility = VISIBLE
+                    binding.solidLine1.visibility = VISIBLE
+                    binding.recyclerViewCategories.visibility = VISIBLE
                 }
             }
 
