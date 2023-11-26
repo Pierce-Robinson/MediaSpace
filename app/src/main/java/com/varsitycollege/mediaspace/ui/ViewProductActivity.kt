@@ -27,7 +27,8 @@ import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
 import org.checkerframework.common.returnsreceiver.qual.This
 
-class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCallback, SizeAdapter.SizeSelectionCallback {
+class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCallback,
+    SizeAdapter.SizeSelectionCallback {
     private lateinit var binding: ActivityViewProductBinding
     private var product = Product()
     private var quantity = 0
@@ -37,7 +38,9 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     private var downloadUris: ArrayList<Uri> = arrayListOf()
     private var selectSize: String? = null
     private var cartArray = arrayListOf<CustomProduct>()
-    private var selectColour = Colour()
+
+    //private var selectColour = Colour()
+    private var selectColour: Colour? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -140,15 +143,34 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             }
         }
         binding.addToCart.setOnClickListener {
-            if (downloadUris.isNotEmpty()){
-                val key = FirebaseAuth.getInstance().currentUser!!.uid
-                uploadImages(downloadUris, key)
-            }
-            else {
-                addToCart()
+            val quantityInput = binding.qtyEditText.text.toString()
+            val userInstructions = binding.userInstructionsEditText.text.toString()
+
+            if (selectColour == null || selectSize == null || quantityInput.isBlank() || quantityInput.toInt() <= 0 || userInstructions.isBlank()) {
+                Toast.makeText(
+                    applicationContext,
+                    "Please select a colour, a shirt size, and a quantity before adding to cart.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            } else {
+                //if the size, colour, and quantity are selected then proceed
+                if (downloadUris.isNotEmpty()) {
+                    val key = FirebaseAuth.getInstance().currentUser!!.uid
+                    uploadImages(downloadUris, key)
+                    Toast.makeText(
+                        applicationContext, "Product added to the cart!", Toast.LENGTH_SHORT
+                    ).show()
+                } else {
+                    addToCart()
+                    // Show a success message
+                    Toast.makeText(
+                        applicationContext, "Product added to the cart!", Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
         }
     }
+
     private fun addToCart() {
 
         val userId = FirebaseAuth.getInstance().currentUser!!.uid
@@ -160,6 +182,16 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val selectedColour = selectColour
         val selectedSize = selectSize
         val designUrl = downloadUrls
+
+        // validation of the colour and shirt size here...
+        if (selectColour == null || selectSize == null || quantity <= 0 || userInstructions.isBlank()) {
+            Toast.makeText(
+                applicationContext,
+                "Please select a colour, a shirt size, and a quantity greater than 0 before adding to cart.",
+                Toast.LENGTH_SHORT
+            ).show()
+            return
+        }
 
 
         val customProduct = CustomProduct(
@@ -188,11 +220,14 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                     }
                     cartArray.add(customProduct)
                     cartItemRef.setValue(cartArray)
+                    selectColour = null
+                    selectSize = null
                     downloadUrls.clear()
                     downloadUris.clear()
                 }
             }
         }
+
     }
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
@@ -213,10 +248,19 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                             downloadUrls.add(product.imagesList?.firstOrNull().toString())
                             downloadUrls.add(uri.toString())
                             addToCart()
+                            //Add image urls to submitted product
+
+                            val ref =
+                                database.getReference("products").child(key).child("imagesList")
+                            ref.setValue(downloadUrls).addOnSuccessListener {
+                                Log.i("Success", "Images added")
+                            }.addOnFailureListener {
+                                Log.i("Failure", "Failed to add images")
+                            }
 
                         } else {
                             // Image upload failed
-                            Log.e("Image upload error","Failed to upload image")
+                            Log.e("Image upload error", "Failed to upload image")
                         }
                     }
                 }
@@ -226,12 +270,14 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             }
         }
     }
+
     override fun onColourSelected(colour: Colour) {
         // Update your TextView with the selected colour name
         val textView = binding.txtColour
         textView.text = "Selected Colour: ${colour.name}"
         selectColour = colour
     }
+
     override fun onSizeSelected(size: String) {
         val textView = binding.txtSizes
         textView.text = "Selected Size: ${size}"
