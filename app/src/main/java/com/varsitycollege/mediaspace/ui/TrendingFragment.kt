@@ -73,10 +73,12 @@ class TrendingFragment : Fragment() {
                     // Update the adapter with new data
                     productAdapter.setProducts(newProducts)
                     //Update UI
-                    binding.progressBar.visibility = GONE
-                    binding.categoryTitle.visibility = VISIBLE
-                    binding.solidLine1.visibility = VISIBLE
-                    binding.recyclerViewTrending.visibility = VISIBLE
+                    if (_binding != null) {
+                        binding.progressBar.visibility = GONE
+                        binding.categoryTitle.visibility = VISIBLE
+                        binding.solidLine1.visibility = VISIBLE
+                        binding.recyclerViewTrending.visibility = VISIBLE
+                    }
                 }
             }
 

@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.UpdateProfileActivity
 import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
@@ -30,18 +31,20 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     private lateinit var binding: ActivityViewProductBinding
     private var product = Product()
     private var quantity = 0
+    private var index = 0
     private lateinit var database: FirebaseDatabase
-    private lateinit var ref: DatabaseReference
     private var downloadUrls = arrayListOf<String>()
     private var downloadUris: ArrayList<Uri> = arrayListOf()
     private var selectedSize: String? = null
     private var selectedColour: Colour? = null
-
+    private var customProduct = CustomProduct()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
         // registers a photo picker activity launcher in single select mode.
         // Link: https://developer.android.com/training/data-storage/shared/photopicker
@@ -50,11 +53,16 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
                 //Clear any previous images from list
                 downloadUris.clear()
+                downloadUrls.clear()
                 for (i in uris) {
                     downloadUris.add(i)
                 }
-                binding.openGalleryButton.setImageURI(downloadUris[0])
-
+                if (downloadUris.isNotEmpty()) {
+                    binding.openGalleryButton.setImageURI(downloadUris[0])
+                }
+                else {
+                    binding.openGalleryButton.setImageURI(null)
+                }
             }
 
         binding.openGalleryButton.setOnClickListener {
@@ -151,6 +159,14 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             Toast.makeText(applicationContext, "Please select a size", Toast.LENGTH_SHORT).show()
             valid = false
         }
+        else if (binding.qtyEditText.text.toString().isBlank()) {
+            Toast.makeText(applicationContext, "Please enter a quantity", Toast.LENGTH_SHORT).show()
+            valid = false
+        }
+        else if (binding.qtyEditText.text.toString().toInt() <= 0) {
+            Toast.makeText(applicationContext, "Please enter a valid quantity", Toast.LENGTH_SHORT).show()
+            valid = false
+        }
 
         return valid
     }
@@ -167,7 +183,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val selectedSize = selectedSize
         val designUrl = downloadUrls
 
-        val customProduct = CustomProduct(
+        customProduct = CustomProduct(
             userId,
             sku,
             prodName,
@@ -197,10 +213,17 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 //Add new cart item
                 cartArray.add(customProduct)
 
+                //update index
+                index = cartArray.indexOf(customProduct)
+
                 //Set cart
                 userRef.child("cart").setValue(cartArray)
                     .addOnSuccessListener {
                         showToast("Cart updated successfully")
+                        //upload images to the added cart item
+                        if (downloadUris.size != 0) {
+                            uploadImages(downloadUris, userId)
+                        }
                         //TODO: maybe go back to trending page
                     }
                     .addOnFailureListener { exception ->
@@ -226,7 +249,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
             // Generate a file name based on current time in milliseconds
-            val fileName = "design_${System.currentTimeMillis()}"
+            val fileName = "product_${System.currentTimeMillis()}"
             // Get a reference to the Firebase Storage
             val storageRef = FirebaseStorage.getInstance().reference.child("user_design_images/")
             // Create a reference to the file location in Firebase Storage
@@ -240,19 +263,25 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                         if (task.isSuccessful) {
                             val uri = task.result
                             downloadUrls.add(uri.toString())
+
                             //Add image urls to submitted product
-                            //TODO: TESTING
-                            val ref =
-                                database.getReference("users").child(key).child("0").child("design")
-                            ref.setValue(downloadUrls).addOnSuccessListener {
+                            //TODO: make only upload once for final list
+
+                            //add download urls to custom product
+                            customProduct.design = downloadUrls
+
+                            val ref = database.getReference("users").child(key).child("cart").child("" + index)
+                            ref.setValue(customProduct).addOnSuccessListener {
+                                //Toast.makeText(this@AddProductsFragment.context, "Images added", Toast.LENGTH_LONG).show()
                                 Log.i("Success", "Images added")
                             }.addOnFailureListener {
+                                //Toast.makeText(this@AddProductsFragment.context, "Failed to add images", Toast.LENGTH_LONG).show()
                                 Log.i("Failure", "Failed to add images")
                             }
 
                         } else {
                             // Image upload failed
-                            Log.e("Image upload error", "Failed to upload image")
+                            Log.e("Image upload error","Failed to upload image")
                         }
                     }
                 }
@@ -261,9 +290,6 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
             }
         }
-        downloadUrls.add(product.imagesList?.firstOrNull().toString())
-        addToCart()
-
     }
 
     override fun onColourSelected(colour: Colour) {
