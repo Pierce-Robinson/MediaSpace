@@ -15,19 +15,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/deleteButton"
-            style="?attr/materialIconButtonFilledTonalStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:icon="@drawable/icon_delete"
-            app:iconGravity="textStart"
-            app:iconSize="23dp"
-            app:iconTint="?colorOnBackground" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,65 +27,73 @@
 
                 <androidx.viewpager2.widget.ViewPager2
                     android:id="@+id/productImage"
-                    android:layout_width="200dp"
-                    android:layout_height="280dp"
+                    android:layout_width="150dp"
+                    android:layout_height="180dp"
                     android:layout_marginTop="20dp"
                     android:adjustViewBounds="true"
                     android:src="@drawable/icon_profile" />
 
+              </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/dotsLayout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
+                    android:layout_gravity="right"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_margin="16dp"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal" />
-            </LinearLayout>
+                    android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/productName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="20dp"
+                            android:text="@string/product_name" />
+
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/userInstructions"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="27dp"
+                            android:text="User Instructions"
+                            android:textColor="?attr/colorPrimary"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toEndOf="@id/productImage"
+                            app:layout_constraintTop_toBottomOf="@+id/productName" />
+
+                    </LinearLayout>
+                </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+            <Button
+                android:id="@+id/deleteButton"
+                style="?attr/materialIconButtonFilledTonalStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="0dp"
 
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/productName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/product_name" />
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/userInstructions"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="27dp"
-                    android:text="User Instructions"
-                    android:textColor="?attr/colorPrimary"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@id/productImage"
-                    app:layout_constraintTop_toBottomOf="@+id/productName" />
+                app:icon="@drawable/icon_delete"
+                app:iconGravity="textStart"
+                app:iconSize="23dp"
+                app:iconTint="?colorOnBackground" />
             </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="10dp"
             android:orientation="horizontal">
-            <Button
-                android:id="@+id/removeQuantity"
-                style="?attr/materialIconButtonFilledTonalStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:backgroundTint="#00FFFFFF"
-                app:icon="@drawable/remove_circle_24"
-                app:iconGravity="textStart"
-                app:iconSize="24dp"
-                app:iconTint="?colorPrimary" />
+
             <EditText
-                android:id="@+id/qtyEditText"
+                android:id="@+id/qtyEditTextC"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
@@ -112,17 +107,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/productImage" />
 
-            <Button
-                android:id="@+id/addQuantity"
-                style="?attr/materialIconButtonFilledTonalStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:backgroundTint="#00FFFFFF"
-                app:icon="@drawable/add_circle_24"
-                app:iconGravity="textStart"
-                app:iconSize="24dp"
-                app:iconTint="?colorPrimary" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -134,19 +119,19 @@
                     android:id="@+id/priceEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginEnd="20dp"
                     android:hint="Price"
                     android:layout_gravity="center_vertical"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp" />
+
+ />
 
                 <com.google.android.material.textview.MaterialTextView
-                    android:id="@+id/totalEditText"
+                    android:id="@+id/totalCEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:hint="Total"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp" />
+ />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

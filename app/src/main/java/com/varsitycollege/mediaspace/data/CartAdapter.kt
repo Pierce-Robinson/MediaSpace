@@ -15,29 +15,27 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class CartAdapter(private val context: Context, private var orders: List<CustomProduct>) :
+class CartAdapter(private var orders: ArrayList<CustomProduct>) :
     RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewPager: ViewPager2 = itemView.findViewById(R.id.productImage)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
         val productName: TextView = itemView.findViewById(R.id.productName)
         val userInstructions: TextView = itemView.findViewById(R.id.userInstructions)
-        val removeQuantity: Button = itemView.findViewById(R.id.removeQuantity)
-        val addQuantity: Button = itemView.findViewById(R.id.addQuantity)
-        val productQuantity: TextView = itemView.findViewById(R.id.qtyEditText)
-        val productPrice: TextView = itemView.findViewById(R.id.productPrice)
-        val totalPrice: TextView = itemView.findViewById(R.id.totalTextView)
+        val productQuantity: TextView = itemView.findViewById(R.id.qtyEditTextC)
+        val productPrice: TextView = itemView.findViewById(R.id.priceEditText)
+        val totalPrice: TextView = itemView.findViewById(R.id.totalCEditText)
+
 
 
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CartViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.cart_item, parent, false)
         return CartViewHolder(view)
     }
 
-    fun setOrders(newList: List<CustomProduct>) {
+    fun setOrders(newList: ArrayList<CustomProduct>) {
         orders = newList
         notifyDataSetChanged()
     }
@@ -49,69 +47,21 @@ class CartAdapter(private val context: Context, private var orders: List<CustomP
 
         })
         holder.productName.text = order.prodName
-        holder.userInstructions.text = order.userInstructions
+        holder.userInstructions.text = "Print Instructions: \n${order.userInstructions}"
 
-        holder.addQuantity.setOnClickListener(View.OnClickListener {
+        holder.productQuantity.text = "Quantity: ${order.quantity.toString()}"
 
-        })
-        holder.productQuantity.text = order.quantity.toString()
-
-        holder.removeQuantity.setOnClickListener(View.OnClickListener {
-
-        })
-        holder.productPrice.text = order.price.toString()
-        holder.totalPrice.text = (order.price?.times(order.quantity?.toDouble()!!)).toString()
+        holder.productPrice.text = "Price: R${order.price.toString()}"
+        holder.totalPrice.text = "Total: R${(order.price?.times(order.quantity?.toDouble()!!)).toString()}"
 
 
         //this is how we use the image pager
-        val imageUrls = order.design
-        val imagePagerAdapter = order.design?.let { ImagePagerAdapter(it, arrayListOf()) }
+        val images = order.design?.toMutableList()
+        order.firstImage?.let { images?.add(0, it) }
+        val imagePagerAdapter = images?.let { ImagePagerAdapter(it) }
         holder.viewPager.adapter = imagePagerAdapter
 
-        // Set up dots indicator
-        val dotsLayout = holder.itemView.findViewById<LinearLayout>(R.id.dotsLayout)
-        if (imageUrls != null) {
-            setupDots(imageUrls.size, dotsLayout, holder.viewPager)
-        }
     }
-
-
-    private fun setupDots(count: Int, parent: LinearLayout, viewPager: ViewPager2) {
-        parent.removeAllViews()
-
-        val dots = arrayOfNulls<ImageView>(count)
-        for (i in 0 until count) {
-            dots[i] = ImageView(parent.context)
-            dots[i]?.setImageDrawable(
-                ContextCompat.getDrawable(
-                    parent.context,
-                    if (i == 0) R.drawable.active_dot else R.drawable.inactive_dot
-                )
-            )
-
-            val params = LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT
-            )
-            params.setMargins(4, 0, 4, 0)
-            parent.addView(dots[i], params)
-        }
-
-        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                for (i in 0 until count) {
-                    dots[i]?.setImageDrawable(
-                        ContextCompat.getDrawable(
-                            parent.context,
-                            if (i == position) R.drawable.active_dot else R.drawable.inactive_dot
-                        )
-                    )
-                }
-            }
-        })
-    }
-
     override fun getItemCount(): Int {
         return orders.size
     }

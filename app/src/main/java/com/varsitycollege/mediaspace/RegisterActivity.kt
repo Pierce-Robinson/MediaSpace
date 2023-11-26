@@ -239,7 +239,7 @@ class RegisterActivity : AppCompatActivity() {
     }
 
     private fun writeNewUser(id: String, title: String, firstName: String, lastName: String, email: String, mobile: String, notifications: Boolean) {
-        val user = User(id, title, firstName, lastName, email, mobile, null, null, null, notifications)
+        val user = User(id, title, firstName, lastName, email, mobile, null, null,  notifications, null)
         val ref = database.getReference("users")
         ref.child(id).setValue(user).addOnSuccessListener{
             Toast.makeText(this, "Welcome ${title+ "," + lastName}!", Toast.LENGTH_SHORT).show()

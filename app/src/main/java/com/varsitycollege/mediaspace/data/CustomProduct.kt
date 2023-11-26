@@ -12,7 +12,8 @@ data class CustomProduct (
     val colour: Colour ?= null,
     val size: String ?= null,
     //Design: the link to the user's uploaded design image in firebase
-    var design: ArrayList<String> ?= null
+    var design: ArrayList<String> ?= null,
+    val firstImage: String?= null
 )
 //add custom image to cart
 //display only first image from product

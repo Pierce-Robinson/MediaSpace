@@ -11,6 +11,6 @@ data class User(
     val mobile: String ?= null,
     var deliveryAddresses: ArrayList<Delivery> ?= null,
     val orderHistory: ArrayList<Order> ?= null,
-    val cart: ArrayList<CustomProduct> ?= null,
-    val notifications: Boolean ?= null
+    val notifications: Boolean ?= null,
+    val cart: ArrayList<CustomProduct> ?= null
 ) : Serializable

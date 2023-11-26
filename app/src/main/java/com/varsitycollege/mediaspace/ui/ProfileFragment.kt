@@ -107,15 +107,15 @@ class ProfileFragment : Fragment() {
                 if (id != null) {
                     //Todo: Delete user orders here
                     try {
-                        // Delete user's object (Before account deletion to retain permissions
+                        //Delete user's object (Before account deletion to retain permissions
                         ref = database.getReference("users")
                         ref.child(id).removeValue().addOnSuccessListener {
-                            // On object deletion success, delete user account and return to the login screen
+                            //On object deletion success, delete user account and return to the login screen
                             auth.currentUser?.delete()?.addOnSuccessListener {
                                 activity?.let {
                                     val intent = Intent(it, LoginActivity::class.java)
                                     it.startActivity(intent)
-                                    it.finish() // Finish the current activity after logout
+                                    it.finish() //Finish the current activity after logout
                                 }
                             }
                         }.addOnFailureListener {

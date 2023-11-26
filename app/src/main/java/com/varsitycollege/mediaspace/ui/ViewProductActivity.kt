@@ -180,6 +180,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val selectedColour = selectedColour
         val selectedSize = selectedSize
         val designUrl = downloadUrls
+        val firstImageUrl = product.imagesList?.firstOrNull()
 
         customProduct = CustomProduct(
             userId,
@@ -191,6 +192,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             selectedColour,
             selectedSize,
             designUrl,
+            firstImageUrl,
         )
 
         // Push the customProduct to the "cart" node for the current user
@@ -246,7 +248,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
             // Generate a file name based on current time in milliseconds
-            val fileName = "product_${System.currentTimeMillis()}"
+            val fileName = "design_${System.currentTimeMillis()}"
             // Get a reference to the Firebase Storage
             val storageRef = FirebaseStorage.getInstance().reference.child("user_design_images/")
             // Create a reference to the file location in Firebase Storage
