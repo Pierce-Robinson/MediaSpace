@@ -16,7 +16,6 @@ import com.varsitycollege.mediaspace.ui.ViewProductActivity
 //}
 class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
-    private var imageUrls  = arrayListOf<String>()
 
    inner class ProductViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val productTitle: TextView = itemView.findViewById(R.id.productTitle)
@@ -118,10 +117,6 @@ class ProductAdapter(private var productList: ArrayList<Product>) : RecyclerView
 //        })
 //    }
 
-    fun setProductsForCategory(category: String) {
-        val filteredProducts = productList.filter { it.categoriesList?.contains(category) == true }
-        setProducts(ArrayList(filteredProducts))
-    }
 
 
 }
