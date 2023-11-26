@@ -86,7 +86,7 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
 
         for (i in currentItem.imagesList!!) {
             val imageUrls = currentItem.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls, productList)
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, productList, position)
             holder.viewPager.adapter = imagePagerAdapter
         }
 

@@ -92,13 +92,13 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
         for (i in product.imagesList!!) {
             val imageUrls = product.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf())
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf(), 0)
             binding.productImage.adapter = imagePagerAdapter
         }
 
         for (i in product.imagesList!!) {
             val imageUrls = product.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf())
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, arrayListOf(),0)
             binding.productImage.adapter = imagePagerAdapter
         }
         val sizeList = product.sizeList ?: emptyList()

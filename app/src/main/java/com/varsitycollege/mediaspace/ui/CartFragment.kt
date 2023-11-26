@@ -77,7 +77,9 @@ class CartFragment : Fragment() {
                             // Show a message or update UI to indicate an empty cart
                         } else {
                             cartAdapter.setOrders(newCart)
-                            binding.totalPriceTextView.text = "Total: R${roundedTotal.toString()}"
+                                if(_binding != null){
+                                    binding.totalPriceTextView.text = "Total: R${roundedTotal}"
+                            }
                         }
 //                        //Update UI
 //                        if (_binding != null) {

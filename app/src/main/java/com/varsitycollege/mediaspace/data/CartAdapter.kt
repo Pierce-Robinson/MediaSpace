@@ -57,7 +57,7 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) : RecyclerView.A
         //this is how we use the image pager
         val images = order.design?.toMutableList()
         order.firstImage?.let { images?.add(0, it) }
-        val imagePagerAdapter = images?.let { ImagePagerAdapter(it, ArrayList()) }
+        val imagePagerAdapter = images?.let { ImagePagerAdapter(it, ArrayList(), position) }
         holder.viewPager.adapter = imagePagerAdapter
 
     }

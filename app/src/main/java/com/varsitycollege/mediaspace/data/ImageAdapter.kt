@@ -13,7 +13,9 @@ import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
 class ImagePagerAdapter(
     private val imageUrls: List<String?>,
-    private val productList: ArrayList<Product>
+    private val productList: ArrayList<Product>,
+    private val productPosition: Int
+
 ) : RecyclerView.Adapter<ImagePagerAdapter.ImageViewHolder>() {
 
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
