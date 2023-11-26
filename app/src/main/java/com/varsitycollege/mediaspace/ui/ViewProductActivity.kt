@@ -1,51 +1,70 @@
 package com.varsitycollege.mediaspace.ui
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.widget.GridView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.storage.FirebaseStorage
 import com.varsitycollege.mediaspace.data.Colour
 import com.varsitycollege.mediaspace.data.ColourAdapter
+import com.varsitycollege.mediaspace.data.CustomProduct
+import com.varsitycollege.mediaspace.data.Delivery
 import com.varsitycollege.mediaspace.data.ImagePagerAdapter
 import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.data.Size
 import com.varsitycollege.mediaspace.data.SizeAdapter
+import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.ActivityViewProductBinding
 import org.checkerframework.common.returnsreceiver.qual.This
 
 class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCallback, SizeAdapter.SizeSelectionCallback {
     private lateinit var binding: ActivityViewProductBinding
-    private lateinit var gridViewColors: GridView
-    private lateinit var gridViewSizes: GridView
-    private lateinit var colorAdapter: ColourAdapter
-    private lateinit var sizeAdapter: SizeAdapter
     private var product = Product()
-    private var productList: ArrayList<Product> = arrayListOf()
     private var quantity = 0
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
+    private var downloadUrls = arrayListOf<String>()
+    private var downloadUris: ArrayList<Uri> = arrayListOf()
+    private var selectSize: String? = null
+    private var cartArray = arrayListOf<CustomProduct>()
+    private var selectColour = Colour()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityViewProductBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         binding.colourGrid
         binding.sizeGrid
 
+        database = FirebaseDatabase.getInstance()
+        ref = database.getReference("customProduct")
         // registers a photo picker activity launcher in single select mode.
         // Link: https://developer.android.com/training/data-storage/shared/photopicker
         // accessed: 18 November 2023
-        val pickMedia =
-            registerForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
-                // this callback is invoked after they choose an image or close the photo picker
-                //Set the image of the UI imageview
-                binding.openGalleryButton.setImageURI(uri)}
+        val pickMultipleMedia =
+            registerForActivityResult(ActivityResultContracts.PickMultipleVisualMedia()) { uris ->
+                //Clear any previous images from list
+                downloadUris = arrayListOf()
+                for (i in uris) {
+                    downloadUris.add(i)
+                }
+                binding.openGalleryButton.setImageURI(downloadUris[0])
+
+                //TODO move this to a better upload location
+            }
+
 
         product = Product(
             sku = intent.getStringExtra("sku"),
@@ -87,7 +106,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
         binding.openGalleryButton.setOnClickListener {
             // Launch the photo picker and let the user choose only images.
-            pickMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+            pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
         binding.qtyEditText.addTextChangedListener(object : TextWatcher {
@@ -120,15 +139,112 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
                 binding.qtyEditText.setText(quantity.toString())
             }
         }
+        binding.addToCart.setOnClickListener {
+            if (downloadUris != null){
+                val key = FirebaseAuth.getInstance().currentUser!!.uid
+                uploadImages(downloadUris, key)
+            }
+            else {
+                addToCart()
+            }
+
+
+
+        }
     }
-    override fun onColourSelected(colourName: String) {
+    private fun addToCart() {
+
+        val userId = FirebaseAuth.getInstance().currentUser!!.uid
+        val sku = product.sku
+        val prodName = product.name
+        val price = product.price
+        val quantity = binding.qtyEditText.text.toString().toInt()
+        val userInstructions =
+            binding.userInstructionsEditText.text.toString()
+        val selectedColour = selectColour
+        val selectedSize = selectSize
+        val designUrl = downloadUrls
+
+
+        val customProduct = CustomProduct(
+            userId,
+            sku,
+            prodName,
+            price,
+            quantity,
+            userInstructions,
+            selectedColour,
+            selectedSize,
+            designUrl,
+        )
+
+        // Push the customProduct to the "cart" node in the Firebase Database
+        val cartItemRef = database.getReference("users").child(userId).child("cart")
+        val userRef = database.getReference("users").child(userId!!)
+        userRef.get().addOnSuccessListener {
+            val user = it.getValue(User::class.java)
+            if (user != null) {
+                //Get any existing deliveries
+                if (user.cart != null) {
+                    for (d in user.cart!!) {
+                        cartArray.add(d)
+                    }
+                }
+            }
+        }
+        cartArray.add(customProduct)
+    cartItemRef.setValue(cartArray)
+    }
+    private fun uploadImages(images: ArrayList<Uri>, key: String) {
+        for (i in images) {
+            // Generate a file name based on current time in milliseconds
+            val fileName = "design_${System.currentTimeMillis()}"
+            // Get a reference to the Firebase Storage
+            val storageRef = FirebaseStorage.getInstance().reference.child("user_design_images/")
+            // Create a reference to the file location in Firebase Storage
+            val imageRef = storageRef.child(fileName)
+
+            val uploadTask = imageRef.putFile(i)
+            uploadTask.addOnCompleteListener {
+                if (it.isSuccessful) {
+                    // Image upload successful
+                    imageRef.downloadUrl.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val uri = task.result
+                            downloadUrls.add(uri.toString())
+                            downloadUrls.add(product.imagesList?.firstOrNull().toString())
+                            addToCart()
+                            //Add image urls to submitted product
+
+                            val ref = database.getReference("products").child(key).child("imagesList")
+                            ref.setValue(downloadUrls).addOnSuccessListener {
+                                Log.i("Success", "Images added")
+                            }.addOnFailureListener {
+                                Log.i("Failure", "Failed to add images")
+                            }
+
+                        } else {
+                            // Image upload failed
+                            Log.e("Image upload error","Failed to upload image")
+                        }
+                    }
+                }
+            }
+            uploadTask.addOnFailureListener {
+                Toast.makeText(applicationContext, it.localizedMessage, Toast.LENGTH_LONG).show()
+            }
+        }
+    }
+    override fun onColourSelected(colour: Colour) {
         // Update your TextView with the selected colour name
         val textView = binding.txtColour
-        textView.text = "Selected Colour: ${colourName}"
+        textView.text = "Selected Colour: ${colour.name}"
+        selectColour = colour
     }
     override fun onSizeSelected(size: String) {
         val textView = binding.txtSizes
         textView.text = "Selected Size: ${size}"
+        selectSize = size
     }
 
 }

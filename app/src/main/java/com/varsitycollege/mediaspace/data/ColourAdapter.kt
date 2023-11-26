@@ -14,7 +14,7 @@ class ColourAdapter(private val colourList: List<Colour>, private val callback: 
 
     private val selectedItems = HashSet<Int>() // Keep track of selected items
     interface ColourSelectionCallback {
-        fun onColourSelected(colourName: String)
+        fun onColourSelected(colour: Colour)
     }
     override fun getCount(): Int {
         return colourList.size
@@ -74,7 +74,8 @@ class ColourAdapter(private val colourList: List<Colour>, private val callback: 
         colourView?.setOnClickListener {
             toggleSelection(position)
             notifyDataSetChanged() // Notify the adapter that the data set has changed
-            colourList[position].name?.let { it1 -> callback.onColourSelected(it1) }
+            val selectedColour = colourList[position]
+            callback.onColourSelected(selectedColour)
         }
 
 

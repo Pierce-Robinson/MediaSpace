@@ -5,9 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="420dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:cardElevation="8dp"
+    app:cardElevation="3dp"
     app:cardCornerRadius="15dp"
-    android:layout_marginHorizontal="5dp"
+    android:layout_marginHorizontal="20dp"
     android:layout_marginTop="8dp"
     android:layout_marginBottom="8dp">
 
@@ -45,10 +45,10 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/trendingProductImage"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="20dp"
             android:adjustViewBounds="true"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/icon_profile" />
 
         <LinearLayout
