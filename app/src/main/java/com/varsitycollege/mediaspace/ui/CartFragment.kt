@@ -40,6 +40,7 @@ class CartFragment : Fragment() {
     private var index = 0
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
+    //private lateinit var prodCartArrayList: ArrayList<Product>
 
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -160,14 +161,19 @@ class CartFragment : Fragment() {
                         val roundedTotal = total.roundTo(2)
 
                         // Update the adapter with new data
+                        // Show a message or update UI to indicate an empty cart
                         if (newCart.isEmpty()) {
-                            // Show a message or update UI to indicate an empty cart
+                            if (_binding != null) {
+                                binding.recyclerViewCart.visibility = View.GONE
+                                binding.noCartItems.visibility = View.VISIBLE
+                            }
+
                         } else {
-                            //cartAdapter.setOrders(newCart)
-                            cartAdapter = CartAdapter(newCart)
-                            cartRecyclerView.adapter = cartAdapter
-                                if(_binding != null){
-                                    binding.totalPriceTextView.text = "Total: R${roundedTotal}"
+                            cartAdapter.setOrders(newCart)
+                            binding.recyclerViewCart.visibility = View.VISIBLE
+                            binding.noCartItems.visibility = View.GONE
+                            if (_binding != null) {
+                                binding.totalPriceTextView.text = "Total: R${roundedTotal}"
                             }
                         }
 //                        //Update UI
@@ -194,6 +200,7 @@ class CartFragment : Fragment() {
     private fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
