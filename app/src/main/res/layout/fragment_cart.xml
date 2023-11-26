@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:visibility="visible"
-        android:layout_marginHorizontal="20dp"
+        android:layout_marginHorizontal="16dp"
         android:background="?attr/colorAccent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -51,31 +51,42 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:paddingBottom="86dp"
         android:visibility="visible" />
-
+    <View
+        android:id="@+id/solidLine2"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:visibility="visible"
+        android:layout_marginHorizontal="16dp"
+        android:background="?attr/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
+        android:layout_height="85dp"
+        android:orientation="horizontal"
+        android:layout_marginBottom="5dp">
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/totalPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:layout_weight="1"
         android:textSize="24dp"
         android:text="@string/total"
-        android:textColor="?colorOnBackground"
-/>
+        android:textColor="?colorOnBackground"/>
 
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/checkoutButton"
-            android:layout_width="200dp"
+            android:layout_width="150dp"
             android:layout_height="50dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
             android:text="@string/Checkout"
 
             />

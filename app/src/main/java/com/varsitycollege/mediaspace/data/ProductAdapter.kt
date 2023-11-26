@@ -42,29 +42,7 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
         holder.productTitle.text = currentItem.name
         holder.productPrice.text = "R ${currentItem.price}"
 
-
-        holder.trendingProductImage.setOnClickListener {
-            val selectedProduct = productList[position]
-
-            // Launch the ProductActivity here, passing necessary data
-            val intent = Intent(holder.itemView.context, ViewProductActivity::class.java)
-                .putExtra("sku", selectedProduct.sku)
-                .putExtra("name", selectedProduct.name)
-                .putExtra("description", selectedProduct.description)
-                .putExtra("price", selectedProduct.price)
-                .putExtra("stock", selectedProduct.stock)
-                .putExtra("colours", selectedProduct.colourList)
-                .putExtra("categories", selectedProduct.categoriesList)
-                .putExtra("sizes", selectedProduct.sizeList)
-                .putExtra("images", selectedProduct.imagesList)
-            // Add more data as needed
-            holder.itemView.context.startActivity(intent)
-        }
-
-
         holder.productContainer.setOnClickListener {
-
-
             // Ensure the position is valid
             val selectedProduct = productList[position]
 
@@ -85,59 +63,14 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
 
 
         for (i in currentItem.imagesList!!) {
-            val imageUrls = currentItem.imagesList ?: emptyList()
-            val imagePagerAdapter = ImagePagerAdapter(imageUrls, productList)
+            val imageUrls = currentItem.imagesList
+            val imagePagerAdapter = ImagePagerAdapter(imageUrls, productList, position)
             holder.viewPager.adapter = imagePagerAdapter
         }
-
-
-        // Set up dots indicator
-//        val dotsLayout = holder.itemView.findViewById<LinearLayout>(R.id.dotsLayout)
-//        setupDots(imageUrls.size, dotsLayout, holder.viewPager)
-
     }
 
 
     override fun getItemCount(): Int {
         return productList.size
     }
-
-
-//    private fun setupDots(count: Int, parent: LinearLayout, viewPager: ViewPager2) {
-//        parent.removeAllViews()
-//
-//        val dots = arrayOfNulls<ImageView>(count)
-//        for (i in 0 until count) {
-//            dots[i] = ImageView(parent.context)
-//            dots[i]?.setImageDrawable(
-//                ContextCompat.getDrawable(
-//                    parent.context,
-//                    if (i == 0) R.drawable.active_dot else R.drawable.inactive_dot
-//                )
-//            )
-//
-//            val params = LinearLayout.LayoutParams(
-//                ViewGroup.LayoutParams.WRAP_CONTENT,
-//                ViewGroup.LayoutParams.WRAP_CONTENT
-//            )
-//            params.setMargins(4, 0, 4, 0)
-//            parent.addView(dots[i], params)
-//        }
-//
-//        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-//            override fun onPageSelected(position: Int) {
-//                super.onPageSelected(position)
-//                for (i in 0 until count) {
-//                    dots[i]?.setImageDrawable(
-//                        ContextCompat.getDrawable(
-//                            parent.context,
-//                            if (i == position) R.drawable.active_dot else R.drawable.inactive_dot
-//                        )
-//                    )
-//                }
-//            }
-//        })
-//    }
-
-
 }

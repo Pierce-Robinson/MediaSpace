@@ -13,7 +13,9 @@ import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
 class ImagePagerAdapter(
     private val imageUrls: List<String?>,
-    private val productList: ArrayList<Product>
+    private val productList: ArrayList<Product>,
+    private val productPosition: Int
+
 ) : RecyclerView.Adapter<ImagePagerAdapter.ImageViewHolder>() {
 
     inner class ImageViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -33,7 +35,7 @@ class ImagePagerAdapter(
         if (productList.isNotEmpty()) {
 
             holder.imageView.setOnClickListener {
-                val selectedProduct = productList[position]
+                val selectedProduct = productList[productPosition]
 
                 // Launch the ProductActivity here, passing necessary data
                 val intent = Intent(holder.itemView.context, ViewProductActivity::class.java)
