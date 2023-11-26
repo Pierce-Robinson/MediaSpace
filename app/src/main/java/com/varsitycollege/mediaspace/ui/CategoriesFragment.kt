@@ -8,15 +8,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.database.*
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.data.CategoriesAdapter
+import com.varsitycollege.mediaspace.data.HomeViewModel
 import com.varsitycollege.mediaspace.data.Product
 import com.varsitycollege.mediaspace.databinding.FragmentCategoriesBinding
 
-class CategoriesFragment : Fragment(){
+class CategoriesFragment : Fragment() {
 
     private var _binding: FragmentCategoriesBinding? = null
     private val binding get() = _binding!!
@@ -26,6 +28,7 @@ class CategoriesFragment : Fragment(){
     private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var categoriesRecyclerView: RecyclerView
     private var newCategories = arrayListOf<String>()
+    private val model: HomeViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -64,8 +67,8 @@ class CategoriesFragment : Fragment(){
 
                         }
                     }
-                    // Initialize the adapter with the click listener
-                    categoriesAdapter = CategoriesAdapter(newCategories)
+                    // Initialize the adapter
+                    categoriesAdapter = CategoriesAdapter(newCategories, model)
                     // Set the adapter on the RecyclerView
                     binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
                     binding.recyclerViewCategories.adapter = categoriesAdapter
@@ -78,23 +81,4 @@ class CategoriesFragment : Fragment(){
         })
     }
 
-//    fun onCategoryClick(category: String) {
-//        if (category.isNotEmpty()) {
-//            // Fetch products for the selected category from Firebase
-//            getProductsForCategory(category)
-//        } else {
-//            Log.e("CategoriesFragment", "Invalid category: $category")
-//            // Handle the case where the category is invalid
-//        }
-//    }
-
-
-//    private fun getProductsForCategory(category: String) {
-//        val productsByCategoryFragment = ProductsByCategoryFragment.newInstance(category)
-//        parentFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, productsByCategoryFragment)
-//            .addToBackStack(null)
-//            .commit()
-//    }
 }
-

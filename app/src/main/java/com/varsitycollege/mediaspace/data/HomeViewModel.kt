@@ -10,4 +10,8 @@ class HomeViewModel : ViewModel() {
         MutableLiveData<Fragment>()
     }
 
+    val currentCategory: MutableLiveData<String> by lazy {
+        MutableLiveData<String>()
+    }
+
 }
