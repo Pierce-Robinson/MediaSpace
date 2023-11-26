@@ -140,7 +140,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             }
         }
         binding.addToCart.setOnClickListener {
-            if (downloadUris != null){
+            if (downloadUris.isNotEmpty()){
                 val key = FirebaseAuth.getInstance().currentUser!!.uid
                 uploadImages(downloadUris, key)
             }
@@ -180,19 +180,19 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         userRef.get().addOnSuccessListener {
             val user = it.getValue(User::class.java)
             if (user != null) {
+                cartArray.clear()
                 //Get any existing deliveries
                 if (user.cart != null) {
                     for (d in user.cart!!) {
                         cartArray.add(d)
                     }
+                    cartArray.add(customProduct)
+                    cartItemRef.setValue(cartArray)
+                    downloadUrls.clear()
+                    downloadUris.clear()
                 }
             }
         }
-        cartArray.add(customProduct)
-    cartItemRef.setValue(cartArray)
-        downloadUrls.clear()
-        downloadUris.clear()
-
     }
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
