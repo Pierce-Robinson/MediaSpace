@@ -112,15 +112,13 @@ class CartFragment : Fragment() {
                                     deliveryId = orderRef.key,
                                     productsInCart
                                 )
-                                orderRef.setValue(order)
+
                                 //Add new cart item
                                 orderArray.add(order)
                                 index = orderArray.indexOf(Order())
                                 userRef.child("orderHistory").setValue(orderArray)
                                     .addOnSuccessListener {
-//                                        val intent =
-//                                            Intent(context, HomeActivity::class.java)
-//                                        startActivity(intent)
+                                    //TODO clear the cart page/reload adapter
                                                                           }
                                     .addOnFailureListener { e ->
                                         Log.e("Error", "Failed to clear cart: ${e.message}")
