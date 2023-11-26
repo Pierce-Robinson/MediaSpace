@@ -9,7 +9,6 @@ import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.varsitycollege.mediaspace.R
-import com.varsitycollege.mediaspace.ui.ProductsByCategoryFragment
 import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
 //interface OnProductClickListener {

@@ -99,8 +99,8 @@ class CartFragment : Fragment() {
             })
         }
     }
-    private fun Double.roundTo(n: Int): Double {
-        return "%.${n}f".format(this).toDouble()
+    private fun Double.roundTo(n: Int): String {
+        return "%.${n}f".format(this)
     }
     override fun onDestroyView() {
         super.onDestroyView()

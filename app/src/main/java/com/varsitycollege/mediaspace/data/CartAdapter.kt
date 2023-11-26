@@ -15,8 +15,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.textview.MaterialTextView
 import com.varsitycollege.mediaspace.R
 
-class CartAdapter(private var orders: ArrayList<CustomProduct>) :
-    RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
+class CartAdapter(private var orders: ArrayList<CustomProduct>) : RecyclerView.Adapter<CartAdapter.CartViewHolder>() {
     inner class CartViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val viewPager: ViewPager2 = itemView.findViewById(R.id.productImage)
         val deleteButton: Button = itemView.findViewById(R.id.deleteButton)
@@ -58,7 +57,7 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) :
         //this is how we use the image pager
         val images = order.design?.toMutableList()
         order.firstImage?.let { images?.add(0, it) }
-        val imagePagerAdapter = images?.let { ImagePagerAdapter(it) }
+        val imagePagerAdapter = images?.let { ImagePagerAdapter(it, ArrayList()) }
         holder.viewPager.adapter = imagePagerAdapter
 
     }
