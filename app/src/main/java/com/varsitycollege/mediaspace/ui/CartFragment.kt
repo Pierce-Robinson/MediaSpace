@@ -159,29 +159,22 @@ class CartFragment : Fragment() {
                         val roundedTotal = total.roundTo(2)
 
                         // Update the adapter with new data
-                        // Show a message or update UI to indicate an empty cart
-                        if (newCart.isEmpty()) {
-                            if (_binding != null) {
-                                binding.recyclerViewCart.visibility = View.GONE
-                                binding.noCartItems.visibility = View.VISIBLE
-                            }
-
-                        } else {
+                        if (newCart.isNotEmpty()) {
                             cartAdapter.setOrders(newCart)
-                            binding.recyclerViewCart.visibility = View.VISIBLE
-                            binding.noCartItems.visibility = View.GONE
                             if (_binding != null) {
+                                binding.progressBar.visibility = View.GONE
+                                binding.recyclerViewCart.visibility = View.VISIBLE
                                 binding.totalPriceTextView.text = "Total: R${roundedTotal}"
                             }
                         }
-//                        //Update UI
-//                        if (_binding != null) {
-//                            binding.progressBar.visibility = View.GONE
-//                            binding.categoryTitle.visibility = View.VISIBLE
-//                            binding.solidLine1.visibility = View.VISIBLE
-//                            binding.recyclerViewTrending.visibility = View.VISIBLE
-//                        }
-
+                    }
+                    else {
+                        // Show a message or update UI to indicate an empty cart
+                        if (_binding != null) {
+                            binding.progressBar.visibility = View.GONE
+                            binding.recyclerViewCart.visibility = View.GONE
+                            binding.noCartItems.visibility = View.VISIBLE
+                        }
                     }
                 }
 

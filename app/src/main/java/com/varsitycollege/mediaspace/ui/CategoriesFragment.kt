@@ -30,6 +30,9 @@ class CategoriesFragment : Fragment() {
     private lateinit var categoriesAdapter: CategoriesAdapter
     private lateinit var categoriesRecyclerView: RecyclerView
     private var newCategories = arrayListOf<String>()
+    //Access shared view model
+    //https://stackoverflow.com/questions/69059497/how-can-i-access-a-shared-view-model-from-an-activity
+    //accessed 27 November 2023
     private val model: HomeViewModel by activityViewModels()
 
     override fun onCreateView(

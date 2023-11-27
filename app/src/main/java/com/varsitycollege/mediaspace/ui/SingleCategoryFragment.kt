@@ -26,6 +26,9 @@ import com.varsitycollege.mediaspace.databinding.FragmentSingleCategoryBinding
 class SingleCategoryFragment : Fragment() {
 
     private var _binding: FragmentSingleCategoryBinding? = null
+    //Access shared view model
+    //https://stackoverflow.com/questions/69059497/how-can-i-access-a-shared-view-model-from-an-activity
+    //accessed 27 November 2023
     private val model: HomeViewModel by activityViewModels()
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference

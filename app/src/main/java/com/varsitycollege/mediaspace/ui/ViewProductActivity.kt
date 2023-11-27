@@ -177,11 +177,15 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         val prodName = product.name
         val price = product.price
         val quantity = binding.qtyEditText.text.toString().toInt()
-        val userInstructions = binding.userInstructionsEditText.text.toString()
+        var userInstructions = binding.userInstructionsEditText.text.toString()
         val selectedColour = selectedColour
         val selectedSize = selectedSize
         val designUrl = downloadUrls
         val firstImageUrl = product.imagesList?.firstOrNull()
+
+        if (userInstructions == "") {
+            userInstructions = "None"
+        }
 
         customProduct = CustomProduct(
             userId,
