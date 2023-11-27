@@ -17,8 +17,6 @@ class OrderActivity : AppCompatActivity() {
 
         val goBack = findViewById<MaterialButton>(R.id.GoBackButton)
         goBack.setOnClickListener {
-            val intent = Intent(applicationContext, HomeActivity::class.java)
-            startActivity(intent)
             finish()
         }
 

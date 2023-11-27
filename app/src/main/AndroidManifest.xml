@@ -28,6 +28,9 @@
             android:name=".HomeActivity"
             android:exported="false" />
         <activity
+            android:name=".OrderHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.ViewProductActivity"
             android:exported="false"
             android:label="View Product" />

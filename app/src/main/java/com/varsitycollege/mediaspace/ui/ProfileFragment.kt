@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.LoginActivity
+import com.varsitycollege.mediaspace.OrderHistoryActivity
 import com.varsitycollege.mediaspace.UpdateProfileActivity
 import com.varsitycollege.mediaspace.data.User
 import com.varsitycollege.mediaspace.databinding.FragmentProfileBinding
@@ -70,6 +71,10 @@ class ProfileFragment : Fragment() {
             navigateToUpdateProfile()
         }
 
+        binding.btnOrderHistory.setOnClickListener{
+            orderHistory()
+        }
+
         return binding.root
     }
 
@@ -85,6 +90,12 @@ class ProfileFragment : Fragment() {
         _binding = null
     }
 
+    private fun orderHistory() {
+        activity?.let {
+            val intent = Intent(it, OrderHistoryActivity::class.java)
+            it.startActivity(intent)
+        }
+    }
     private fun logOut() {
         auth.signOut()
         activity?.let {
