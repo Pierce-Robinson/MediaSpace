@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/logoImageView"
         android:layout_width="338dp"
-        android:layout_height="158dp"
+        android:layout_height="140dp"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name"
         android:src="@drawable/mediaspace_f"
@@ -42,7 +42,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/solidLine2"
-        app:layout_constraintVertical_bias="0.05" />
+        app:layout_constraintVertical_bias="0.010" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/orderNo"
@@ -144,7 +144,7 @@
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/solidLine1"
-        app:layout_constraintVertical_bias="0.091" />
+        app:layout_constraintVertical_bias="0.030" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/bankText"
@@ -216,5 +216,21 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/accountNumberText"
         app:layout_constraintVertical_bias="0.120" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/GoBackButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:backgroundTint="?attr/colorOnErrorContainer"
+        android:text="@string/takemeback"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/branchCodeText"
+        app:layout_constraintVertical_bias="0.130" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

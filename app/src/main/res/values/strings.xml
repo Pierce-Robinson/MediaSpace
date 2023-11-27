@@ -41,6 +41,7 @@
     <string name="alternatively"><b>Alternatively you can pay via EFT and send proof of payment to:</b></string>
     <string name="emailLink"><a href="mailto:payments@mediaspace.co.za">payments@mediaspace.co.za</a></string>
     <string name="snapScanLink"><u>pos.snapscan.io/mediaspace</u></string>
+    <string name="takemeback">Take Me Back</string>
 
 
 </resources>
