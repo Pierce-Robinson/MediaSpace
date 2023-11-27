@@ -106,54 +106,6 @@ class OrderHistoryActivity : AppCompatActivity() {
             })
         }
     }
-
-//    private fun getOrderHistory() {
-//        auth = FirebaseAuth.getInstance()
-//        val id = auth.currentUser?.uid
-//        if (id != null) {
-//            ref = database.getReference("users").child(id).child("orderHistory")
-//            ref.addValueEventListener(object : ValueEventListener {
-//                override fun onDataChange(snapshot: DataSnapshot) {
-//                    if (snapshot.exists()) {
-//                        val newOrderHistory = ArrayList<Order>()
-//
-//                        for (p in snapshot.children) {
-//                            val orderHistory = p.getValue(Order::class.java)
-//                            orderHistory?.let { newOrderHistory.add(it) }
-//                        }
-//                        val total = newOrderHistory.sumOf { (it.price ?: 0.0) * (it.quantity ?: 0) }
-//                        val roundedTotal = total.roundTo(2)
-//
-//                        // Update the adapter with new data
-//                        if (newCart.isNotEmpty()) {
-//                            cartAdapter.setOrders(newCart)
-//                            if (_binding != null) {
-//                                binding.progressBar.visibility = View.GONE
-//                                binding.recyclerViewCart.visibility = View.VISIBLE
-//                                binding.totalPriceTextView.text = "Total: R${roundedTotal}"
-//                            }
-//                        }
-//                    }
-//                    else {
-//                        //Show a message or update UI to indicate an empty cart
-//                        if (_binding != null) {
-//                            binding.progressBar.visibility = View.GONE
-//                            binding.recyclerViewCart.visibility = View.GONE
-//                            binding.noCartItems.visibility = View.VISIBLE
-//                        }
-//                    }
-//                }
-//
-//                override fun onCancelled(error: DatabaseError) {
-//                    Log.e(
-//                        "Database error",
-//                        "Failed to get products from database: ${error.message}"
-//                    )
-//                }
-//            })
-//        }
-//    }
-
     private fun Double.roundTo(n: Int): String {
         return "%.${n}f".format(this)
     }

@@ -51,7 +51,7 @@ class OrderHistoryAdapter(private var orderHistory: ArrayList<Order>) :
         holder.orderNumber.text = "Order Number: \n${orderHis.orderNum}"
         holder.orderStatus.text = "Order Status: \n${orderHis.status}"
         val totalQuantity = orderHis.customProductsList!!.sumOf { it.quantity ?: 0 }
-        holder.orderQuantity.text = "Quantity: $totalQuantity"
+        holder.orderQuantity.text = "Total Items: $totalQuantity"
         val totalPrice = orderHis.customProductsList!!.sumOf { (it.price ?: 0.0) * (it.quantity ?: 0) }
         holder.orderPrice.text = "Total Price: R${"%.2f".format(totalPrice)}"
 
