@@ -116,6 +116,9 @@ class CartFragment : Fragment() {
                                 index = orderArray.indexOf(Order())
                                 userRef.child("orderHistory").setValue(orderArray)
                                     .addOnSuccessListener {
+                                       if (_binding!= null){
+                                           binding.totalPriceTextView.text = "Total: R0.00"
+                                       }
                                         Log.i("Success", "Successfully moved cart items to order history")
                                         //Go to payment screen
                                         val intent = Intent(this@CartFragment.context, OrderActivity::class.java)

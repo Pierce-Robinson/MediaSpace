@@ -1,5 +1,6 @@
 package com.varsitycollege.mediaspace.data
 
+import java.io.Serializable
 
 
 data class CustomProduct (
@@ -14,4 +15,4 @@ data class CustomProduct (
     //Design: the link to the user's uploaded design image in firebase
     var design: ArrayList<String> ?= null,
     val firstImage: String?= null
-)
+): Serializable
