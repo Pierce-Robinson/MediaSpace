@@ -6,6 +6,8 @@ import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -73,6 +75,7 @@ class OrderHistoryActivity : AppCompatActivity() {
             ordersRef.addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
+                        binding.progressBar.visibility = VISIBLE
                         val orderList = ArrayList<Order>()
 
                         for (orderSnapshot in snapshot.children) {
@@ -92,11 +95,17 @@ class OrderHistoryActivity : AppCompatActivity() {
                             orderList.add(order)
                             Log.d("FirebaseDebug", "Order List: $orderList")
                             orderHistoryAdapter.setOrderHistory(orderList)
+                            binding.progressBar.visibility = GONE
+                            binding.noOrderItems.visibility = GONE
+                            binding.recyclerViewOrders.visibility = VISIBLE
                         }
 
 
                     } else {
                         Log.d("FirebaseDebug", "No orders found")
+                        binding.progressBar.visibility = GONE
+                        binding.noOrderItems.visibility = VISIBLE
+                        binding.recyclerViewOrders.visibility = GONE
                     }
                 }
 

@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/noCartItems"
+        android:id="@+id/noOrderItems"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -56,7 +56,7 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:paddingVertical="10dp"
-                android:text="You have no Orders"
+                android:text="You have no previous orders"
                 android:textColor="?colorPrimary"
                 android:textSize="24sp" />
 
@@ -70,7 +70,7 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center"
-        android:visibility="gone">
+        android:visibility="visible">
 
         <com.google.android.material.progressindicator.CircularProgressIndicator
             android:layout_width="wrap_content"
@@ -84,7 +84,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:visibility="visible" />
+        android:visibility="gone" />
 
 </LinearLayout>
 

@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="30dp"
+    android:padding="20dp"
     tools:context=".LoginActivity">
 
     <ImageView
@@ -12,7 +12,6 @@
         android:layout_width="358dp"
         android:layout_height="178dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
         android:contentDescription="@string/app_name"
         android:src="@drawable/mediaspace_f"
         app:layout_constraintBottom_toBottomOf="parent"
