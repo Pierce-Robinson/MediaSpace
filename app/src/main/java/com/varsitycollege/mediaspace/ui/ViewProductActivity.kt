@@ -149,6 +149,10 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         }
     }
 
+
+    // Link: https://copyprogramming.com/howto/kotlin-data-class-and-bean-validation-with-container-element-constraints
+    // Author: James Bobbitt
+    // Date accessed: 24 November 2023
     private fun validate(): Boolean {
         var valid = true
 
