@@ -15,6 +15,3 @@ data class CustomProduct (
     var design: ArrayList<String> ?= null,
     val firstImage: String?= null
 )
-//add custom image to cart
-//display only first image from product
-//display user custom instructions not the

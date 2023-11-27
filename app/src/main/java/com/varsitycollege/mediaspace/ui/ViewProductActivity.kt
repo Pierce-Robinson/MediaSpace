@@ -67,7 +67,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             }
 
         binding.openGalleryButton.setOnClickListener {
-            // Launch the photo picker and let the user choose only images.
+            //Launch the photo picker and let the user choose only images.
             pickMultipleMedia.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
         }
 
@@ -114,11 +114,11 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                // Update the quantity when the text in the EditText changes
+                //Update the quantity when the text in the EditText changes
                 if (!s.isNullOrBlank()) {
                     quantity = s.toString().toInt()
                 } else {
-                    quantity = 0 // Handle the case when the EditText is empty
+                    quantity = 0 //Handle the case when the EditText is empty
                 }
             }
 
@@ -126,18 +126,18 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
         })
 
         binding.addQuantity.setOnClickListener {
-            // Increment the quantity
+            //Increment the quantity
             quantity++
-            // Update the EditText to display the new quantity
+            //Update the EditText to display the new quantity
             binding.qtyEditText.setText(quantity.toString())
         }
 
         binding.removeQuantity.setOnClickListener {
-            // Ensure the quantity is greater than 0 before decrementing
+            //Ensure the quantity is greater than 0 before decrementing
             if (quantity > 0) {
-                // Decrement the quantity
+                //Decrement the quantity
                 quantity--
-                // Update the EditText to display the new quantity
+                //Update the EditText to display the new quantity
                 binding.qtyEditText.setText(quantity.toString())
             }
         }
@@ -200,7 +200,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             firstImageUrl,
         )
 
-        // Push the customProduct to the "cart" node for the current user
+        //Push the customProduct to the "cart" node for the current user
         val userRef = database.getReference("users").child(userId)
         val cartArray: ArrayList<CustomProduct> = arrayListOf()
 
@@ -257,43 +257,31 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
 
     private fun uploadImages(images: ArrayList<Uri>, key: String) {
         for (i in images) {
-            // Generate a file name based on current time in milliseconds
+            //Generate a file name based on current time in milliseconds
             val fileName = "design_${System.currentTimeMillis()}"
-            // Get a reference to the Firebase Storage
+            //Get a reference to the Firebase Storage
             val storageRef = FirebaseStorage.getInstance().reference.child("user_design_images/")
-            // Create a reference to the file location in Firebase Storage
             val imageRef = storageRef.child(fileName)
 
             val uploadTask = imageRef.putFile(i)
             uploadTask.addOnCompleteListener {
                 if (it.isSuccessful) {
-                    // Image upload successful
                     imageRef.downloadUrl.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             val uri = task.result
                             downloadUrls.add(uri.toString())
-
-                            //Add image urls to submitted product
-                            //TODO: make only upload once for final list
-
-                            //add download urls to custom product
                             customProduct.design = downloadUrls
 
                             val ref = database.getReference("users").child(key).child("cart")
                                 .child("" + index)
                             ref.setValue(customProduct).addOnSuccessListener {
-                                //Toast.makeText(this@AddProductsFragment.context, "Images added", Toast.LENGTH_LONG).show()
                                 Log.i("Success", "Images added")
-
-
-
                             }.addOnFailureListener {
-                                //Toast.makeText(this@AddProductsFragment.context, "Failed to add images", Toast.LENGTH_LONG).show()
                                 Log.i("Failure", "Failed to add images")
                             }
 
                         } else {
-                            // Image upload failed
+                            //Image upload failed
                             Log.e("Image upload error", "Failed to upload image")
                         }
                     }
@@ -311,7 +299,6 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
     }
 
     override fun onColourSelected(colour: Colour) {
-        // Update your TextView with the selected colour name
         val textView = binding.txtColour
         textView.text = "Selected Colour: ${colour.name}"
         selectedColour = colour

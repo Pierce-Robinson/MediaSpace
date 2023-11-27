@@ -17,7 +17,7 @@ class SizeAdapter(private val sizes: List<Size>, private val callback: SizeSelec
     interface SizeSelectionCallback {
         fun onSizeSelected(size: String)
     }
-    private val selectedItems = HashSet<Int>() // Keep track of selected items
+    private val selectedItems = HashSet<Int>() //Keep track of selected items
 
     override fun getCount(): Int {
         return sizes.size
@@ -43,30 +43,29 @@ class SizeAdapter(private val sizes: List<Size>, private val callback: SizeSelec
 
         val sizeTextView: TextView = view.findViewById(R.id.sizeView)
 
-        // Set the size text
+        //Set the size text
         sizeTextView.text = size.size
 
-        // Check if the size is available
+        //Check if the size is available
         if (!size.available!!) {
-            // Set the background tint list if not available
+            //Set the background tint list if not available
             sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unavailable)
-            sizeTextView.isEnabled = false // Disable click on unavailable sizes
+            sizeTextView.isEnabled = false //Disable click on unavailable sizes
             sizeTextView.paintFlags = sizeTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         } else {
-            sizeTextView.backgroundTintList = null // Reset background tint if available
-            sizeTextView.isEnabled = true // Enable click on available sizes
+            sizeTextView.backgroundTintList = null //Reset background tint if available
+            sizeTextView.isEnabled = true //Enable click on available sizes
             if (selectedItems.contains(position)) {
                 sizeTextView.setBackgroundResource(R.drawable.edit_text_border)
-                //callback.onSizeSelected(size.size.toString())
             } else {
                 sizeTextView.setBackgroundResource(R.drawable.edit_text_border_unselected)
             }
         }
 
-        // Add click listener to handle selection
+        //Add click listener to handle selection
         sizeTextView.setOnClickListener {
             toggleSelection(position)
-            notifyDataSetChanged() // Notify the adapter that the data set has changed
+            notifyDataSetChanged() //Notify the adapter that the data set has changed
             sizes[position].size?.let { it1 -> callback.onSizeSelected(it1) }
         }
 
@@ -74,7 +73,7 @@ class SizeAdapter(private val sizes: List<Size>, private val callback: SizeSelec
     }
 
     private fun toggleSelection(position: Int) {
-        selectedItems.clear() // Clear the set before adding the new selection
+        selectedItems.clear() //Clear the set before adding the new selection
         selectedItems.add(position)
     }
 }

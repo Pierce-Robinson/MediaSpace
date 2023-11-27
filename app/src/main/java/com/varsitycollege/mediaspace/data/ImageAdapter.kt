@@ -31,13 +31,13 @@ class ImagePagerAdapter(
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) {
         val imageUrl = imageUrls[position]
 
-        // if you go to cart page it wont go to the product as well -- reason for the if isnotempty()
+        //if you go to cart page it wont go to the product as well -- reason for the if isnotempty()
         if (productList.isNotEmpty()) {
 
             holder.imageView.setOnClickListener {
                 val selectedProduct = productList[productPosition]
 
-                // Launch the ProductActivity here, passing necessary data
+                //Launch the ProductActivity here passing necessary data
                 val intent = Intent(holder.itemView.context, ViewProductActivity::class.java)
                     .putExtra("sku", selectedProduct.sku)
                     .putExtra("name", selectedProduct.name)
@@ -48,7 +48,7 @@ class ImagePagerAdapter(
                     .putExtra("categories", selectedProduct.categoriesList)
                     .putExtra("sizes", selectedProduct.sizeList)
                     .putExtra("images", selectedProduct.imagesList)
-                // Add more data as needed
+                //Add more data as needed
                 holder.itemView.context.startActivity(intent)
             }
         }

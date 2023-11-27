@@ -39,7 +39,7 @@ class UpdateProfileActivity : AppCompatActivity() {
         auth = Firebase.auth
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
 
-        // get the user data from firebase to populate it first into the textboxes
+        //get the user data from firebase to populate it first into the textboxes
         val user = intent.getSerializableExtra("user") as User?
         if (user != null) {
             currentUser = user
@@ -53,7 +53,6 @@ class UpdateProfileActivity : AppCompatActivity() {
         }
         else {
             currentUser = User()
-            //todo: maybe get user data from db
         }
 
         binding.updateProfileButton.setOnClickListener {
@@ -99,7 +98,7 @@ class UpdateProfileActivity : AppCompatActivity() {
             "notifications" to binding.notificationsSwitch.isChecked
         )
 
-        // update user info in firebase
+        //update user info in firebase
         userRef.updateChildren(updatedData)
             .addOnSuccessListener {
                 showToast("Profile updated successfully")

@@ -58,7 +58,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="27dp"
-                            android:text="User Instructions"
+                            android:text="@string/user_instructions"
                             android:textColor="?attr/colorPrimary"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.0"
@@ -79,8 +79,7 @@
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="0dp"
-
-                app:icon="@drawable/icon_delete"
+                app:icon="@drawable/delete_24"
                 app:iconGravity="textStart"
                 app:iconSize="23dp"
                 app:iconTint="?colorOnBackground" />
@@ -122,17 +121,14 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="20dp"
                     android:hint="Price"
-                    android:layout_gravity="center_vertical"
-
- />
+                    android:layout_gravity="center_vertical" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/totalCEditText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:hint="Total"
- />
+                    android:hint="Total" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
