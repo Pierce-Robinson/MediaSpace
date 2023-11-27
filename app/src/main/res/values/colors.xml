@@ -64,14 +64,11 @@
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
     <color name="offwhite">#CCFFFFFF</color>
-
-
-
+    <color name="underlinedBlue">#007bff</color>
     <color name="custom_grey">#474747</color>
     <color name="custom_dgrey">#333333</color>
     <color name="custom_lgrey">#5A5A5A</color>
     <color name="custom_llgrey">#41A8A8A8</color>
-
     <color name="md_theme_light_secondaryContainerl">#F6B8B1</color>
 
 </resources>

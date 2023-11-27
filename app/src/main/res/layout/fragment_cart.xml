@@ -122,9 +122,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="20dp"
             android:gravity="center"
-            android:text="@string/Checkout"
-
-            />
+            android:text="@string/Checkout"/>
     </LinearLayout>
 </LinearLayout>
 

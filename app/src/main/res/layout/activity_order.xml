@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".OrderActivity">
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="338dp"
+        android:layout_height="158dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/mediaspace_f"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <View
+        android:id="@+id/solidLine2"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="?attr/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/logoImageView"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/login_loginTitle"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:text="Thank you for your purchase"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine2"
+        app:layout_constraintVertical_bias="0.05" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/orderNo"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        android:layout_height="wrap_content"
+        android:text="Order No (Use as reference):"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.157"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login_loginTitle"
+        app:layout_constraintVertical_bias="0.040"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/snapScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="SnapScan Link:"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/orderNo"
+        app:layout_constraintVertical_bias="0.052" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/snapScanLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/snapScanLink"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snapScan"
+        app:layout_constraintVertical_bias="0.030" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/alternatively"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/alternatively"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/snapScanLink"
+        app:layout_constraintVertical_bias="0.090" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/emailLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="@string/emailLink"
+        android:textColor="?attr/colorPrimary"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/alternatively"
+        app:layout_constraintVertical_bias="0.04" />
+
+
+    <View
+        android:id="@+id/solidLine1"
+        android:layout_width="match_parent"
+        android:layout_marginVertical="20dp"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="16dp"
+        android:background="?attr/colorAccent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailLink"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bankDetailsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Bank Details:"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/solidLine1"
+        app:layout_constraintVertical_bias="0.091" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/bankText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Bank: FNB/RMB"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankDetailsText"
+        app:layout_constraintVertical_bias="0.050" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/accountHolderText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Account Holder: Payments MediaSpace"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bankText"
+        app:layout_constraintVertical_bias="0.075" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/accountTypeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Account Type: Cheque Account"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountHolderText"
+        app:layout_constraintVertical_bias="0.090" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/accountNumberText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Account Number: 12345678900"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountTypeText"
+        app:layout_constraintVertical_bias="0.105" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/branchCodeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:text="Branch Code: 000000"
+        android:textColor="?attr/colorOnBackground"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accountNumberText"
+        app:layout_constraintVertical_bias="0.120" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
