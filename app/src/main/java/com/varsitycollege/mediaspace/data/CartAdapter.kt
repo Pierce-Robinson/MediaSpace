@@ -50,7 +50,7 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) :
         holder.deleteButton.setOnClickListener {
             //Confirm cart item deletion
             MaterialAlertDialogBuilder(holder.itemView.context)
-                .setTitle("Delete Address")
+                .setTitle("Delete Cart Item")
                 .setMessage("Are you sure you want to remove ${order.prodName} from your cart?")
                 .setPositiveButton("Yes") { _, _ ->
                     val database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
