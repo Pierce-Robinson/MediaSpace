@@ -38,6 +38,11 @@
     <string name="Trending">Trending</string>
     <string name="category">Category</string>
     <string name="no_items_in_cart">There are no items in your cart currently</string>
+    <string name="alternatively"><b>Alternatively you can pay via EFT and send proof of payment to:</b></string>
+    <string name="emailLink"><a href="mailto:payments@mediaspace.co.za">payments@mediaspace.co.za</a></string>
+    <string name="snapScanLink">
+        <u>pos.snapscan.io/mediaspace</u>
+    </string>
 
 
 </resources>
