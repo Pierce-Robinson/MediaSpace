@@ -34,7 +34,7 @@ class DeliveryAdapter(private val deliveryList: ArrayList<Delivery>) :
             holder.add.visibility = VISIBLE
 
             holder.add.setOnClickListener {
-                // Launch the DeliveryActivity to add a new delivery address
+                //Launch the DeliveryActivity to add a new delivery address
                 val intent = Intent(holder.itemView.context, DeliveryActivity::class.java)
 
                 holder.itemView.context.startActivity(intent)
@@ -44,7 +44,7 @@ class DeliveryAdapter(private val deliveryList: ArrayList<Delivery>) :
             holder.lines.text = currentItem.addressLineOne + ", " + currentItem.addressLineTwo
 
             holder.button.setOnClickListener {
-                // Launch the DeliveryActivity, passing necessary data for updating
+                //Launch the DeliveryActivity, passing necessary data for updating
                 val intent = Intent(holder.itemView.context, DeliveryActivity::class.java)
                     .putExtra("delivery", currentItem)
                     .putExtra("position", position)

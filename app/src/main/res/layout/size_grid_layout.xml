@@ -13,7 +13,6 @@
         android:gravity="center"
         android:padding="8dp"
         android:textSize="16sp"
-        android:textColor="@android:color/black"
         android:background="@drawable/edit_text_border_unselected"
         android:clickable="true"
         android:focusable="true"

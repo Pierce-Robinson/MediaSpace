@@ -73,7 +73,7 @@ class DeliveryActivity : AppCompatActivity() {
         val userId = auth.uid
         val userRef = database.getReference("users").child(userId!!).child("deliveryAddresses").child(position.toString())
 
-        // map with updated user data
+        //map with updated user data
         val updatedData = mapOf(
             "customerId" to auth.uid,
             "postalCode" to binding.postalCodeEditText.text.toString(),
@@ -84,7 +84,7 @@ class DeliveryActivity : AppCompatActivity() {
             "country" to binding.editTextCountry.text.toString()
         )
 
-        // update user info in firebase
+        //update user info in firebase
         userRef.updateChildren(updatedData)
             .addOnSuccessListener {
                 showToast("Address updated successfully")

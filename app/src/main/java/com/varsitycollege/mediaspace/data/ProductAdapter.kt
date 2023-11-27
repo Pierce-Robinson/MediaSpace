@@ -11,9 +11,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.varsitycollege.mediaspace.R
 import com.varsitycollege.mediaspace.ui.ViewProductActivity
 
-//interface OnProductClickListener {
-//    fun onProductClick(product: Product)
-//}
 class ProductAdapter(private var productList: ArrayList<Product>) :
     RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() {
 
@@ -43,10 +40,10 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
         holder.productPrice.text = "R ${currentItem.price}"
 
         holder.productContainer.setOnClickListener {
-            // Ensure the position is valid
+            //Ensure the position is valid
             val selectedProduct = productList[position]
 
-            // Launch the ProductActivity here, passing necessary data
+            //Launch the ProductActivity here, passing necessary data
             val intent = Intent(holder.itemView.context, ViewProductActivity::class.java)
                 .putExtra("sku", selectedProduct.sku)
                 .putExtra("name", selectedProduct.name)
@@ -57,7 +54,7 @@ class ProductAdapter(private var productList: ArrayList<Product>) :
                 .putExtra("categories", selectedProduct.categoriesList)
                 .putExtra("sizes", selectedProduct.sizeList)
                 .putExtra("images", selectedProduct.imagesList)
-            // Add more data as needed
+            //Add more data as needed
             holder.itemView.context.startActivity(intent)
         }
 

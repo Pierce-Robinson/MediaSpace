@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
                 activity?.let {
                     val intent = Intent(it, LoginActivity::class.java)
                     it.startActivity(intent)
-                    it.finish() // Finish the current activity after logout
+                    it.finish() //Finish the current activity after logout
                 }
             }
         }
@@ -65,12 +65,11 @@ class ProfileFragment : Fragment() {
             deleteAccount()
         }
 
-        // button for personal info
+        //button for personal info
         binding.btnPersonalInfo.setOnClickListener {
             navigateToUpdateProfile()
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 
@@ -91,17 +90,17 @@ class ProfileFragment : Fragment() {
         activity?.let {
             val intent = Intent(it, LoginActivity::class.java)
             it.startActivity(intent)
-            it.finish() // Finish the current activity after logout
+            it.finish() //Finish the current activity after logout
         }
     }
 
     private fun deleteAccount() {
-        // this will show a confirmation popup for deletion
+        //this will show a confirmation popup for deletion
         MaterialAlertDialogBuilder(requireContext())
             .setTitle("Delete Account")
             .setMessage("Are you sure you want to delete your account?")
             .setPositiveButton("Yes") { _, _ ->
-                // delete the user account
+                //delete the user account
                 auth = FirebaseAuth.getInstance()
                 val id = auth.currentUser?.uid
                 if (id != null) {
@@ -164,7 +163,7 @@ class ProfileFragment : Fragment() {
                         user.cart = arrayListOf()
                         val displayName = user.title + " " + user.lastName
 
-                        // Set the display name
+                        //Set the display name
                         if (_binding != null) {
                             binding.displayNameTextView.text = displayName
                             binding.btnPersonalInfo.isEnabled = true

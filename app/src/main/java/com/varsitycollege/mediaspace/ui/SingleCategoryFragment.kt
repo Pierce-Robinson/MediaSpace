@@ -43,23 +43,19 @@ class SingleCategoryFragment : Fragment() {
     ): View {
         _binding = FragmentSingleCategoryBinding.inflate(inflater, container, false)
 
-        //Toast.makeText(this@SingleCategoryFragment.context, "${model.currentCategory.value}", Toast.LENGTH_LONG).show()
-
-        // Assuming you have a RecyclerView with the ID R.id.recyclerViewTrending in your layout
         productRecyclerView = binding.recyclerViewCategoryData
-
-        // Initialize the adapter
+        //Initialize the adapter
         productAdapter = ProductAdapter(ArrayList())
 
-        // Set the adapter on the RecyclerView
+        //Set the adapter on the RecyclerView
         productRecyclerView.layoutManager = LinearLayoutManager(context)
         productRecyclerView.adapter = productAdapter
 
-        // Initialize Firebase
+        //Initialize Firebase
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
         ref = database.getReference("products")
 
-        // Fetch data from Firebase
+        //data from Firebase
         getProducts()
 
         return binding.root
@@ -83,7 +79,7 @@ class SingleCategoryFragment : Fragment() {
                         }
                     }
 
-                    // Update the adapter with new data
+                    //Update the adapter with new data
                     productAdapter.setProducts(newProducts)
                     //Update UI
                     binding.categoryTitle.text = model.currentCategory.value

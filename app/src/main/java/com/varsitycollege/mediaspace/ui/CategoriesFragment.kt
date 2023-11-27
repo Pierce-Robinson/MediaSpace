@@ -42,7 +42,7 @@ class CategoriesFragment : Fragment() {
     ): View {
         _binding = FragmentCategoriesBinding.inflate(inflater, container, false)
 
-        // Fetch data from Firebase
+        //Fetch data from Firebase
         getCategories()
 
         return binding.root
@@ -54,7 +54,7 @@ class CategoriesFragment : Fragment() {
     }
 
     private fun getCategories() {
-        // Initialize Firebase
+        //Initialize Firebase
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
         ref = database.getReference("products")
         ref.addValueEventListener(object : ValueEventListener {
@@ -72,9 +72,9 @@ class CategoriesFragment : Fragment() {
 
                         }
                     }
-                    // Initialize the adapter
+                    //Initialize the adapter
                     categoriesAdapter = CategoriesAdapter(newCategories, model)
-                    // Set the adapter on the RecyclerView
+                    //Set the adapter on the RecyclerView
                     binding.recyclerViewCategories.layoutManager = LinearLayoutManager(context)
                     binding.recyclerViewCategories.adapter = categoriesAdapter
                     //Update UI

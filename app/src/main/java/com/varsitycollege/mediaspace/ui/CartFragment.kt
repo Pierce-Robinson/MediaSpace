@@ -41,7 +41,7 @@ class CartFragment : Fragment() {
     private var index = 0
     private lateinit var database: FirebaseDatabase
     private lateinit var ref: DatabaseReference
-    //private lateinit var prodCartArrayList: ArrayList<Product>
+
 
     private val binding get() = _binding!!
     override fun onCreateView(
@@ -170,7 +170,7 @@ class CartFragment : Fragment() {
                         }
                     }
                     else {
-                        // Show a message or update UI to indicate an empty cart
+                        //Show a message or update UI to indicate an empty cart
                         if (_binding != null) {
                             binding.progressBar.visibility = View.GONE
                             binding.recyclerViewCart.visibility = View.GONE

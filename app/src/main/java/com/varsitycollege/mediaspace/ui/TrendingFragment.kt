@@ -34,21 +34,16 @@ class TrendingFragment : Fragment() {
     ): View {
         _binding = FragmentTrendingBinding.inflate(inflater, container, false)
 
-        // Assuming you have a RecyclerView with the ID R.id.recyclerViewTrending in your layout
         productRecyclerView = binding.recyclerViewTrending
-
-        // Initialize the adapter
         productAdapter = ProductAdapter(ArrayList())
-
-        // Set the adapter on the RecyclerView
+        //Set the adapter on the RecyclerView
         productRecyclerView.layoutManager = LinearLayoutManager(context)
         productRecyclerView.adapter = productAdapter
-
-        // Initialize Firebase
+        //Initialize Firebase
         database = FirebaseDatabase.getInstance(BuildConfig.rtdb_conn)
         ref = database.getReference("products")
 
-        // Fetch data from Firebase
+        //Fetch data from Firebase
         getProducts()
 
         return binding.root
@@ -69,8 +64,7 @@ class TrendingFragment : Fragment() {
                         val product = p.getValue(Product::class.java)
                         product?.let { newProducts.add(it) }
                     }
-
-                    // Update the adapter with new data
+                    //Update the adapter with new data
                     productAdapter.setProducts(newProducts)
                     //Update UI
                     if (_binding != null) {
