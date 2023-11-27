@@ -160,6 +160,8 @@ class ProfileFragment : Fragment() {
                     if (dataSnapshot.exists()) {
 
                         user = dataSnapshot.getValue(User::class.java)!!
+                        user.orderHistory = arrayListOf()
+                        user.cart = arrayListOf()
                         val displayName = user.title + " " + user.lastName
 
                         // Set the display name

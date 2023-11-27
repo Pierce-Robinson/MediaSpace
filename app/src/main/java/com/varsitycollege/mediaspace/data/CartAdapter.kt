@@ -60,7 +60,7 @@ class CartAdapter(private var orders: ArrayList<CustomProduct>) :
                             val user = u.getValue(User::class.java)
                             if (user?.cart != null) {
                                 if (user.id.equals(order.userId)) {
-                                    for ((count, d) in user.cart.withIndex()) {
+                                    for ((count, d) in user.cart!!.withIndex()) {
                                         if (count == position) {
                                             //Delete cart item
                                             u.key?.let { it1 ->

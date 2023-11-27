@@ -19,6 +19,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.varsitycollege.mediaspace.BuildConfig
 import com.varsitycollege.mediaspace.HomeActivity
+import com.varsitycollege.mediaspace.OrderActivity
 import com.varsitycollege.mediaspace.R
 import com.varsitycollege.mediaspace.data.CartAdapter
 import com.varsitycollege.mediaspace.data.CustomProduct
@@ -68,10 +69,7 @@ class CartFragment : Fragment() {
     }
 
     private fun checkout() {
-
-
         val orderArray: ArrayList<Order> = arrayListOf()
-
 
         val userId = FirebaseAuth.getInstance().currentUser?.uid
         if (userId != null) {
@@ -85,7 +83,7 @@ class CartFragment : Fragment() {
                 if (user != null) {
                     //Get any existing cart items
                     if (user.orderHistory != null) {
-                        for (c in user.orderHistory) {
+                        for (c in user.orderHistory!!) {
                             orderArray.add(c)
                         }
                     }
@@ -98,7 +96,6 @@ class CartFragment : Fragment() {
                                     val customProduct = p.getValue(CustomProduct::class.java)
                                     customProduct?.let { productsInCart.add(it) }
                                 }
-//update index
 
                                 val currentDate = LocalDate.now()
                                 val formattedDate =
@@ -115,13 +112,18 @@ class CartFragment : Fragment() {
 
                                 //Add new cart item
                                 orderArray.add(order)
+                                //update index
                                 index = orderArray.indexOf(Order())
                                 userRef.child("orderHistory").setValue(orderArray)
                                     .addOnSuccessListener {
-                                    //TODO clear the cart page/reload adapter
-                                                                          }
+                                        Log.i("Success", "Successfully moved cart items to order history")
+                                        //Go to payment screen
+                                        val intent = Intent(this@CartFragment.context, OrderActivity::class.java)
+                                            .putExtra("orderNo", order.orderNum)
+                                        this@CartFragment.context?.startActivity(intent)
+                                    }
                                     .addOnFailureListener { e ->
-                                        Log.e("Error", "Failed to clear cart: ${e.message}")
+                                        Log.e("Error", "Failed to set order history: ${e.message}")
                                     }
                                 cartRef.removeValue().addOnSuccessListener {
                                 }.addOnFailureListener { e ->
@@ -129,7 +131,6 @@ class CartFragment : Fragment() {
                                 }
                             }
                         }
-
 
                         override fun onCancelled(error: DatabaseError) {
                             Log.e("Database error", "Failed to get cart items: ${error.message}")

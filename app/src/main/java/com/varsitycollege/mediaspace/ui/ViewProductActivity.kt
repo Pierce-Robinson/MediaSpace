@@ -210,7 +210,7 @@ class ViewProductActivity : AppCompatActivity(), ColourAdapter.ColourSelectionCa
             if (user != null) {
                 //Get any existing cart items
                 if (user.cart != null) {
-                    for (c in user.cart) {
+                    for (c in user.cart!!) {
                         cartArray.add(c)
                     }
                 }
