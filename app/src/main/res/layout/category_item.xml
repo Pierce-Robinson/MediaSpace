@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/categoryContainer"
+    android:layout_width="match_parent"
+    android:layout_height="120dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="3dp"
+    android:layout_marginHorizontal="20dp"
+    app:cardCornerRadius="15dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <!--link:https://riptutorial.com/android/example/27043/using-images-as-background-in-cardview-pre-lollipop-device-issues- -->
+    <!--author: RIP Tutorial-->
+    <!--date accessed: 24 November 2023-->
+    <!--set background image to cardview-->
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:alpha="0.1"
+        android:src="@drawable/mediaspace_w" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:layout_margin="23dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/categoryTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="15dp"
+            android:gravity="center"
+            android:maxWidth="350dp"
+            android:maxHeight="65dp"
+            android:minWidth="150dp"
+            android:text="@string/category_name"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

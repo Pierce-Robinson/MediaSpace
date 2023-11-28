@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:padding="16dp"
+    tools:context=".ui.ProfileFragment">
+
+    <!-- User Name and profile picture -->
+    <LinearLayout
+        android:id="@+id/userProfileSection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:src="@drawable/icon_profile"
+            android:contentDescription="Profile Picture"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:id="@+id/displayNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:textSize="25dp"
+            android:text="Display Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:layout_gravity="center_horizontal"/> <!-- Centered horizontally -->
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userProfileSection"
+        app:layout_constraintVertical_bias="0.03">
+
+        <!-- Notifications Setting -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iconPerson"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="im an image"
+                android:src="@drawable/icon_profile" />
+
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPersonalInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="20dp"
+                android:enabled="false"
+                android:layout_weight="1"
+                android:height="60dp"
+                android:backgroundTint="?attr/colorSecondary"
+                android:checked="false"
+                android:padding="8dp"
+                android:text="@string/personal_info"
+                app:cornerRadius="20dp"
+                app:strokeWidth="0dp" /> <!-- Align to the right -->
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iconOrderHistory"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="im an image"
+                android:src="@drawable/icon_list" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnOrderHistory"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="20dp"
+                android:enabled="false"
+                android:layout_weight="1"
+                android:height="60dp"
+                android:backgroundTint="?attr/colorSecondary"
+                android:checked="false"
+                android:padding="8dp"
+                android:text="@string/order_history"
+                app:cornerRadius="20dp"
+                app:strokeWidth="0dp" /> <!-- Align to the right -->
+
+        </LinearLayout>
+
+        <!-- Max Distance Setting -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iconEmail"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:contentDescription="im an image"
+                android:src="@drawable/icon_heart" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnWishList"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_gravity="end"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:height="60dp"
+                android:backgroundTint="?attr/colorSecondary"
+                android:checked="false"
+                android:padding="8dp"
+                android:text="@string/wish_list"
+                app:cornerRadius="20dp"
+                app:strokeWidth="0dp" /> <!-- Align to the right -->
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <!-- logout Button -->
+
+    <!-- Delete Account Button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:backgroundTint="?colorOnErrorContainer"
+        android:text="Log Out"
+        android:textSize="16dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.55"
+        app:strokeWidth="0dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/deleteAccountButton"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:text="Delete Account"
+        android:textSize="16dp"
+        app:cornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.75"
+        app:strokeWidth="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

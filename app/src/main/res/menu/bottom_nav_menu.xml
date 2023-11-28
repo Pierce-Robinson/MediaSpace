@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_trending"
+        android:icon="@drawable/icon_shopping_bag"
+        android:title="Trending" />
+
+    <item
+        android:id="@+id/bottom_category"
+        android:icon="@drawable/icon_search"
+        android:title="Categories" />
+
+    <item
+        android:id="@+id/bottom_cart"
+        android:icon="@drawable/icon_cart"
+        android:title="Cart"/>
+
+    <item
+        android:id="@+id/bottom_profile"
+        android:icon="@drawable/icon_profile"
+        android:title="Profile" />
+
+</menu>

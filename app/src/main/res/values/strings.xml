@@ -1,3 +1,56 @@
 <resources>
     <string name="app_name">MediaSpace</string>
+    <string name="email">Email</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_up">Sign up</string>
+    <string name="order_history">Order History</string>
+    <string name="personal_info">Personal Information</string>
+    <string name="wish_list">Wish List</string>
+    <string name="email_notifications">Email Notifications</string>
+    <string name="title">Title</string>
+    <string name="fname">First Name</string>
+    <string name="lname">Last Name</string>
+    <string name="gender">Gender</string>
+    <string name="birthday">Birthday</string>
+    <string name="contactinfo">CONTACT INFORMATION</string>
+    <string name="addressinfo">ADDRESS INFORMATION</string>
+    <string name="basicinfo">BASIC INFORMATION</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_description">Product Description</string>
+    <string name="product_price">R </string>
+    <string name="my">MY</string>
+    <string name="cart">CART</string>
+    <string name="Checkout">Checkout</string>
+    <string name="label">Label</string>
+    <string name="total">TOTAL</string>
+    <string name="username">Username</string>
+    <string name="mobile">Mobile Number</string>
+    <string name="notifications">Notifications</string>
+    <string name="update">Update Profile</string>
+    <string name="category_name">Category Name</string>
+    <string name="streetnum">Street Number</string>
+    <string name="streetname">Street Name</string>
+    <string name="suburb">Suburb</string>
+    <string name="citytown">City/Town</string>
+    <string name="province">Province</string>
+    <string name="postalcode">Postal Code</string>
+    <string name="Okay">Okay</string>
+    <string name="Trending">Trending</string>
+    <string name="category">Category</string>
+    <string name="no_items_in_cart">There are no items in your cart currently</string>
+    <string name="alternatively"><b>Alternatively you can pay via EFT and send proof of payment to:</b></string>
+
+    <!--author: Rekire-->
+    <!--link: https://stackoverflow.com/questions/33709818/link-to-send-email-from-android-app-in-xml-string-resource-->
+    <!--date accessed: 26 November 2023-->
+
+    <!--author: George Artemiou-->
+    <!--link: https://stackoverflow.com/questions/10019001/how-do-you-underline-a-text-in-android-xml-->
+    <!--date accessed: 26 November 2023-->
+    <string name="emailLink"><a href="mailto:payments@mediaspace.co.za">payments@mediaspace.co.za</a></string>
+    <string name="snapScanLink"><u>pos.snapscan.io/mediaspace</u></string>
+    <string name="takemeback">Take Me Back</string>
+    <string name="user_instructions">User Instructions</string>
+
+
 </resources>

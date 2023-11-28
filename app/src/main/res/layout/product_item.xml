@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/productContainer"
+    android:layout_width="match_parent"
+    android:layout_height="420dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardElevation="3dp"
+    app:cardCornerRadius="15dp"
+    android:layout_marginHorizontal="20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            android:gravity="center_vertical"
+            android:maxHeight="65dp"
+            android:minWidth="150dp"
+            android:text="@string/product_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/productPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:gravity="center_vertical"
+            android:textColor="?colorPrimary"
+            android:maxWidth="165dp"
+            android:maxHeight="50dp"
+            android:text="@string/product_price"
+            android:textSize="16sp"
+            android:textStyle="italic" />
+
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/trendingProductImage"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="10dp"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/icon_profile" />
+
+        <LinearLayout
+            android:id="@+id/dotsLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/colourCard"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="8dp"
+    app:cardUseCompatPadding="true"
+    app:cardElevation="2dp"
+    android:clickable="false"
+    android:focusable="false"
+    >
+
+    <LinearLayout
+        android:id="@+id/LinearBack"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:orientation="vertical"
+        android:clickable="false"
+        android:focusable="false"
+     >
+
+        <ImageView
+            android:id="@+id/checkIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:src="@drawable/check_24"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false"/>
+        <ImageView
+            android:id="@+id/iconX"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
+            android:src="@drawable/icon_x"
+            android:visibility="gone"
+            android:clickable="false"
+            android:focusable="false"/>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
