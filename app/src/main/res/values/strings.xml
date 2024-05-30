@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MediaSpace Admin</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="updateorders">Editing Order No: </string>
+    <string name="ordernumber">Order Number</string>
+    <string name="orderstatus">Order Status</string>
+    <string name="userid">User ID</string>
+    <string name="orderdate">Order Date</string>
+    <string name="deliveryId">Delivery ID</string>
+</resources>

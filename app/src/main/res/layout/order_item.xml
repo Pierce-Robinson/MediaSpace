@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/orderContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="20dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="20dp"
+    android:layout_marginBottom="8dp"
+    app:cardCornerRadius="15dp"
+    app:cardElevation="5dp">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/orderButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/orderNumber"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Order Number"
+                android:maxWidth="300dp"
+                android:minWidth="300dp"
+                android:maxHeight="65dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"/>
+            <TextView
+                android:id="@+id/orderStatus"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Order Status"
+                android:maxWidth="300dp"
+                android:minWidth="300dp"
+                android:maxHeight="65dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"/>
+
+            <TextView
+                android:id="@+id/customerName"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="Customer Name"
+                android:maxWidth="300dp"
+                android:minWidth="300dp"
+                android:maxHeight="65dp"
+                android:textSize="18sp"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        <ImageView
+            android:id="@+id/productDelete"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/icon_arrow" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+</androidx.cardview.widget.CardView>

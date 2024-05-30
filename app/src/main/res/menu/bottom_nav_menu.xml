@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/bottom_dashboard"
+        android:icon="@drawable/icon_dashboard"
+        android:title="Dashboard" />
+
+    <item
+        android:id="@+id/bottom_add_products"
+        android:icon="@drawable/icon_add"
+        android:title="Add Product" />
+
+    <item
+        android:id="@+id/bottom_manage_products"
+        android:icon="@drawable/icon_manage_product"
+        android:title="All Products"/>
+
+    <item
+        android:id="@+id/bottom_manage_orders"
+        android:icon="@drawable/icon_manage_order"
+        android:title="All Orders" />
+
+</menu>
